@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Business English Pro · SaaS · Cloud · AI</title>
 <meta name="description" content="100 termes Business English pour SaaS, Customer Success, Cloud & AI. App gamifiée avec audio, modes multiples, et export Anki.">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="English Pro">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{
   --bg:#0a0a0c; --bg-1:#101014; --bg-2:#16161b; --bg-3:#1d1d24;
@@ -67,6 +74,9 @@ input{font-family:inherit;color:inherit}
 .f-btn{font-size:12px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.15s;font-weight:500}
 .f-btn:hover{color:var(--text);border-color:var(--line-2)}
 .f-btn.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.f-btn.accent.active{background:rgba(124,92,255,.18);color:#c4b5fd;border-color:rgba(124,92,255,.45)}
+.voice-select{min-width:min(420px,100%);max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text);font-size:13px;outline:none}
+.voice-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,92,255,.15)}
 
 /* ===== Progress ===== */
 .progress{height:4px;background:var(--bg-2);border-radius:4px;overflow:hidden;margin-bottom:18px}
@@ -346,6 +356,10 @@ const VOCAB = [
 
 const CATEGORIES = ["All","Sales","Customer Success","Cloud","AI","Metrics","Legal","Negotiation","Meetings"];
 const LEVELS = ["All","A2","B1","B2"];
+const ACCENTS = [
+  {id:"en-US",short:"US",label:"American",names:[/Google US English/i,/Microsoft (Aria|Jenny|Guy|Ana).*English/i,/Samantha/i,/Alex/i,/Natural.*English.*US/i]},
+  {id:"en-GB",short:"UK",label:"British",names:[/Google UK English/i,/Microsoft (Sonia|Ryan|Libby|George).*English/i,/Daniel/i,/Serena/i,/Oliver/i,/Natural.*English.*UK/i]}
+];
 const MODES = [
   {id:"flash",label:"Flashcards",icon:"🎴"},
   {id:"en2fr",label:"EN → FR",icon:"⇢"},
@@ -365,7 +379,7 @@ const defaultState = () => ({
   srs:{},
   weak:{},
   theme:"dark",
-  prefs:{mode:"flash",cat:"All",lvl:"All",rate:0.95}
+  prefs:{mode:"flash",cat:"All",lvl:"All",rate:0.95,accent:"en-US",voiceURI:""}
 });
 let S = loadState();
 function loadState(){
@@ -373,7 +387,11 @@ function loadState(){
     const raw = localStorage.getItem(LS_KEY);
     if(!raw) return defaultState();
     const parsed = JSON.parse(raw);
-    return Object.assign(defaultState(), parsed);
+    const base = defaultState();
+    return Object.assign(base, parsed, {
+      totals:Object.assign(base.totals, parsed.totals || {}),
+      prefs:Object.assign(base.prefs, parsed.prefs || {})
+    });
   }catch(e){ return defaultState(); }
 }
 function saveState(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(S)); }catch(e){} }
@@ -406,6 +424,9 @@ function normalize(s){
     .replace(/[.,!?;:]/g,"")
     .replace(/\s+/g," ").trim();
 }
+function escHtml(s){
+  return (s==null?"":String(s)).replace(/[&<>"]/g, ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+}
 function shuffle(arr){
   const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   return a;
@@ -423,25 +444,92 @@ function nextLevelXp(lvl){ return Math.pow(lvl,2)*40; }
 /* ===== Audio (Web Speech API) ===== */
 let voices = [];
 function loadVoices(){
-  voices = (window.speechSynthesis ? window.speechSynthesis.getVoices() : []).filter(v=>/^en/i.test(v.lang));
+  voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  return voices;
 }
 if("speechSynthesis" in window){
   loadVoices();
-  window.speechSynthesis.onvoiceschanged = loadVoices;
+  window.speechSynthesis.onvoiceschanged = ()=>{ loadVoices(); if($("#voice-select")) render(); };
 }
-function pickVoice(){
-  if(!voices.length) return null;
-  return voices.find(v=>/en[-_]US/i.test(v.lang) && /Google|Microsoft|Samantha|Alex|Aria|Natural/i.test(v.name))
-      || voices.find(v=>/en[-_]US/i.test(v.lang))
-      || voices.find(v=>/en[-_]GB/i.test(v.lang))
-      || voices[0];
+function currentAccent(){ return S.prefs.accent === "en-GB" ? "en-GB" : "en-US"; }
+function accentInfo(id=currentAccent()){ return ACCENTS.find(a=>a.id===id) || ACCENTS[0]; }
+function voiceLang(v){ return (v.lang || "").replace("_","-"); }
+function isEnglishVoice(v){ return /^en(-|$)/i.test(voiceLang(v)); }
+function voiceLabel(v){ return `${v.name} (${voiceLang(v) || "English"})`; }
+function scoreVoice(v, accentId){
+  const accent = accentInfo(accentId);
+  const lang = voiceLang(v);
+  const name = v.name || "";
+  let score = 0;
+  if(new RegExp(`^${accent.id}$`,"i").test(lang)) score += 100;
+  if(new RegExp(`^${accent.id.split("-")[0]}`,"i").test(lang)) score += 20;
+  if(accent.names.some(rx=>rx.test(name))) score += 80;
+  if(/Natural|Online|Premium|Enhanced/i.test(name)) score += 45;
+  if(/Google|Microsoft|Apple/i.test(name)) score += 25;
+  if(/Zira|David|Hazel|Susan/i.test(name)) score -= 20;
+  if(v.localService) score += 5;
+  return score;
+}
+function englishVoices(){
+  return loadVoices()
+    .filter(isEnglishVoice)
+    .map(v=>({v,score:scoreVoice(v,currentAccent())}))
+    .sort((a,b)=>b.score-a.score || voiceLabel(a.v).localeCompare(voiceLabel(b.v)))
+    .map(x=>x.v);
+}
+function pickVoice(accentId=currentAccent()){
+  const available = loadVoices().filter(isEnglishVoice);
+  if(!available.length) return null;
+  if(S.prefs.voiceURI){
+    const chosen = available.find(v=>v.voiceURI === S.prefs.voiceURI);
+    if(chosen) return chosen;
+  }
+  return available
+    .map(v=>({v,score:scoreVoice(v,accentId)}))
+    .sort((a,b)=>b.score-a.score)[0].v;
+}
+function setAccent(accentId){
+  if(!ACCENTS.some(a=>a.id===accentId)) return;
+  S.prefs.accent = accentId;
+  S.prefs.voiceURI = "";
+  saveState();
+  toast(`Accent audio : ${accentInfo().label}`, "ok");
+  render();
+}
+function setVoice(voiceURI){
+  S.prefs.voiceURI = voiceURI || "";
+  const v = englishVoices().find(x=>x.voiceURI === S.prefs.voiceURI);
+  if(v && /^en-GB/i.test(voiceLang(v))) S.prefs.accent = "en-GB";
+  if(v && /^en-US/i.test(voiceLang(v))) S.prefs.accent = "en-US";
+  saveState();
+  toast(v ? `Voix audio : ${v.name}` : "Voix audio : automatique", "ok");
+  render();
+}
+function accentButtons(inline=false){
+  return ACCENTS.map(a=>`<button class="f-btn accent ${currentAccent()===a.id?'active':''}" ${inline?`onclick="setAccent('${a.id}')"`:`data-accent="${a.id}"`} title="${a.label} English">${a.short}</button>`).join("");
+}
+function voiceSelect(){
+  const list = englishVoices();
+  if(!list.length) return `<p class="hint" style="margin-top:10px">Aucune voix anglaise détectée dans ce navigateur.</p>`;
+  const options = list.map(v=>`<option value="${escHtml(v.voiceURI)}" ${S.prefs.voiceURI===v.voiceURI?'selected':''}>${escHtml(voiceLabel(v))}</option>`).join("");
+  return `<select id="voice-select" class="voice-select" onchange="setVoice(this.value)" aria-label="Choisir une voix anglaise"><option value="">Auto · meilleure voix ${accentInfo().short}</option>${options}</select>`;
 }
 function speak(text, rate=null, btn=null){
   if(!("speechSynthesis" in window)){ toast("Audio non supporté par ce navigateur","ko"); return; }
   window.speechSynthesis.cancel();
   const utt = new SpeechSynthesisUtterance(text);
-  const v = pickVoice();
-  if(v){ utt.voice = v; utt.lang = v.lang; } else { utt.lang = "en-US"; }
+  const accent = currentAccent();
+  const v = pickVoice(accent);
+  if(v){
+    utt.voice = v;
+    utt.lang = voiceLang(v) || accent;
+  } else {
+    utt.lang = accent;
+    if(voices.length){
+      toast("Aucune voix anglaise trouvée. Installez une voix English US/UK sur l'appareil.", "ko");
+      return;
+    }
+  }
   utt.rate = rate || S.prefs.rate || 0.95;
   utt.pitch = 1;
   if(btn){ btn.classList.add("speaking"); utt.onend = utt.onerror = ()=>btn.classList.remove("speaking"); }
@@ -550,11 +638,15 @@ function renderFilters(){
     <span class="filter-label">Theme</span>
     <div class="filter-group">${CATEGORIES.map(c=>`<button class="f-btn ${c===G.cat?'active':''}" data-cat="${c}">${c}</button>`).join("")}</div>
     <span class="filter-label" style="margin-left:8px">Level</span>
-    <div class="filter-group">${LEVELS.map(l=>`<button class="f-btn ${l===G.lvl?'active':''}" data-lvl="${l}">${l}</button>`).join("")}</div>`;
+    <div class="filter-group">${LEVELS.map(l=>`<button class="f-btn ${l===G.lvl?'active':''}" data-lvl="${l}">${l}</button>`).join("")}</div>
+    <span class="filter-label" style="margin-left:8px">Accent</span>
+    <div class="filter-group">${accentButtons(false)}</div>`;
   row.onclick = e => {
     const c = e.target.closest("[data-cat]"); const l = e.target.closest("[data-lvl]");
+    const a = e.target.closest("[data-accent]");
     if(c){ G.cat = c.dataset.cat; buildDeck(); }
     if(l){ G.lvl = l.dataset.lvl; buildDeck(); }
+    if(a){ setAccent(a.dataset.accent); }
   };
 }
 
@@ -597,10 +689,11 @@ function cardHeader(card){
     </div>`;
 }
 function audioBtns(text){
+  const accent = accentInfo();
   return `
     <div class="audio-row">
-      <button class="audio-btn" onclick="speak(${JSON.stringify(text)},0.95,this)" title="Normal">🔊 Normal</button>
-      <button class="audio-btn slow" onclick="speak(${JSON.stringify(text)},0.6,this)" title="Slow">🐢 Slow</button>
+      <button class="audio-btn" onclick="speak(${JSON.stringify(text)},0.95,this)" title="${accent.label} English · normal">🔊 ${accent.short} Normal</button>
+      <button class="audio-btn slow" onclick="speak(${JSON.stringify(text)},0.6,this)" title="${accent.label} English · slow">🐢 ${accent.short} Slow</button>
     </div>`;
 }
 function metaPanels(card){
@@ -757,9 +850,17 @@ function renderListening(stage, card){
       <div style="text-align:center;padding:30px 0">
         <div style="font-size:64px;line-height:1">🎧</div>
         <p style="color:var(--muted);font-size:13px;margin-top:6px">Listen and type what you hear</p>
-        <div style="display:inline-flex;gap:8px;margin-top:14px">
-          <button class="btn primary" onclick="speak(${JSON.stringify(card.en)},0.95,this)">▶ Normal</button>
-          <button class="btn" onclick="speak(${JSON.stringify(card.en)},0.55,this)">🐢 Slow</button>
+        <div style="display:flex;gap:6px;justify-content:center;margin-top:12px;align-items:center;flex-wrap:wrap">
+          <span class="filter-label" style="margin-right:2px">Accent</span>
+          ${accentButtons(true)}
+        </div>
+        <div style="display:grid;gap:8px;justify-items:center;margin-top:12px">
+          ${voiceSelect()}
+          <button class="btn ghost" onclick="speak('Pipeline, renewal, customer success, annual recurring revenue.',0.92,this)">Tester la voix</button>
+        </div>
+        <div style="display:inline-flex;gap:8px;margin-top:14px;flex-wrap:wrap;justify-content:center">
+          <button class="btn primary" onclick="speak(${JSON.stringify(card.en)},0.95,this)">▶ ${accentInfo().short} Normal</button>
+          <button class="btn" onclick="speak(${JSON.stringify(card.en)},0.55,this)">🐢 ${accentInfo().short} Slow</button>
         </div>
       </div>
       <div class="input-row">
@@ -1134,6 +1235,12 @@ G.cat = S.prefs.cat || "All";
 G.lvl = S.prefs.lvl || "All";
 buildDeck();
 refreshHud();
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  });
+}
 </script>
 </body>
 </html>
