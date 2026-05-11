@@ -144,13 +144,10 @@ input{font-family:inherit;color:inherit}
 .hint{font-size:12px;color:var(--dim);text-align:center;margin-top:10px}
 .hint .kbd{background:var(--bg-2)}
 
-/* ===== Flashcard flip ===== */
-.flip{perspective:1200px;cursor:pointer}
-.flip-inner{position:relative;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
-.flip.flipped .flip-inner{transform:rotateY(180deg)}
-.flip-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.flip-back{position:absolute;inset:0;transform:rotateY(180deg);padding:28px;background:var(--bg-1);border-radius:var(--r-lg)}
-.flip .hint-flip{position:absolute;top:14px;right:14px;font-size:11px;color:var(--dim);font-family:var(--mono)}
+/* ===== Flashcard reveal ===== */
+.flash-card{display:grid;gap:14px}
+.flash-card .side-label{font-family:var(--mono);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.flash-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
 
 /* ===== Timed ===== */
 .timer{font-family:var(--mono);font-size:13px;color:var(--muted)}
@@ -720,34 +717,42 @@ function metaPanels(card){
 
 /* ----- FLASH MODE ----- */
 function renderFlash(stage, card){
-  const back = `
-    <div class="head"><div class="tagrow"><span class="tag">${card.cat}</span></div><span class="cardnum">${G.i+1}/${G.deck.length}</span></div>
-    <div class="fr-prompt" style="margin-top:14px">${card.fr}</div>
-    <div class="example" style="margin-top:18px">${highlight(card.ex, card.en)}</div>
-    <div class="example" style="margin-top:8px">${highlight(card.ex2, card.en)}</div>
-    ${metaPanels(card)}`;
-  stage.innerHTML = `
-    <div class="flip ${G.flipped?'flipped':''}" id="flip" onclick="flipCard(event)">
-      <div class="flip-inner">
-        <div class="card flip-face">
-          <span class="hint-flip">click / space</span>
-          ${cardHeader(card)}
+  if(!G.flipped){
+    stage.innerHTML = `
+      <div class="card flash-card">
+        ${cardHeader(card)}
+        <div>
+          <div class="side-label">Recto · anglais</div>
           <div class="term-row"><span class="term">${card.en}</span></div>
           <div class="ipa">${card.ipa}</div>
           <div style="margin-top:14px">${audioBtns(card.en)}</div>
           <div class="example" style="margin-top:18px">"${highlight(card.ex, card.en)}"</div>
-          <p class="hint">Cliquez ou appuyez sur <span class="kbd">Space</span> pour révéler · <span class="kbd">←</span>/<span class="kbd">→</span></p>
         </div>
-        <div class="card flip-back">${back}</div>
+        <div class="flash-actions">
+          <button class="btn primary" onclick="flipCard(event)">Voir la réponse</button>
+        </div>
+        <p class="hint"><span class="kbd">Space</span> réponse · <span class="kbd">P</span> audio</p>
+      </div>`;
+    return;
+  }
+  stage.innerHTML = `
+    <div class="card flash-card">
+      ${cardHeader(card)}
+      <div>
+        <div class="side-label">Verso · traduction</div>
+        <div class="fr-prompt" style="margin-top:8px">${card.fr}</div>
+        <div style="margin-top:14px">${audioBtns(card.en)}</div>
+        <div class="example" style="margin-top:18px">"${highlight(card.ex, card.en)}"</div>
+        <div class="example" style="margin-top:8px">"${highlight(card.ex2, card.en)}"</div>
+        ${metaPanels(card)}
       </div>
-    </div>
-    ${G.flipped ? `
-    <div class="card" style="padding:14px">
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-        <button class="btn" onclick="answerFlash(false)">😕 Hard (1 again)</button>
-        <button class="btn primary" onclick="answerFlash(true)">😊 Got it (+10 XP)</button>
+      <div class="flash-actions">
+        <button class="btn" onclick="answerFlash(false)">À revoir</button>
+        <button class="btn ghost" onclick="flipCard(event)">Revoir le recto</button>
+        <button class="btn primary" onclick="answerFlash(true)">Je savais · +10 XP</button>
       </div>
-    </div>` : ""}`;
+      <p class="hint"><span class="kbd">←</span>/<span class="kbd">→</span> navigation · <span class="kbd">P</span> audio</p>
+    </div>`;
 }
 function flipCard(e){
   if(e && e.target.closest(".audio-btn")) return;
