@@ -1,0 +1,592 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans, system-ui, sans-serif);
+    background: transparent;
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    padding: 0;
+  }
+  .app {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .header-left h1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .header-left p {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin-top: 2px;
+  }
+  .stats {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .stat-badge {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 0.5px solid var(--color-border-tertiary);
+    color: var(--color-text-secondary);
+  }
+  .stat-badge.correct { background: #dcfce7; color: #166534; border-color: #86efac; }
+  .stat-badge.wrong { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+  .progress-bar {
+    height: 3px;
+    background: var(--color-border-tertiary);
+    border-radius: 2px;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #3b82f6;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .card-container {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .vocab-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg, 12px);
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+  }
+  .vocab-card.correct-state { border-color: #86efac; background: #f0fdf4; }
+  .vocab-card.wrong-state { border-color: #fca5a5; background: #fef2f2; }
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .category-badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 0.5px solid var(--color-border-tertiary);
+    color: var(--color-text-secondary);
+    background: var(--color-background-secondary);
+  }
+  .card-num {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+  }
+  .term-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .term {
+    font-size: 28px;
+    font-weight: 500;
+    font-family: var(--font-mono, monospace);
+    color: var(--color-text-primary);
+    flex: 1;
+    line-height: 1.2;
+  }
+  .speak-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 0.5px solid var(--color-border-secondary);
+    background: var(--color-background-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+  }
+  .speak-btn:hover { background: var(--color-background-tertiary); transform: scale(1.05); }
+  .speak-btn:active { transform: scale(0.96); }
+  .speak-btn.speaking { color: #3b82f6; border-color: #3b82f6; }
+  .example {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    line-height: 1.6;
+    padding: 10px 12px;
+    background: var(--color-background-secondary);
+    border-radius: 6px;
+    border-left: 2px solid var(--color-border-secondary);
+    margin-bottom: 1rem;
+  }
+  .input-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .translation-input {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md, 8px);
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+    outline: none;
+    transition: border-color 0.15s;
+    font-family: var(--font-sans, system-ui, sans-serif);
+  }
+  .translation-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.12); }
+  .translation-input.correct-input { border-color: #22c55e; background: #f0fdf4; color: #166534; }
+  .translation-input.wrong-input { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+  .translation-input:disabled { cursor: default; }
+  .btn {
+    padding: 10px 16px;
+    border-radius: var(--border-radius-md, 8px);
+    border: 0.5px solid var(--color-border-secondary);
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    font-family: var(--font-sans, system-ui, sans-serif);
+  }
+  .btn:hover { background: var(--color-background-tertiary); }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: #3b82f6; border-color: #3b82f6; color: white; }
+  .btn-primary:hover { background: #2563eb; }
+  .btn-reveal { font-size: 12px; padding: 8px 12px; color: var(--color-text-secondary); }
+  .feedback {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .feedback.correct { background: #dcfce7; color: #166534; border: 0.5px solid #86efac; }
+  .feedback.wrong { background: #fee2e2; color: #991b1b; border: 0.5px solid #fca5a5; }
+  .actions-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    justify-content: flex-end;
+  }
+  .hint {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin-top: 8px;
+    text-align: center;
+  }
+  .complete-screen {
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .complete-screen h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .complete-screen p {
+    color: var(--color-text-secondary);
+    font-size: 15px;
+    margin-bottom: 1.5rem;
+  }
+  .big-score {
+    font-size: 48px;
+    font-weight: 500;
+    margin: 1rem 0;
+    font-family: var(--font-mono, monospace);
+  }
+  .score-green { color: #22c55e; }
+  .score-amber { color: #f59e0b; }
+  .score-red { color: #ef4444; }
+  .filter-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .filter-btn {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 0.5px solid var(--color-border-tertiary);
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: var(--font-sans, system-ui, sans-serif);
+  }
+  .filter-btn.active { background: #3b82f6; border-color: #3b82f6; color: white; }
+  .filter-btn:hover:not(.active) { background: var(--color-background-secondary); }
+</style>
+</head>
+<body>
+<div class="app">
+  <h2 class="sr-only">Cloud & AI Sales Vocabulary Game — type the French translation for each English term</h2>
+  <div class="header">
+    <div class="header-left">
+      <h1>Cloud & AI Sales Vocabulary</h1>
+      <p id="subtitle">EN → FR · 100 terms · Cloud · AI · CSM · AE</p>
+    </div>
+    <div class="stats">
+      <span class="stat-badge correct" id="stat-correct">✓ 0</span>
+      <span class="stat-badge wrong" id="stat-wrong">✗ 0</span>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+  <div class="filter-row" id="filter-row"></div>
+  <div id="main-content"></div>
+</div>
+
+<script>
+const vocabulary = [
+  {term:"Pipeline",translation:"Pipeline commercial",alts:["pipeline","pipeline de vente"],example:"Our Q4 pipeline shows $2M in qualified opportunities.",cat:"Sales"},
+  {term:"Forecast",translation:"Prévision des ventes",alts:["prevision des ventes","prévision","forecast"],example:"The sales forecast for this quarter is on track to close.",cat:"Sales"},
+  {term:"Quota",translation:"Quota / Objectif de vente",alts:["quota","objectif de vente","objectif"],example:"She exceeded her annual quota by 120% this year.",cat:"Sales"},
+  {term:"Churn",translation:"Attrition / Résiliation",alts:["attrition","résiliation","resiliation","churn"],example:"Reducing churn is our number-one priority this quarter.",cat:"Customer Success"},
+  {term:"Renewal",translation:"Renouvellement",alts:["renouvellement"],example:"The renewal conversation should begin 90 days before contract end.",cat:"Customer Success"},
+  {term:"Upsell",translation:"Montée en gamme",alts:["montee en gamme","vente additionnelle","upsell"],example:"We identified an upsell opportunity for the enterprise tier.",cat:"Sales"},
+  {term:"Cross-sell",translation:"Vente croisée",alts:["vente croisee","cross-sell"],example:"Cross-selling storage to existing compute customers drove 15% more ARR.",cat:"Sales"},
+  {term:"ARR",translation:"Revenu Annuel Récurrent",alts:["revenu annuel recurrent","arr"],example:"We closed $500K ARR this quarter alone.",cat:"Metrics"},
+  {term:"MRR",translation:"Revenu Mensuel Récurrent",alts:["revenu mensuel recurrent","mrr"],example:"MRR grew 20% month over month.",cat:"Metrics"},
+  {term:"NRR",translation:"Rétention Nette des Revenus",alts:["retention nette des revenus","net revenue retention","nrr"],example:"Our NRR of 120% proves our accounts are growing.",cat:"Metrics"},
+  {term:"ACV",translation:"Valeur Annuelle du Contrat",alts:["valeur annuelle du contrat","acv"],example:"The ACV for this deal is $80,000 per year.",cat:"Metrics"},
+  {term:"CAC",translation:"Coût d'Acquisition Client",alts:["cout d'acquisition client","coût d acquisition client","cac"],example:"Reducing CAC while growing LTV is the ultimate goal.",cat:"Metrics"},
+  {term:"LTV",translation:"Valeur Vie Client",alts:["valeur vie client","ltv"],example:"High LTV accounts receive dedicated CSM support.",cat:"Metrics"},
+  {term:"TCO",translation:"Coût Total de Possession",alts:["cout total de possession","coût total de possession","tco"],example:"The TCO analysis showed 40% savings versus on-premise.",cat:"Metrics"},
+  {term:"ROI",translation:"Retour sur Investissement",alts:["retour sur investissement","roi"],example:"We need to demonstrate ROI within the first six months.",cat:"Metrics"},
+  {term:"SaaS",translation:"Logiciel en tant que Service",alts:["logiciel en tant que service","saas"],example:"Switching to a SaaS model eliminated infrastructure overhead.",cat:"Cloud"},
+  {term:"PaaS",translation:"Plateforme en tant que Service",alts:["plateforme en tant que service","paas"],example:"Our PaaS offering lets developers focus on code, not servers.",cat:"Cloud"},
+  {term:"IaaS",translation:"Infrastructure en tant que Service",alts:["infrastructure en tant que service","iaas"],example:"IaaS gives the flexibility to scale compute on demand.",cat:"Cloud"},
+  {term:"Cloud-native",translation:"Natif pour le cloud",alts:["natif pour le cloud","cloud native"],example:"Their cloud-native architecture enables rapid, reliable deployments.",cat:"Cloud"},
+  {term:"Multi-cloud",translation:"Multi-cloud",alts:["multicloud","multi cloud"],example:"A multi-cloud strategy prevents vendor lock-in.",cat:"Cloud"},
+  {term:"Hybrid cloud",translation:"Cloud hybride",alts:["cloud hybride"],example:"The hybrid cloud model bridges on-premise systems and public cloud.",cat:"Cloud"},
+  {term:"Migration",translation:"Migration",alts:["migration"],example:"The cloud migration project is scheduled for Q2.",cat:"Cloud"},
+  {term:"Lift-and-shift",translation:"Migration à l'identique",alts:["migration a l'identique","lift and shift"],example:"A lift-and-shift approach is the fastest path to the cloud.",cat:"Cloud"},
+  {term:"Workload",translation:"Charge de travail",alts:["charge de travail","workload"],example:"Which workloads are you planning to migrate first?",cat:"Cloud"},
+  {term:"Scalability",translation:"Scalabilité / Évolutivité",alts:["scalabilité","scalabilite","evolutivite","évolutivité"],example:"Scalability is critical for handling Black Friday traffic spikes.",cat:"Cloud"},
+  {term:"Elasticity",translation:"Élasticité",alts:["elasticite","élasticite","elasticité"],example:"Cloud elasticity means you only pay for what you actually use.",cat:"Cloud"},
+  {term:"PoC",translation:"Preuve de Concept",alts:["preuve de concept","poc"],example:"We'll run a 30-day PoC to validate the solution.",cat:"Sales"},
+  {term:"RFP",translation:"Appel d'Offres",alts:["appel d offres","appel d'offres","rfp"],example:"We received a competitive RFP from a Fortune 500 company.",cat:"Sales"},
+  {term:"SLA",translation:"Accord de Niveau de Service",alts:["accord de niveau de service","sla"],example:"Our SLA guarantees 99.99% uptime for all enterprise clients.",cat:"Legal"},
+  {term:"Discovery call",translation:"Appel de découverte",alts:["appel de decouverte","appel de découverte"],example:"The discovery call revealed three major pain points.",cat:"Sales"},
+  {term:"Champion",translation:"Champion interne",alts:["champion interne","champion"],example:"Sarah is our champion — she's presenting to the board next week.",cat:"Customer Success"},
+  {term:"Stakeholder",translation:"Partie prenante",alts:["partie prenante","interlocuteur clé","interlocuteur cle"],example:"Map all stakeholders before submitting the final proposal.",cat:"Sales"},
+  {term:"Executive sponsor",translation:"Sponsor exécutif",alts:["sponsor executif","sponsor exécutif"],example:"Getting the CTO as executive sponsor accelerated the deal.",cat:"Sales"},
+  {term:"QBR",translation:"Bilan Trimestriel",alts:["bilan trimestriel","quarterly business review","qbr"],example:"The QBR is our chance to showcase the value delivered.",cat:"Customer Success"},
+  {term:"EBR",translation:"Bilan Exécutif",alts:["bilan executif","bilan exécutif","executive business review","ebr"],example:"We scheduled an EBR with the VP of Engineering.",cat:"Customer Success"},
+  {term:"Onboarding",translation:"Intégration / Prise en main",alts:["intégration","integration","prise en main","onboarding"],example:"A smooth onboarding reduces time-to-value significantly.",cat:"Customer Success"},
+  {term:"Adoption",translation:"Adoption",alts:["adoption"],example:"Low adoption is an early warning sign for potential churn.",cat:"Customer Success"},
+  {term:"Health score",translation:"Score de santé client",alts:["score de sante client","score de santé client"],example:"The health score dropped after the key contact left the company.",cat:"Customer Success"},
+  {term:"Success plan",translation:"Plan de succès",alts:["plan de succes","plan de succès"],example:"We co-created a success plan with clear quarterly milestones.",cat:"Customer Success"},
+  {term:"Value realization",translation:"Réalisation de la valeur",alts:["realisation de la valeur","réalisation de la valeur"],example:"Value realization should happen within 90 days of go-live.",cat:"Customer Success"},
+  {term:"Land and expand",translation:"Conquérir et élargir",alts:["conquerir et elargir","conquérir et élargir"],example:"We started with one team and used a land-and-expand motion.",cat:"Sales"},
+  {term:"Whitespace",translation:"Potentiel inexploité",alts:["potentiel inexploite","potentiel inexploité"],example:"There's significant whitespace in their European subsidiaries.",cat:"Sales"},
+  {term:"Account mapping",translation:"Cartographie du compte",alts:["cartographie du compte"],example:"Account mapping revealed three new buying centers.",cat:"Sales"},
+  {term:"Decision maker",translation:"Décideur",alts:["decideur","décideur"],example:"Who is the ultimate decision maker for this purchase?",cat:"Sales"},
+  {term:"Economic buyer",translation:"Acheteur économique",alts:["acheteur economique","acheteur économique"],example:"The CFO is the economic buyer — we need her aligned.",cat:"Sales"},
+  {term:"MEDDIC",translation:"Méthode de qualification MEDDIC",alts:["meddic","methode de qualification","méthode de qualification","meddic qualification"],example:"MEDDIC helped us qualify the opportunity more accurately.",cat:"Sales"},
+  {term:"BANT",translation:"BANT (Budget, Autorité, Besoin, Délai)",alts:["bant","budget autorité besoin délai"],example:"Run through BANT to quickly qualify this new prospect.",cat:"Sales"},
+  {term:"Business case",translation:"Dossier de justification",alts:["dossier de justification","business case","étude de rentabilité","etude de rentabilite"],example:"The business case must quantify both savings and revenue impact.",cat:"Sales"},
+  {term:"API",translation:"Interface de Programmation",alts:["interface de programmation","api"],example:"Our API integrates with any CRM in under 30 minutes.",cat:"Cloud"},
+  {term:"DevOps",translation:"DevOps",alts:["devops"],example:"Their DevOps maturity means they'll deploy our solution faster.",cat:"Cloud"},
+  {term:"Kubernetes",translation:"Kubernetes",alts:["kubernetes","k8s"],example:"Kubernetes orchestrates their containerized production workloads.",cat:"Cloud"},
+  {term:"Serverless",translation:"Sans serveur",alts:["sans serveur","serverless"],example:"Serverless eliminates the need to manage any underlying infrastructure.",cat:"Cloud"},
+  {term:"Microservices",translation:"Microservices",alts:["microservices","micro-services"],example:"Their microservices architecture makes third-party integrations far easier.",cat:"Cloud"},
+  {term:"Deployment",translation:"Déploiement",alts:["deploiement","déploiement"],example:"The production deployment is scheduled for next Monday.",cat:"Cloud"},
+  {term:"LLM",translation:"Grand Modèle de Langage",alts:["grand modele de langage","grand modèle de langage","llm"],example:"The LLM powers their intelligent customer search feature.",cat:"AI"},
+  {term:"GenAI",translation:"IA Générative",alts:["ia generative","ia générative","genai"],example:"GenAI is transforming how marketing teams create content at scale.",cat:"AI"},
+  {term:"RAG",translation:"Génération Augmentée par Récupération",alts:["generation augmentee par recuperation","génération augmentée par récupération","rag"],example:"RAG allows the model to query the client's proprietary knowledge base.",cat:"AI"},
+  {term:"Fine-tuning",translation:"Ajustement fin",alts:["ajustement fin","fine tuning","finetuning"],example:"Fine-tuning the model on their data improved accuracy by 30%.",cat:"AI"},
+  {term:"Inference",translation:"Inférence",alts:["inference","inférence"],example:"Inference costs are a key consideration when deploying AI to production.",cat:"AI"},
+  {term:"Hallucination",translation:"Hallucination",alts:["hallucination"],example:"We use guardrails to minimize model hallucinations in production.",cat:"AI"},
+  {term:"Token",translation:"Jeton",alts:["jeton","token"],example:"Pricing is based on the number of tokens processed per month.",cat:"AI"},
+  {term:"Prompt engineering",translation:"Ingénierie des prompts",alts:["ingenierie des prompts","ingénierie des prompts"],example:"Good prompt engineering dramatically improves the quality of AI outputs.",cat:"AI"},
+  {term:"AI agent",translation:"Agent IA",alts:["agent ia","agent ai"],example:"The AI agent autonomously handles tier-1 customer support tickets.",cat:"AI"},
+  {term:"Foundation model",translation:"Modèle de base",alts:["modele de base","modèle de base"],example:"Choosing the right foundation model balances cost and performance.",cat:"AI"},
+  {term:"Digital transformation",translation:"Transformation numérique",alts:["transformation numerique","transformation numérique"],example:"Cloud adoption is at the core of their digital transformation roadmap.",cat:"Sales"},
+  {term:"Capex vs Opex",translation:"Investissement vs Dépenses d'exploitation",alts:["investissement vs depenses d exploitation","capex opex"],example:"Moving to the cloud shifts spend from Capex to Opex.",cat:"Metrics"},
+  {term:"Vendor lock-in",translation:"Dépendance fournisseur",alts:["dependance fournisseur","dépendance fournisseur"],example:"Our open-standards approach prevents vendor lock-in.",cat:"Sales"},
+  {term:"Proof of Value",translation:"Preuve de Valeur",alts:["preuve de valeur","pov"],example:"The Proof of Value demonstrated $200K in projected annual savings.",cat:"Sales"},
+  {term:"Objection handling",translation:"Gestion des objections",alts:["gestion des objections"],example:"Objection handling is one of the most critical skills for an AE.",cat:"Sales"},
+  {term:"Negotiation",translation:"Négociation",alts:["negociation","négociation"],example:"Price negotiation should only begin once value is clearly established.",cat:"Sales"},
+  {term:"Proposal",translation:"Proposition commerciale",alts:["proposition commerciale","propale"],example:"The proposal includes three pricing tiers tailored to their needs.",cat:"Sales"},
+  {term:"MSA",translation:"Accord-Cadre",alts:["accord-cadre","accord cadre","master service agreement"],example:"The MSA will govern all future purchases from this account.",cat:"Legal"},
+  {term:"SOW",translation:"Cahier des Charges",alts:["cahier des charges","statement of work"],example:"The SOW details the implementation scope and project timeline.",cat:"Legal"},
+  {term:"NDA",translation:"Accord de Non-Divulgation",alts:["accord de non-divulgation","accord de non divulgation"],example:"Sign the NDA before sharing any roadmap details with the prospect.",cat:"Legal"},
+  {term:"Compliance",translation:"Conformité",alts:["conformite","conformité"],example:"GDPR compliance is a blocking requirement for all European customers.",cat:"Legal"},
+  {term:"Security posture",translation:"Posture de sécurité",alts:["posture de securite","posture de sécurité"],example:"Their security posture requires ISO 27001 certification from vendors.",cat:"Legal"},
+  {term:"Data sovereignty",translation:"Souveraineté des données",alts:["souverainete des donnees","souveraineté des données"],example:"Data sovereignty laws prevent storing personal data outside France.",cat:"Legal"},
+  {term:"Competitive displacement",translation:"Déplacement concurrentiel",alts:["deplacement concurrentiel","déplacement concurrentiel"],example:"We won a competitive displacement, replacing their legacy AWS setup.",cat:"Sales"},
+  {term:"Escalation",translation:"Escalade",alts:["escalade","escalation"],example:"A timely escalation to the CSM prevented the account from churning.",cat:"Customer Success"},
+  {term:"Go-live",translation:"Mise en production",alts:["mise en production","go live"],example:"The go-live is confirmed for the first of next month.",cat:"Customer Success"},
+  {term:"Time-to-value",translation:"Délai de création de valeur",alts:["delai de creation de valeur","délai de création de valeur"],example:"Reducing time-to-value is critical for ensuring early customer adoption.",cat:"Customer Success"},
+  {term:"Expansion revenue",translation:"Revenus d'expansion",alts:["revenus d'expansion","revenus d expansion"],example:"Expansion revenue from existing accounts grew 35% year over year.",cat:"Metrics"},
+  {term:"Renewal rate",translation:"Taux de renouvellement",alts:["taux de renouvellement"],example:"Our renewal rate sits at 92% this fiscal year.",cat:"Metrics"},
+  {term:"NPS",translation:"Score de recommandation net",alts:["score de recommandation net","net promoter score","nps"],example:"A high NPS score is strongly correlated with renewal and expansion.",cat:"Metrics"},
+  {term:"Use case",translation:"Cas d'usage",alts:["cas d usage","cas d'usage"],example:"Their primary use case is automating the invoice processing workflow.",cat:"Sales"},
+  {term:"Pain point",translation:"Point de douleur",alts:["point de douleur","probleme cle","problème clé"],example:"Cost control is their most pressing pain point right now.",cat:"Sales"},
+  {term:"Value proposition",translation:"Proposition de valeur",alts:["proposition de valeur"],example:"Our value proposition centers on speed, security, and measurable savings.",cat:"Sales"},
+  {term:"Competitive intelligence",translation:"Veille concurrentielle",alts:["veille concurrentielle"],example:"Strong competitive intelligence helps us position against AWS and Azure.",cat:"Sales"},
+  {term:"Pipeline coverage",translation:"Couverture du pipeline",alts:["couverture du pipeline"],example:"We need 3x pipeline coverage to confidently hit our quota.",cat:"Sales"},
+  {term:"Close plan",translation:"Plan de closing",alts:["plan de closing","plan de cloture","plan de clôture"],example:"A mutual close plan aligns both sides on remaining steps.",cat:"Sales"},
+  {term:"Deal review",translation:"Revue d'opportunité",alts:["revue d'opportunite","revue d opportunité","revue d opportunite"],example:"The weekly deal review flagged missing executive sponsorship.",cat:"Sales"},
+  {term:"Cold outreach",translation:"Prospection à froid",alts:["prospection a froid","prospection à froid"],example:"Cold outreach via LinkedIn generated 15 qualified discovery calls.",cat:"Sales"},
+  {term:"Warm introduction",translation:"Introduction chaleureuse",alts:["introduction chaleureuse"],example:"A warm introduction through a mutual contact doubled our response rate.",cat:"Sales"},
+  {term:"Managed services",translation:"Services gérés",alts:["services geres","services gérés"],example:"Managed services free the client from day-to-day infrastructure operations.",cat:"Cloud"},
+  {term:"Consumption-based pricing",translation:"Tarification à l'usage",alts:["tarification a l usage","tarification à l'usage"],example:"Consumption-based pricing lowers the barrier to entry for new customers.",cat:"Sales"},
+  {term:"Platform fee",translation:"Frais de plateforme",alts:["frais de plateforme"],example:"The platform fee is $5K per month, regardless of consumption.",cat:"Sales"},
+  {term:"Customer success",translation:"Succès Client",alts:["succes client","succès client","customer success"],example:"Customer success means ensuring clients achieve their desired business outcomes.",cat:"Customer Success"},
+  {term:"Revenue retention",translation:"Rétention des revenus",alts:["retention des revenus","rétention des revenus"],example:"Net revenue retention above 100% means existing accounts are growing.",cat:"Metrics"},
+  {term:"Forecast accuracy",translation:"Précision des prévisions",alts:["precision des previsions","précision des prévisions"],example:"Forecast accuracy above 90% is the mark of a mature sales organization.",cat:"Metrics"}
+];
+
+const CATEGORIES = ["All", "Sales", "Cloud", "AI", "Customer Success", "Metrics", "Legal"];
+
+let deck = [];
+let currentIndex = 0;
+let score = { correct: 0, wrong: 0 };
+let status = "idle";
+let speaking = false;
+let activeCategory = "All";
+
+function normalize(s) {
+  return s.toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/['']/g, "'")
+    .trim();
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildDeck() {
+  let filtered = activeCategory === "All" ? vocabulary : vocabulary.filter(v => v.cat === activeCategory);
+  deck = shuffle(filtered);
+  currentIndex = 0;
+  score = { correct: 0, wrong: 0 };
+  status = "idle";
+  render();
+}
+
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = "en-US";
+    utt.rate = 0.85;
+    utt.pitch = 1;
+    speaking = true;
+    document.getElementById('speak-btn').classList.add('speaking');
+    utt.onend = () => { speaking = false; const b = document.getElementById('speak-btn'); if (b) b.classList.remove('speaking'); };
+    utt.onerror = () => { speaking = false; };
+    window.speechSynthesis.speak(utt);
+  }
+}
+
+function checkAnswer() {
+  const input = document.getElementById('answer-input');
+  if (!input) return;
+  const userVal = normalize(input.value);
+  if (!userVal) return;
+  
+  const card = deck[currentIndex];
+  const correct = normalize(card.translation);
+  const alts = (card.alts || []).map(a => normalize(a));
+  const isCorrect = userVal === correct || alts.includes(userVal);
+  
+  if (isCorrect) {
+    score.correct++;
+    status = "correct";
+  } else {
+    score.wrong++;
+    status = "wrong";
+  }
+  updateStats();
+  renderCard();
+}
+
+function reveal() {
+  status = "revealed";
+  score.wrong++;
+  updateStats();
+  renderCard();
+}
+
+function next() {
+  if (currentIndex < deck.length - 1) {
+    currentIndex++;
+    status = "idle";
+    render();
+  } else {
+    renderComplete();
+  }
+}
+
+function updateStats() {
+  document.getElementById('stat-correct').textContent = '✓ ' + score.correct;
+  document.getElementById('stat-wrong').textContent = '✗ ' + score.wrong;
+  const pct = deck.length > 0 ? Math.round(((score.correct + score.wrong) / deck.length) * 100) : 0;
+  document.getElementById('progress').style.width = pct + '%';
+}
+
+function renderFilters() {
+  const row = document.getElementById('filter-row');
+  row.innerHTML = CATEGORIES.map(cat => 
+    `<button class="filter-btn${cat === activeCategory ? ' active' : ''}" onclick="setCategory('${cat}')">${cat}</button>`
+  ).join('');
+}
+
+function setCategory(cat) {
+  activeCategory = cat;
+  buildDeck();
+}
+
+function renderCard() {
+  if (currentIndex >= deck.length) { renderComplete(); return; }
+  const card = deck[currentIndex];
+  const pct = Math.round(((currentIndex) / deck.length) * 100);
+  document.getElementById('progress').style.width = pct + '%';
+  document.getElementById('subtitle').textContent = `${currentIndex + 1} / ${deck.length} · ${card.cat}`;
+
+  let cardBg = '';
+  if (status === 'correct') cardBg = 'correct-state';
+  if (status === 'wrong' || status === 'revealed') cardBg = 'wrong-state';
+  
+  let inputClass = 'translation-input';
+  if (status === 'correct') inputClass += ' correct-input';
+  if (status === 'wrong' || status === 'revealed') inputClass += ' wrong-input';
+
+  let feedbackHtml = '';
+  if (status === 'correct') {
+    feedbackHtml = `<div class="feedback correct">✓ Correct ! <strong>${card.translation}</strong></div>`;
+  } else if (status === 'wrong') {
+    feedbackHtml = `<div class="feedback wrong">✗ Incorrect. La bonne réponse : <strong>${card.translation}</strong></div>`;
+  } else if (status === 'revealed') {
+    feedbackHtml = `<div class="feedback wrong">💡 Réponse : <strong>${card.translation}</strong></div>`;
+  }
+
+  let actionsHtml = '';
+  if (status === 'idle') {
+    actionsHtml = `
+      <div class="actions-row">
+        <button class="btn btn-reveal" onclick="reveal()">Révéler</button>
+        <button class="btn btn-primary" onclick="checkAnswer()">Valider</button>
+      </div>
+      <p class="hint">Appuyez sur Entrée pour valider</p>`;
+  } else {
+    const isLast = currentIndex >= deck.length - 1;
+    actionsHtml = `<div class="actions-row"><button class="btn btn-primary" onclick="next()">${isLast ? 'Voir le résultat' : 'Suivant →'}</button></div>`;
+  }
+
+  document.getElementById('main-content').innerHTML = `
+    <div class="card-container">
+      <div class="vocab-card ${cardBg}">
+        <div class="card-top">
+          <span class="category-badge">${card.cat}</span>
+          <span class="card-num">${currentIndex + 1} / ${deck.length}</span>
+        </div>
+        <div class="term-section">
+          <span class="term">${card.term}</span>
+          <button class="speak-btn" id="speak-btn" onclick="speak('${card.term.replace(/'/g, "\\'")}');" title="Écouter la prononciation" aria-label="Écouter la prononciation de ${card.term}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          </button>
+        </div>
+        <div class="example">"${card.example}"</div>
+        <div class="input-row">
+          <input 
+            type="text" 
+            id="answer-input"
+            class="${inputClass}"
+            placeholder="Traduction française…"
+            ${status !== 'idle' ? 'disabled value="' + (status !== 'revealed' ? document.getElementById('answer-input')?.value || '' : card.translation) + '"' : ''}
+            autocomplete="off" autocorrect="off" spellcheck="false"
+            aria-label="Entrez la traduction française de ${card.term}"
+          />
+        </div>
+        ${feedbackHtml}
+        ${actionsHtml}
+      </div>
+    </div>`;
+
+  if (status === 'idle') {
+    const inp = document.getElementById('answer-input');
+    if (inp) {
+      inp.focus();
+      inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkAnswer(); });
+    }
+    if (status === 'revealed') {
+      const inp2 = document.getElementById('answer-input');
+      if (inp2) inp2.value = card.translation;
+    }
+  }
+}
+
+function renderComplete() {
+  const total = score.correct + score.wrong;
+  const pct = total > 0 ? Math.round((score.correct / total) * 100) : 0;
+  let scoreClass = pct >= 80 ? 'score-green' : pct >= 60 ? 'score-amber' : 'score-red';
+  let msg = pct >= 80 ? '🎯 Excellent niveau !' : pct >= 60 ? '📈 Bon travail, continue !' : '💪 Continue à t\'entraîner !';
+  
+  document.getElementById('progress').style.width = '100%';
+  document.getElementById('main-content').innerHTML = `
+    <div class="complete-screen">
+      <h2>${msg}</h2>
+      <div class="big-score ${scoreClass}">${pct}%</div>
+      <p>${score.correct} correctes · ${score.wrong} incorrectes · sur ${total} cartes</p>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="buildDeck()">Recommencer (mélangé)</button>
+        <button class="btn" onclick="retryWrong()">Revoir les erreurs</button>
+      </div>
+    </div>`;
+}
+
+function retryWrong() {
+  deck = shuffle(vocabulary.filter(v => activeCategory === "All" || v.cat === activeCategory));
+  currentIndex = 0;
+  score = { correct: 0, wrong: 0 };
+  status = "idle";
+  render();
+}
+
+function render() {
+  updateStats();
+  renderFilters();
+  renderCard();
+}
+
+buildDeck();
+</script>
+</body>
+</html>

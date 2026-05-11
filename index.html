@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Business English Pro · SaaS · Cloud · AI</title>
+<meta name="description" content="100 termes Business English pour SaaS, Customer Success, Cloud & AI. App gamifiée avec audio, modes multiples, et export Anki.">
+<style>
+:root{
+  --bg:#0a0a0c; --bg-1:#101014; --bg-2:#16161b; --bg-3:#1d1d24;
+  --line:#26262f; --line-2:#33333f;
+  --text:#f4f4f5; --muted:#a1a1aa; --dim:#71717a;
+  --accent:#7c5cff; --accent-2:#5b8cff; --green:#22c55e; --amber:#f59e0b; --red:#ef4444; --pink:#ec4899;
+  --grad:linear-gradient(135deg,#7c5cff 0%,#5b8cff 60%,#22d3ee 100%);
+  --r-sm:8px; --r:12px; --r-lg:18px;
+  --shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 24px 60px -20px rgba(0,0,0,.6);
+  --font:ui-sans-serif,-apple-system,"Inter","Segoe UI",Roboto,system-ui,sans-serif;
+  --mono:ui-monospace,"JetBrains Mono","SF Mono",Menlo,monospace;
+}
+[data-theme="light"]{
+  --bg:#fafafa; --bg-1:#fff; --bg-2:#f4f4f5; --bg-3:#e4e4e7;
+  --line:#e4e4e7; --line-2:#d4d4d8;
+  --text:#0a0a0c; --muted:#52525b; --dim:#71717a;
+  --shadow:0 1px 0 rgba(0,0,0,.02) inset, 0 24px 60px -20px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--font); background:var(--bg); color:var(--text);
+  -webkit-font-smoothing:antialiased; min-height:100vh;
+  background-image:
+    radial-gradient(60% 50% at 50% 0%,rgba(124,92,255,.10),transparent 60%),
+    radial-gradient(40% 40% at 100% 10%,rgba(34,211,238,.06),transparent 60%);
+}
+button{font-family:inherit;color:inherit}
+input{font-family:inherit;color:inherit}
+
+/* ===== Layout ===== */
+.shell{max-width:1080px;margin:0 auto;padding:24px 20px 80px}
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:-.01em}
+.brand .logo{width:28px;height:28px;border-radius:9px;background:var(--grad);box-shadow:0 6px 20px -6px rgba(124,92,255,.6)}
+.brand small{color:var(--muted);font-weight:500;font-size:12px;margin-left:6px}
+.topbar .spacer{flex:1}
+.kbd{font-family:var(--mono);font-size:11px;background:var(--bg-2);border:1px solid var(--line);padding:2px 6px;border-radius:6px;color:var(--muted)}
+
+/* ===== HUD (XP / streak / level) ===== */
+.hud{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--bg-1);border:1px solid var(--line);font-size:12px;color:var(--muted);font-weight:500}
+.chip b{color:var(--text);font-weight:600}
+.chip.xp b{color:var(--accent)}
+.chip.streak b{color:var(--amber)}
+.chip.lvl b{color:var(--accent-2)}
+.icon-btn{width:34px;height:34px;border-radius:10px;background:var(--bg-1);border:1px solid var(--line);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:var(--muted);transition:all .15s}
+.icon-btn:hover{background:var(--bg-2);color:var(--text)}
+
+/* ===== Mode tabs ===== */
+.modes{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;padding:6px;background:var(--bg-1);border:1px solid var(--line);border-radius:14px;width:fit-content;max-width:100%;overflow-x:auto}
+.mode-btn{padding:8px 14px;border-radius:10px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;display:inline-flex;gap:6px;align-items:center}
+.mode-btn:hover{color:var(--text)}
+.mode-btn.active{background:var(--bg-3);color:var(--text);box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+
+/* ===== Filters ===== */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.filter-group{display:flex;gap:4px;flex-wrap:wrap}
+.filter-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-right:6px;align-self:center}
+.f-btn{font-size:12px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.15s;font-weight:500}
+.f-btn:hover{color:var(--text);border-color:var(--line-2)}
+.f-btn.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+/* ===== Progress ===== */
+.progress{height:4px;background:var(--bg-2);border-radius:4px;overflow:hidden;margin-bottom:18px}
+.progress > div{height:100%;background:var(--grad);transition:width .4s ease;border-radius:4px}
+
+/* ===== Card ===== */
+.stage{display:grid;gap:14px}
+.card{
+  background:var(--bg-1);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;
+  box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(124,92,255,.04),transparent 40%);pointer-events:none}
+.card.ok{border-color:rgba(34,197,94,.4)}
+.card.ko{border-color:rgba(239,68,68,.4)}
+.card .head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--bg-2);border:1px solid var(--line);color:var(--muted);text-transform:uppercase}
+.tag.lvl-A2{color:#86efac;border-color:rgba(134,239,172,.3)}
+.tag.lvl-B1{color:#7dd3fc;border-color:rgba(125,211,252,.3)}
+.tag.lvl-B2{color:#fbbf24;border-color:rgba(251,191,36,.3)}
+.tag.type{color:var(--accent);border-color:rgba(124,92,255,.3)}
+.cardnum{font-family:var(--mono);font-size:12px;color:var(--dim)}
+
+.term-row{display:flex;align-items:center;gap:12px;margin:6px 0 8px;flex-wrap:wrap}
+.term{font-size:clamp(28px,4vw,40px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.ipa{font-family:var(--mono);color:var(--muted);font-size:14px}
+.audio-row{display:flex;gap:6px}
+.audio-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text);font-size:12px;cursor:pointer;transition:.15s;font-weight:500}
+.audio-btn:hover{border-color:var(--accent);color:var(--accent)}
+.audio-btn.slow{color:var(--muted)}
+.audio-btn.speaking{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 3px rgba(124,92,255,.15)}
+
+.fr-prompt{font-size:clamp(22px,3vw,30px);font-weight:600;letter-spacing:-.01em;line-height:1.2}
+
+.example{font-size:14px;color:var(--muted);font-style:italic;padding:14px 16px;background:var(--bg-2);border-radius:var(--r);border-left:2px solid var(--accent);margin-top:14px;line-height:1.55}
+.example b{color:var(--text);font-style:normal;font-weight:600;background:rgba(124,92,255,.18);padding:0 3px;border-radius:3px}
+
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:16px}
+.meta .box{padding:12px 14px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);font-size:13px;line-height:1.5}
+.meta .box .lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:4px;font-weight:600}
+.meta .box .v{color:var(--text)}
+.meta .box.err{border-color:rgba(239,68,68,.25)}
+.meta .box.tip{border-color:rgba(34,197,94,.25)}
+.meta .box.mem{border-color:rgba(245,158,11,.25)}
+
+.input-row{display:flex;gap:8px;margin-top:18px}
+.tinput{flex:1;padding:13px 16px;font-size:15px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--bg-2);color:var(--text);outline:none;transition:.15s}
+.tinput:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,92,255,.15)}
+.tinput.ok{border-color:var(--green);background:rgba(34,197,94,.08)}
+.tinput.ko{border-color:var(--red);background:rgba(239,68,68,.08)}
+.btn{padding:13px 18px;border-radius:var(--r);border:1px solid var(--line-2);background:var(--bg-2);color:var(--text);font-size:14px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn:hover{background:var(--bg-3)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.primary{background:var(--grad);border-color:transparent;color:#fff;box-shadow:0 10px 30px -10px rgba(124,92,255,.6)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent}
+
+.feedback{margin-top:12px;padding:12px 14px;border-radius:var(--r);font-size:13px;line-height:1.5;display:flex;gap:10px;align-items:flex-start}
+.feedback.ok{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:#86efac}
+.feedback.ko{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#fca5a5}
+.feedback .ico{font-size:18px;line-height:1}
+.feedback .lab{display:block;font-weight:600;margin-bottom:2px}
+.feedback strong{color:#fff}
+
+.hint{font-size:12px;color:var(--dim);text-align:center;margin-top:10px}
+.hint .kbd{background:var(--bg-2)}
+
+/* ===== Flashcard flip ===== */
+.flip{perspective:1200px;cursor:pointer}
+.flip-inner{position:relative;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip-back{position:absolute;inset:0;transform:rotateY(180deg);padding:28px;background:var(--bg-1);border-radius:var(--r-lg)}
+.flip .hint-flip{position:absolute;top:14px;right:14px;font-size:11px;color:var(--dim);font-family:var(--mono)}
+
+/* ===== Timed ===== */
+.timer{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.timer.warn{color:var(--amber)}
+.timer.crit{color:var(--red)}
+.timer-bar{height:4px;background:var(--bg-2);border-radius:4px;overflow:hidden;margin-top:6px}
+.timer-bar > div{height:100%;background:linear-gradient(90deg,var(--green),var(--amber),var(--red));transition:width .2s linear}
+
+/* ===== Complete screen ===== */
+.complete{text-align:center;padding:48px 20px;background:var(--bg-1);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.complete .big{font-size:64px;font-weight:700;font-family:var(--mono);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin:18px 0;letter-spacing:-.02em}
+.complete h2{font-size:24px;font-weight:600;margin-bottom:6px}
+.complete p{color:var(--muted);font-size:14px;margin-bottom:24px}
+.complete .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* ===== Stats panel ===== */
+.panel{background:var(--bg-1);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;box-shadow:var(--shadow)}
+.panel h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px;font-weight:600}
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.kpi{padding:14px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r)}
+.kpi .v{font-family:var(--mono);font-size:24px;font-weight:600;letter-spacing:-.02em}
+.kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+
+/* ===== Modal ===== */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg-1);border:1px solid var(--line);border-radius:var(--r-lg);max-width:520px;width:100%;padding:24px;box-shadow:var(--shadow);max-height:90vh;overflow:auto}
+.modal h3{font-size:18px;font-weight:600;margin-bottom:14px}
+.modal .row{display:grid;gap:8px;margin-bottom:14px}
+.modal .row .l{font-size:12px;color:var(--muted)}
+.modal .close{float:right;cursor:pointer;color:var(--muted);font-size:20px;background:none;border:none}
+
+/* ===== Weak words list ===== */
+.wlist{display:grid;gap:6px;max-height:240px;overflow:auto}
+.witem{display:flex;justify-content:space-between;padding:8px 10px;background:var(--bg-2);border:1px solid var(--line);border-radius:8px;font-size:13px}
+.witem .b{font-weight:600}
+.witem .s{color:var(--red);font-family:var(--mono);font-size:12px}
+
+/* ===== Toast ===== */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg-3);border:1px solid var(--line-2);padding:10px 16px;border-radius:10px;font-size:13px;opacity:0;transition:.25s;z-index:60;pointer-events:none;box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:rgba(34,197,94,.5);color:#86efac}
+.toast.xp{border-color:rgba(124,92,255,.5);color:#c4b5fd}
+
+/* ===== Welcome ===== */
+.welcome{text-align:center;padding:48px 20px}
+.welcome h1{font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:14px}
+.welcome h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.welcome p{color:var(--muted);font-size:16px;max-width:560px;margin:0 auto 28px;line-height:1.55}
+.welcome .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* ===== SR helpers ===== */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media (max-width:640px){
+  .shell{padding:16px 14px 60px}
+  .card{padding:22px 18px}
+  .meta{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ========== TOPBAR ========== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <span>Business English Pro</span>
+      <small>SaaS · Cloud · AI · CSM · AE</small>
+    </div>
+    <div class="spacer"></div>
+    <div class="hud" id="hud">
+      <span class="chip lvl" title="Niveau"><b id="hud-lvl">1</b> Level</span>
+      <span class="chip xp" title="Expérience">⚡ <b id="hud-xp">0</b> XP</span>
+      <span class="chip streak" title="Série quotidienne">🔥 <b id="hud-streak">0</b></span>
+      <button class="icon-btn" id="btn-stats" title="Statistiques (S)" aria-label="Statistiques">📊</button>
+      <button class="icon-btn" id="btn-export" title="Exporter (E)" aria-label="Exporter">⬇</button>
+      <button class="icon-btn" id="btn-theme" title="Thème" aria-label="Changer le thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- ========== MAIN ========== -->
+  <main id="main"></main>
+
+</div>
+
+<div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true">
+  <div class="modal" id="modal"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   DATA · 100 entries · Business English for SaaS / Cloud / AI
+   Each entry: i, en, fr, type, lvl, cat, tags, exp, ex, ex2,
+               ipa, tip, syn, err, mem, alts
+   ============================================================ */
+const VOCAB = [
+{i:1,en:"Pipeline",fr:"Pipeline commercial",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","forecasting"],exp:"All the deals a sales rep is currently working on.",ex:"Our Q4 pipeline shows $2M in qualified opportunities.",ex2:"I'll add this account to my pipeline after the discovery call.",ipa:"/ˈpaɪp.laɪn/",tip:"Accent sur la 1re syllabe : PIPE-lyne, pas pi-pe-LINE.",syn:["sales funnel","book of business"],err:"Ne dites pas « le pipe » seul ; toujours « pipeline ».",mem:"Imaginez les deals coulant dans un tuyau vers le revenu.",alts:["pipeline","pipeline de vente","pipeline commercial"]},
+{i:2,en:"Forecast",fr:"Prévision des ventes",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","metrics","meetings"],exp:"A prediction of how much revenue will close in a given period.",ex:"My forecast for this quarter is 1.4 million in committed deals.",ex2:"Sales leadership reviews the forecast every Monday morning.",ipa:"/ˈfɔːr.kæst/",tip:"« FOR-cast », pas « for-CAST ». Le 'a' est court.",syn:["projection","sales projection"],err:"Évitez « forecast of sales » : dites simplement « sales forecast ».",mem:"Fore (avant) + cast (lancer) = lancer un chiffre à l'avance.",alts:["prevision","prévision","prévision des ventes","prévisions"]},
+{i:3,en:"Quota",fr:"Quota / Objectif de vente",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","metrics"],exp:"A revenue target a salesperson must hit, usually quarterly.",ex:"She crushed her quota last quarter — 130% to plan.",ex2:"If we close this enterprise deal, the whole team hits quota.",ipa:"/ˈkwoʊ.tə/",tip:"« KWOH-tuh », pas « koo-ota ». Le 'qu' = kw.",syn:["target","number"],err:"« My quota of » est rare ; on dit « hit / miss / blow past quota ».",mem:"Quota → quote → un chiffre que tu dois citer chaque trimestre.",alts:["quota","objectif","objectif de vente","objectif commercial"]},
+{i:4,en:"Churn",fr:"Attrition / Résiliation",type:"noun",lvl:"B2",cat:"Customer Success",tags:["customer-success","metrics"],exp:"When customers cancel or stop paying for the product.",ex:"Reducing churn is our top priority for the next two quarters.",ex2:"A 5% monthly churn rate will destroy your ARR within a year.",ipa:"/tʃɜːrn/",tip:"Son « tch » initial comme dans « church ». Évitez « shurn ».",syn:["attrition","cancellation","logo churn"],err:"« Churn out » signifie produire en masse, pas perdre des clients.",mem:"Penser à la baratte (churn) qui agite le lait : agitation = clients qui partent.",alts:["attrition","résiliation","resiliation","churn","perte de clients"]},
+{i:5,en:"Renewal",fr:"Renouvellement",type:"noun",lvl:"B1",cat:"Customer Success",tags:["customer-success","sales","contracts"],exp:"When a customer extends their contract for another term.",ex:"The renewal conversation should start 90 days before the contract ends.",ex2:"Auto-renewal clauses make life easier for both sides.",ipa:"/rɪˈnuː.əl/",tip:"« ri-NOO-ul » (3 syllabes). Le 'w' est presque muet.",syn:["contract extension","resign"],err:"Pas « renewment » (n'existe pas). Toujours « renewal ».",mem:"Re + new = rendre à nouveau neuf le contrat.",alts:["renouvellement","reconduction"]},
+{i:6,en:"Upsell",fr:"Montée en gamme",type:"verb",lvl:"B2",cat:"Sales",tags:["sales","revenue","expansion"],exp:"To sell a more expensive version of what the customer already has.",ex:"We identified a clear upsell opportunity to the enterprise tier.",ex2:"Upselling existing accounts is 5x cheaper than acquiring new logos.",ipa:"/ˈʌp.sel/",tip:"Stress sur UP. 'u' court comme dans « cup ».",syn:["expansion","tier upgrade"],err:"Ne confondez pas avec « cross-sell » (produit différent).",mem:"UP = monter en gamme, SELL = vendre.",alts:["montee en gamme","montée en gamme","vente additionnelle","upsell"]},
+{i:7,en:"Cross-sell",fr:"Vente croisée",type:"verb",lvl:"B2",cat:"Sales",tags:["sales","revenue","expansion"],exp:"To sell a different product to the same customer.",ex:"Cross-selling our security module added 30K ARR per account.",ex2:"Strong cross-sell motion is what turns a product into a platform.",ipa:"/ˈkrɒs.sel/",tip:"Liaison fluide : « kross-sell », un seul mot.",syn:["product expansion"],err:"Pas « cross-selling to the same product » : c'est UN AUTRE produit.",mem:"CROSS = croiser des produits différents chez le même client.",alts:["vente croisee","vente croisée","cross-sell","ventes croisees"]},
+{i:8,en:"ARR",fr:"Revenu Annuel Récurrent",type:"noun",lvl:"B2",cat:"Metrics",tags:["metrics","saas","revenue"],exp:"Annual Recurring Revenue — yearly subscription value.",ex:"We closed 500K in net new ARR this quarter.",ex2:"Investors care more about ARR growth than total revenue.",ipa:"/eɪ ɑːr ɑːr/",tip:"On épelle lettre par lettre : « EY-AR-AR ».",syn:["annual recurring revenue"],err:"Pas « an ARR » mais « an A-R-R » à l'oral : trois lettres.",mem:"A = Annual, R = Recurring, R = Revenue.",alts:["arr","revenu annuel recurrent","revenu annuel récurrent"]},
+{i:9,en:"MRR",fr:"Revenu Mensuel Récurrent",type:"noun",lvl:"B2",cat:"Metrics",tags:["metrics","saas","revenue"],exp:"Monthly Recurring Revenue — predictable monthly subscription income.",ex:"MRR grew 18% month over month — best in our history.",ex2:"Track new MRR, expansion MRR, and churned MRR separately.",ipa:"/em ɑːr ɑːr/",tip:"« EM-AR-AR ». Bien marquer le M initial.",syn:["monthly recurring revenue"],err:"MRR × 12 ≠ ARR exact, à cause des annualisations ponctuelles.",mem:"M comme Monthly. La sœur cadette d'ARR.",alts:["mrr","revenu mensuel recurrent","revenu mensuel récurrent"]},
+{i:10,en:"NRR",fr:"Rétention Nette des Revenus",type:"noun",lvl:"B2",cat:"Metrics",tags:["metrics","customer-success"],exp:"Net Revenue Retention — how much revenue you keep and grow from existing customers.",ex:"Our NRR sits at 118%, which means existing accounts are expanding.",ex2:"Best-in-class SaaS companies report NRR above 120%.",ipa:"/en ɑːr ɑːr/",tip:"« EN-AR-AR ». Trois lettres distinctes.",syn:["net dollar retention","NDR"],err:"NRR > 100% inclut l'expansion ; GRR ne l'inclut pas.",mem:"NET = ce qui reste après churn ET expansion.",alts:["nrr","retention nette des revenus","rétention nette des revenus","net revenue retention"]},
+{i:11,en:"ACV",fr:"Valeur Annuelle du Contrat",type:"noun",lvl:"B2",cat:"Metrics",tags:["metrics","sales"],exp:"Annual Contract Value — yearly value of a single contract.",ex:"The average ACV for our enterprise segment is 95K.",ex2:"Upmarket motion increased our average ACV by 60% in one year.",ipa:"/eɪ siː viː/",tip:"« EY-SEE-VEE ». Bien détacher chaque lettre.",syn:["annual contract value"],err:"ACV ≠ ARR : ACV est par contrat, ARR est l'agrégat de tous.",mem:"A = Annual, C = Contract, V = Value.",alts:["acv","valeur annuelle du contrat"]},
+{i:12,en:"CAC",fr:"Coût d'Acquisition Client",type:"noun",lvl:"B2",cat:"Metrics",tags:["metrics","marketing","sales"],exp:"Customer Acquisition Cost — what you spend to win one new customer.",ex:"Our blended CAC dropped 22% after we cut paid spend.",ex2:"The LTV-to-CAC ratio should be at least 3 to 1.",ipa:"/siː eɪ siː/",tip:"« SEE-EY-SEE ». Évitez de prononcer « kak ».",syn:["acquisition cost"],err:"Inclure SDR, AE, marketing — pas seulement le paid media.",mem:"C = Customer, A = Acquisition, C = Cost.",alts:["cac","cout d'acquisition client","coût d'acquisition client","cout d acquisition client"]},
+{i:13,en:"LTV",fr:"Valeur Vie Client",type:"noun",lvl:"B2",cat:"Metrics",tags:["metrics","customer-success"],exp:"Lifetime Value — total revenue a customer generates over their lifetime.",ex:"Enterprise accounts deliver 8x the LTV of self-serve users.",ex2:"Improving onboarding directly increases LTV by reducing early churn.",ipa:"/el tiː viː/",tip:"« EL-TEE-VEE ». Souvent dit « LTV » sans hésitation.",syn:["customer lifetime value","CLV"],err:"LTV brute ≠ LTV en marge ; précisez selon le contexte.",mem:"L = Lifetime, T = (the), V = Value.",alts:["ltv","valeur vie client","valeur a vie du client","clv"]},
+{i:14,en:"TCO",fr:"Coût Total de Possession",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud","sales","metrics"],exp:"Total Cost of Ownership — full cost including licenses, ops, training.",ex:"The TCO analysis showed 38% savings versus their on-prem setup.",ex2:"Cloud TCO must include egress fees, not just compute.",ipa:"/tiː siː oʊ/",tip:"« TEE-SEE-OH ». Argument clé en vente cloud.",syn:["total cost of ownership"],err:"TCO inclut les coûts cachés (formation, maintenance), pas juste le prix.",mem:"T = Total, C = Cost, O = Ownership.",alts:["tco","cout total de possession","coût total de possession"]},
+{i:15,en:"ROI",fr:"Retour sur Investissement",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","metrics","negotiation"],exp:"Return on Investment — what the buyer gets back versus what they spend.",ex:"We need to prove a clear ROI within the first six months.",ex2:"The business case shows 4x ROI over a three-year horizon.",ipa:"/ɑːr oʊ aɪ/",tip:"« AR-OH-EYE ». Ne dites pas « roy ».",syn:["return on investment","payback"],err:"« What's the ROI? » est plus naturel que « What ROI? ».",mem:"R = Return, O = On, I = Investment.",alts:["roi","retour sur investissement"]},
+{i:16,en:"SaaS",fr:"Logiciel en tant que Service",type:"noun",lvl:"B1",cat:"Cloud",tags:["cloud","saas"],exp:"Software-as-a-Service — software delivered via subscription in the cloud.",ex:"Moving to a SaaS model eliminated all infrastructure overhead.",ex2:"Most modern SaaS companies follow a product-led growth motion.",ipa:"/sæs/",tip:"Une syllabe, comme « sass ». Évitez « SA-AS ».",syn:["software-as-a-service"],err:"« A SaaS » est OK ; « SaaSes » au pluriel est argotique.",mem:"S-a-a-S : Software-as-a-Service.",alts:["saas","logiciel en tant que service"]},
+{i:17,en:"PaaS",fr:"Plateforme en tant que Service",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud"],exp:"Platform-as-a-Service — managed dev platform (runtime, DB, deploy).",ex:"Our PaaS lets developers ship features without managing servers.",ex2:"Heroku and Vercel are textbook PaaS examples.",ipa:"/pæs/",tip:"Une syllabe : « pass ».",syn:["platform-as-a-service"],err:"PaaS ≠ IaaS : PaaS gère le runtime, pas seulement l'infra.",mem:"P comme Platform.",alts:["paas","plateforme en tant que service"]},
+{i:18,en:"IaaS",fr:"Infrastructure en tant que Service",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud","infrastructure"],exp:"Infrastructure-as-a-Service — raw compute, storage, networking.",ex:"IaaS gives full flexibility but more operational responsibility.",ex2:"AWS EC2 and Azure Virtual Machines are core IaaS offerings.",ipa:"/aɪ æs/",tip:"Deux syllabes : « EYE-ass ».",syn:["infrastructure-as-a-service"],err:"Avec IaaS, le client gère encore l'OS et les patches.",mem:"I comme Infrastructure (la fondation).",alts:["iaas","infrastructure en tant que service"]},
+{i:19,en:"Cloud-native",fr:"Natif cloud",type:"adjective",lvl:"B2",cat:"Cloud",tags:["cloud","architecture"],exp:"Built specifically for the cloud, not migrated from legacy systems.",ex:"Their cloud-native architecture deploys 50 times a day with zero downtime.",ex2:"Cloud-native apps rely on containers, microservices, and CI/CD.",ipa:"/klaʊd ˈneɪ.tɪv/",tip:"« klaoud NEY-tiv ». Liaison naturelle entre les deux mots.",syn:["born in the cloud"],err:"Migrer une app legacy ne la rend pas cloud-native automatiquement.",mem:"Né (native) dans le cloud, pas adopté.",alts:["natif cloud","cloud-native","cloud native","natif pour le cloud"]},
+{i:20,en:"Multi-cloud",fr:"Multi-cloud",type:"adjective",lvl:"B2",cat:"Cloud",tags:["cloud","strategy"],exp:"Using more than one public cloud provider on purpose.",ex:"A multi-cloud strategy prevents vendor lock-in and improves resilience.",ex2:"Finance teams often go multi-cloud to negotiate better discounts.",ipa:"/ˈmʌl.ti klaʊd/",tip:"« MUL-ti klaoud ». 'i' bref, comme dans « happy ».",syn:["polycloud"],err:"Multi-cloud ≠ hybrid cloud (qui inclut l'on-prem).",mem:"Multi = plusieurs clouds publics.",alts:["multi-cloud","multicloud","multi cloud"]},
+{i:21,en:"Hybrid cloud",fr:"Cloud hybride",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud","strategy"],exp:"A mix of public cloud and on-premise infrastructure.",ex:"Their hybrid cloud setup keeps sensitive data on-prem and bursts to public cloud.",ex2:"Hybrid cloud is common in regulated industries like banking and health.",ipa:"/ˈhaɪ.brɪd klaʊd/",tip:"« HAÏ-brid klaoud ». Ne dites pas « i-brid ».",syn:[],err:"Hybrid ≠ Multi-cloud : hybrid mélange privé et public.",mem:"Hybride = deux mondes (privé + public).",alts:["cloud hybride","hybrid cloud"]},
+{i:22,en:"Migration",fr:"Migration",type:"noun",lvl:"B1",cat:"Cloud",tags:["cloud","implementation"],exp:"The process of moving systems or data from one environment to another.",ex:"The cloud migration is scheduled in three waves over six months.",ex2:"We'll run an assessment before kicking off the migration project.",ipa:"/maɪˈɡreɪ.ʃən/",tip:"« maï-GRÉ-shun ». Stress sur la 2e syllabe.",syn:["cutover","move"],err:"Verbe : « to migrate », pas « to migration ».",mem:"Comme les oiseaux qui migrent vers un nouvel environnement.",alts:["migration"]},
+{i:23,en:"Lift and shift",fr:"Migration à l'identique",type:"expression",lvl:"B2",cat:"Cloud",tags:["cloud","strategy"],exp:"Moving workloads to the cloud as-is, with little or no refactoring.",ex:"A lift-and-shift gets you to the cloud fast, but you miss most cost benefits.",ex2:"Start with lift-and-shift, then refactor critical apps later.",ipa:"/lɪft ən ʃɪft/",tip:"Liaison « lift-AN-shift ». 'and' devient 'n'.",syn:["rehost"],err:"Cette approche n'utilise pas les services cloud natifs.",mem:"Tu soulèves (lift) et tu déplaces (shift), sans changer.",alts:["lift and shift","migration a l'identique","migration à l'identique","rehost"]},
+{i:24,en:"Workload",fr:"Charge de travail",type:"noun",lvl:"B1",cat:"Cloud",tags:["cloud","infrastructure"],exp:"An application or set of services consuming compute resources.",ex:"Which workloads are you planning to move first?",ex2:"Mission-critical workloads need multi-region failover.",ipa:"/ˈwɜːrk.loʊd/",tip:"« WURK-loud ». 'or' = « eu » long.",syn:["application","workload type"],err:"Workload = un système entier, pas juste une tâche.",mem:"Work + load = la charge de travail à faire tourner.",alts:["charge de travail","workload"]},
+{i:25,en:"Scalability",fr:"Scalabilité",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud","architecture"],exp:"The ability to handle more load by adding resources.",ex:"Scalability is non-negotiable for Black Friday traffic.",ex2:"Horizontal scalability beats vertical scalability for modern web apps.",ipa:"/ˌskeɪ.ləˈbɪl.ə.ti/",tip:"« skay-la-BI-li-ti ». Stress sur BI.",syn:["scale"],err:"« Scalable » (adj) ≠ « scalability » (nom). Ne pas mélanger.",mem:"Comme une échelle (scale) : tu rajoutes des barreaux.",alts:["scalabilite","scalabilité","passage a l'echelle"]},
+{i:26,en:"Elasticity",fr:"Élasticité",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud"],exp:"The ability to automatically grow and shrink resources on demand.",ex:"Cloud elasticity means you only pay for what you actually use.",ex2:"Black Friday is the perfect test of true elasticity.",ipa:"/iˌlæsˈtɪs.ə.ti/",tip:"« i-las-TI-si-ti ». Stress sur TI.",syn:["auto-scaling"],err:"Elasticity ≠ scalability : elasticity descend aussi quand la charge baisse.",mem:"Un élastique : ça monte ET ça redescend.",alts:["elasticite","élasticité"]},
+{i:27,en:"Proof of Concept",fr:"Preuve de concept (PoC)",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","evaluation"],exp:"A short trial to validate a solution before buying.",ex:"We're running a 30-day PoC against three critical use cases.",ex2:"Define exit criteria before kicking off the PoC.",ipa:"/pruːf əv ˈkɒn.sept/",tip:"« proof of KON-sept ». Souvent dit « PoC » : « pi-oh-si » ou « pok ».",syn:["pilot","trial"],err:"Pas de PoC sans critères de succès écrits — sinon il s'éternise.",mem:"PROUVER que le concept marche avant de signer.",alts:["preuve de concept","poc","proof of concept"]},
+{i:28,en:"RFP",fr:"Appel d'offres",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","procurement"],exp:"Request for Proposal — formal document asking vendors to bid.",ex:"We just received a competitive RFP from a Fortune 500 buyer.",ex2:"Bid/no-bid decisions should happen within 48 hours of receiving an RFP.",ipa:"/ɑːr ef piː/",tip:"« AR-EF-PI ». Trois lettres distinctes.",syn:["request for proposal","tender"],err:"RFI (information) précède souvent l'RFP (proposal).",mem:"R = Request, F = For, P = Proposal.",alts:["rfp","appel d'offres","appel d offres"]},
+{i:29,en:"SLA",fr:"Accord de niveau de service",type:"noun",lvl:"B2",cat:"Legal",tags:["legal","contracts","cloud"],exp:"Service Level Agreement — a promise on uptime, response time, etc.",ex:"Our SLA guarantees 99.99% uptime for enterprise customers.",ex2:"SLA breaches trigger automatic service credits, not refunds.",ipa:"/es el eɪ/",tip:"« ES-EL-EY ». Trois lettres claires.",syn:["service level agreement"],err:"SLA ≠ SLO : SLO est l'objectif interne, SLA l'engagement contractuel.",mem:"S = Service, L = Level, A = Agreement.",alts:["sla","accord de niveau de service"]},
+{i:30,en:"Discovery call",fr:"Appel de découverte",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","meetings"],exp:"The first qualifying call where you learn the prospect's pain points.",ex:"The discovery call uncovered three urgent business priorities.",ex2:"A good discovery call is 80% listening and 20% talking.",ipa:"/dɪˈskʌv.ər.i kɔːl/",tip:"« dis-KE-veu-ri kol ». Stress sur KE.",syn:["discovery","disco call"],err:"Évitez de pitcher pendant la discovery : posez des questions.",mem:"Découvrir (discover) avant de proposer.",alts:["appel de decouverte","appel de découverte","decouverte","découverte"]},
+{i:31,en:"Champion",fr:"Champion interne",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","stakeholders"],exp:"An internal advocate who actively sells your solution inside their company.",ex:"Sarah is our champion — she's presenting the business case to the board.",ex2:"No deal closes without a clearly identified champion.",ipa:"/ˈtʃæm.pi.ən/",tip:"« TCHAM-pi-en ». Le 'ch' = « tch » comme dans « chat (animal) ».",syn:["internal advocate","coach"],err:"Un champion n'est pas forcément le décideur final.",mem:"Le champion porte vos couleurs en interne.",alts:["champion","champion interne","ambassadeur"]},
+{i:32,en:"Stakeholder",fr:"Partie prenante",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","stakeholders","meetings"],exp:"Anyone with an interest or influence in the buying decision.",ex:"Map every stakeholder before sending the final proposal.",ex2:"Misalignment between stakeholders is the number-one reason deals stall.",ipa:"/ˈsteɪkˌhoʊl.dər/",tip:"« STÉIK-hold-eur ». Pas « stak-holder ».",syn:["decision influencer","party"],err:"« Stakeholders » au pluriel sans 's' supplémentaire.",mem:"Stake (enjeu) + holder (détenteur) = celui qui a un enjeu.",alts:["partie prenante","interlocuteur cle","interlocuteur clé","stakeholder"]},
+{i:33,en:"Executive sponsor",fr:"Sponsor exécutif",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","stakeholders"],exp:"A senior leader who backs the deal and protects it internally.",ex:"Getting the CTO as executive sponsor accelerated the deal by two months.",ex2:"Without an exec sponsor, large deals tend to slip every quarter.",ipa:"/ɪɡˈzek.jə.tɪv ˈspɒn.sər/",tip:"« ig-ZEK-iou-tiv SPON-seur ».",syn:["exec sponsor","C-level sponsor"],err:"Sponsor ne signifie pas « décideur final » — c'est un protecteur senior.",mem:"Un parrain (sponsor) en haut de la hiérarchie.",alts:["sponsor executif","sponsor exécutif","parrain executif"]},
+{i:34,en:"QBR",fr:"Bilan trimestriel client",type:"noun",lvl:"B2",cat:"Customer Success",tags:["customer-success","meetings"],exp:"Quarterly Business Review — a meeting to review value delivered and align on next steps.",ex:"The QBR is your chance to showcase ROI and unlock the next expansion.",ex2:"Always co-build the QBR agenda with your champion.",ipa:"/kjuː biː ɑːr/",tip:"« KIOU-BI-AR ». Trois lettres bien détachées.",syn:["quarterly business review"],err:"QBR sans données mesurées = perte de temps pour le client.",mem:"Q = Quarterly, B = Business, R = Review.",alts:["qbr","bilan trimestriel","quarterly business review"]},
+{i:35,en:"Onboarding",fr:"Intégration / Prise en main",type:"noun",lvl:"B1",cat:"Customer Success",tags:["customer-success","implementation"],exp:"The process of getting a new customer set up and successful.",ex:"A smooth onboarding reduces time-to-value by 40%.",ex2:"Our 30-60-90 onboarding plan covers setup, adoption, and value review.",ipa:"/ˈɒnˌbɔːr.dɪŋ/",tip:"« ON-bor-ding ». 'ing' final léger.",syn:["enablement","activation"],err:"Onboarding ≠ implementation : l'un est humain, l'autre technique.",mem:"On + boarding = monter à bord du produit.",alts:["onboarding","integration","intégration","prise en main"]},
+{i:36,en:"Adoption",fr:"Adoption",type:"noun",lvl:"B1",cat:"Customer Success",tags:["customer-success","metrics"],exp:"How deeply and widely customers actually use the product.",ex:"Low adoption is an early warning sign of churn.",ex2:"We track adoption at the user, team, and feature level.",ipa:"/əˈdɒp.ʃən/",tip:"« a-DOP-shun ». Stress sur DOP.",syn:["usage","engagement"],err:"Logins ≠ adoption. Mesurez des actions à valeur métier.",mem:"Adopter le produit comme un nouveau membre de l'équipe.",alts:["adoption"]},
+{i:37,en:"Health score",fr:"Score de santé client",type:"noun",lvl:"B2",cat:"Customer Success",tags:["customer-success","metrics"],exp:"A composite metric showing how likely a customer is to renew.",ex:"His health score dropped to red after the main champion left.",ex2:"Build the health score from usage, NPS, support tickets, and sentiment.",ipa:"/helθ skɔːr/",tip:"« helth skor ». Le 'th' est sourd, comme « think ».",syn:["customer health"],err:"Un score basé sur un seul signal = score trompeur.",mem:"Comme un check-up médical du compte.",alts:["score de sante","score de santé","health score","score de sante client"]},
+{i:38,en:"Success plan",fr:"Plan de succès",type:"noun",lvl:"B2",cat:"Customer Success",tags:["customer-success","strategy"],exp:"A shared roadmap of milestones to reach the customer's business outcomes.",ex:"We co-built a success plan with quarterly business milestones.",ex2:"A success plan should always tie back to the customer's KPIs.",ipa:"/səkˈses plæn/",tip:"« suk-SES plan ». Stress sur SES.",syn:["success roadmap","mutual action plan"],err:"Pas un plan interne caché — il se co-construit avec le client.",mem:"Le plan partagé pour atteindre le succès ensemble.",alts:["plan de succes","plan de succès"]},
+{i:39,en:"Time-to-value",fr:"Délai de création de valeur",type:"noun",lvl:"B2",cat:"Customer Success",tags:["customer-success","metrics","onboarding"],exp:"How long it takes a customer to get the first measurable value from the product.",ex:"Reducing time-to-value from 60 to 21 days cut early churn by half.",ex2:"Onboarding teams obsess over time-to-value.",ipa:"/taɪm tə ˈvæl.juː/",tip:"« taïm tu VA-liou ». Liaison nette.",syn:["TTV","time-to-first-value"],err:"Le TTV se mesure côté client, pas côté setup interne.",mem:"Compte à rebours jusqu'au premier vrai gain.",alts:["delai de creation de valeur","délai de création de valeur","time to value","ttv"]},
+{i:40,en:"Land and expand",fr:"Conquérir puis élargir",type:"expression",lvl:"B2",cat:"Sales",tags:["sales","strategy","expansion"],exp:"Start with a small contract, then grow it inside the same account.",ex:"We landed with one team of 20 users and expanded to 1,200 in 18 months.",ex2:"Land-and-expand requires strong onboarding to unlock the next deal.",ipa:"/lænd ən ɪkˈspænd/",tip:"« land an iks-PAND ». Liaison fluide.",syn:["wedge strategy"],err:"Sans plan de réussite, le « land » devient un mini-deal isolé.",mem:"Atterrir d'abord, puis étendre le territoire.",alts:["conquerir et elargir","conquérir et élargir","land and expand"]},
+{i:41,en:"Whitespace",fr:"Potentiel inexploité",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","strategy","expansion"],exp:"Untapped expansion opportunities within an existing account.",ex:"There's significant whitespace in their European subsidiaries.",ex2:"Whitespace mapping happens in every account planning session.",ipa:"/ˈwaɪt.speɪs/",tip:"« WAÏT-spéice ». Un seul mot.",syn:["expansion potential","untapped accounts"],err:"Whitespace ≠ pipeline : c'est du potentiel, pas du engagé.",mem:"L'espace blanc sur la carte du compte, à colorier.",alts:["potentiel inexploite","potentiel inexploité","whitespace"]},
+{i:42,en:"Account mapping",fr:"Cartographie du compte",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","stakeholders"],exp:"Identifying every relevant person inside a target account and their relationships.",ex:"Account mapping revealed three new buying centers we hadn't touched.",ex2:"A good account map shows roles, influence, and political dynamics.",ipa:"/əˈkaʊnt ˈmæp.ɪŋ/",tip:"« a-KAOUNT MAP-ing ».",syn:["org mapping","stakeholder mapping"],err:"Sans titres ET sans liens d'influence, ce n'est pas un account map utile.",mem:"Une carte du compte, comme une carte d'état-major.",alts:["cartographie du compte","account mapping"]},
+{i:43,en:"Decision maker",fr:"Décideur",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","stakeholders"],exp:"The person with formal authority to approve the purchase.",ex:"Who is the ultimate decision maker on this purchase?",ex2:"Enterprise deals typically have multiple decision makers.",ipa:"/dɪˈsɪʒ.ən ˈmeɪ.kər/",tip:"« di-SI-jeun MÉI-keur ». Stress sur SI.",syn:["DM","approver"],err:"Le « décideur déclaré » n'est pas toujours le vrai décideur.",mem:"Celui qui prend (make) la décision (decision).",alts:["decideur","décideur"]},
+{i:44,en:"Economic buyer",fr:"Acheteur économique",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","stakeholders","negotiation"],exp:"The person who controls the budget and can sign the check.",ex:"The CFO is the economic buyer — we need her aligned before pricing.",ex2:"Get to the economic buyer early, or the deal will stall at finance review.",ipa:"/iː.kəˈnɒm.ɪk ˈbaɪ.ər/",tip:"« i-keu-NO-mik BAÏ-eur ».",syn:["budget owner","check signer"],err:"L'économique n'est pas forcément l'utilisateur final.",mem:"Celui qui tient le porte-monnaie.",alts:["acheteur economique","acheteur économique","decideur budgetaire"]},
+{i:45,en:"MEDDIC",fr:"Méthode de qualification MEDDIC",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","methodology"],exp:"Sales qualification framework: Metrics, Economic buyer, Decision criteria, Decision process, Identify pain, Champion.",ex:"MEDDIC helps us decide which deals deserve our time.",ex2:"Run every late-stage opp through MEDDIC weekly.",ipa:"/ˈmed.ɪk/",tip:"« MÉ-dik ». Une seule syllabe forte.",syn:["MEDDICC","MEDDPICC"],err:"MEDDIC n'est pas un pitch, c'est un filtre de qualification.",mem:"Six lettres pour six points de qualification.",alts:["meddic","methode meddic","méthode meddic"]},
+{i:46,en:"BANT",fr:"BANT (Budget, Autorité, Besoin, Délai)",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","methodology"],exp:"Older qualification framework: Budget, Authority, Need, Timeline.",ex:"BANT is fast but often too shallow for complex enterprise deals.",ex2:"For SMB inbound, BANT is still a useful starting point.",ipa:"/bænt/",tip:"« bant », une syllabe. Le 'a' court comme « cat ».",syn:[],err:"BANT seul ne suffit pas pour les deals enterprise complexes.",mem:"B-A-N-T : 4 boîtes à cocher rapides.",alts:["bant","budget autorite besoin delai","budget autorité besoin délai"]},
+{i:47,en:"Business case",fr:"Dossier de justification",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","negotiation","metrics"],exp:"A written document quantifying ROI, costs, and risks of buying.",ex:"The business case must show both hard savings and revenue impact.",ex2:"Procurement won't approve anything without a signed business case.",ipa:"/ˈbɪz.nəs keɪs/",tip:"« BIZ-nes kéice ».",syn:["business justification","ROI deck"],err:"Un slide générique n'est pas un business case ; il faut des chiffres clients.",mem:"Le « dossier » qui justifie la dépense.",alts:["dossier de justification","business case","etude de rentabilite","étude de rentabilité"]},
+{i:48,en:"API",fr:"API (Interface de programmation)",type:"noun",lvl:"B1",cat:"Cloud",tags:["cloud","technical"],exp:"Application Programming Interface — how two software systems talk to each other.",ex:"Our API integrates with any modern CRM in under 30 minutes.",ex2:"Public APIs are a powerful land-and-expand wedge.",ipa:"/eɪ piː aɪ/",tip:"« EY-PI-AÏ ». Trois lettres.",syn:["interface"],err:"« An API » est correct ; « a API » est faux à l'oral.",mem:"A = Application, P = Programming, I = Interface.",alts:["api","interface de programmation"]},
+{i:49,en:"DevOps",fr:"DevOps",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud","technical"],exp:"A culture and set of practices combining Dev (build) and Ops (run).",ex:"Their DevOps maturity means we'll go live faster than the average customer.",ex2:"True DevOps requires automation, monitoring, and a blameless culture.",ipa:"/ˈdev.ɒps/",tip:"« DEV-ops ». Un seul mot.",syn:["DevSecOps"],err:"DevOps n'est pas un outil — c'est une culture + des pratiques.",mem:"Dev + Ops : on casse le mur entre les deux équipes.",alts:["devops"]},
+{i:50,en:"Kubernetes",fr:"Kubernetes",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud","technical"],exp:"Open-source platform to deploy, scale, and manage containers.",ex:"Their Kubernetes setup runs 12,000 pods across three regions.",ex2:"Kubernetes is the de facto standard for orchestrating containers.",ipa:"/ˌkuː.bərˈnet.iːz/",tip:"« kou-ber-NÉ-tiz ». Souvent abrégé en K8s : « K-eights ».",syn:["K8s"],err:"K8s = Kubernetes (le 8 remplace 'ubernete').",mem:"Pilote de conteneurs (κυβερνήτης en grec = pilote).",alts:["kubernetes","k8s"]},
+{i:51,en:"Serverless",fr:"Sans serveur",type:"adjective",lvl:"B2",cat:"Cloud",tags:["cloud","architecture"],exp:"Cloud model where you run code without managing servers.",ex:"Serverless functions cost almost nothing when idle.",ex2:"Pricing is per execution and per millisecond of compute used.",ipa:"/ˈsɜːr.vər.ləs/",tip:"« SEUR-veur-leuss ».",syn:["FaaS","Functions-as-a-Service"],err:"Les serveurs existent toujours — le client ne les gère juste pas.",mem:"Sans (less) serveur visible pour toi.",alts:["sans serveur","serverless"]},
+{i:52,en:"Microservices",fr:"Microservices",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud","architecture"],exp:"An architecture splitting an app into small, independent services.",ex:"Their microservices architecture makes third-party integrations far easier.",ex2:"Microservices increase deployment freedom but add operational complexity.",ipa:"/ˈmaɪ.kroʊˌsɜːr.vɪs.ɪz/",tip:"« MAÏ-cro-seur-vis-iz ».",syn:["service-oriented architecture"],err:"Microservices ≠ monolithe découpé en modules — chacun est déployable seul.",mem:"Micro = petit, autonome.",alts:["microservices","micro-services"]},
+{i:53,en:"Deployment",fr:"Déploiement",type:"noun",lvl:"B1",cat:"Cloud",tags:["cloud","implementation"],exp:"The act of releasing software or infrastructure into a target environment.",ex:"The production deployment is scheduled for next Monday night.",ex2:"Blue-green deployments reduce downtime to near zero.",ipa:"/dɪˈplɔɪ.mənt/",tip:"« di-PLOÏ-ment ». Stress sur PLOÏ.",syn:["release","rollout"],err:"Deployment ≠ release : tu peux déployer sans activer la feature.",mem:"On déploie comme un parachute : doucement et en sécurité.",alts:["deploiement","déploiement"]},
+{i:54,en:"LLM",fr:"Grand modèle de langage",type:"noun",lvl:"B2",cat:"AI",tags:["ai","technical"],exp:"Large Language Model — an AI model trained on massive text data.",ex:"The LLM powers their internal knowledge search.",ex2:"Choosing the right LLM balances quality, latency, and cost per token.",ipa:"/el el em/",tip:"« EL-EL-EM ». Trois lettres distinctes.",syn:["large language model"],err:"GPT, Claude, Gemini ne sont pas des concepts mais des LLMs spécifiques.",mem:"L = Large, L = Language, M = Model.",alts:["llm","grand modele de langage","grand modèle de langage"]},
+{i:55,en:"GenAI",fr:"IA générative",type:"noun",lvl:"B2",cat:"AI",tags:["ai"],exp:"Generative AI — AI that creates new content (text, image, code, audio).",ex:"GenAI is reshaping how marketing teams produce content at scale.",ex2:"Most GenAI deals start with a single high-impact use case.",ipa:"/dʒen eɪ aɪ/",tip:"« DJEN-EY-AÏ ». Souvent dit « djen-A-I ».",syn:["generative AI"],err:"GenAI ≠ AI traditionnel (classification/prédiction).",mem:"Gen comme « générer » du contenu original.",alts:["genai","ia generative","ia générative","generative ai"]},
+{i:56,en:"RAG",fr:"Génération augmentée par récupération",type:"noun",lvl:"B2",cat:"AI",tags:["ai","technical"],exp:"Retrieval-Augmented Generation — LLM grounded with your private data.",ex:"RAG lets the model answer using the customer's proprietary documents.",ex2:"RAG dramatically reduces hallucinations on company-specific questions.",ipa:"/ræɡ/",tip:"« rag », une syllabe. 'a' court.",syn:["retrieval augmented generation"],err:"RAG ≠ fine-tuning : RAG injecte du contexte, fine-tuning ré-entraîne.",mem:"R = Retrieval, A = Augmented, G = Generation.",alts:["rag","retrieval augmented generation","generation augmentee par recuperation","génération augmentée par récupération"]},
+{i:57,en:"Fine-tuning",fr:"Ajustement fin",type:"noun",lvl:"B2",cat:"AI",tags:["ai","technical"],exp:"Re-training a base model on domain-specific data.",ex:"Fine-tuning on their support tickets boosted accuracy by 31%.",ex2:"Start with prompting, then RAG, then fine-tuning only if needed.",ipa:"/faɪn ˈtjuː.nɪŋ/",tip:"« faïn TIOU-ning ».",syn:["model adaptation"],err:"Fine-tuning n'efface pas les biais du modèle de base.",mem:"Comme accorder (tune) un instrument déjà fabriqué.",alts:["ajustement fin","fine tuning","finetuning","fine-tuning"]},
+{i:58,en:"Inference",fr:"Inférence",type:"noun",lvl:"B2",cat:"AI",tags:["ai","technical"],exp:"Running a trained model to produce a prediction or output.",ex:"Inference costs scale with traffic, not with model size at training.",ex2:"Caching common inference calls reduces cost by 40%.",ipa:"/ˈɪn.fər.əns/",tip:"« IN-feur-ens ». Stress sur IN.",syn:["model serving","prediction"],err:"Inference ≠ training : training crée le modèle, inference l'utilise.",mem:"Le modèle infère une réponse en temps réel.",alts:["inference","inférence"]},
+{i:59,en:"Hallucination",fr:"Hallucination",type:"noun",lvl:"B2",cat:"AI",tags:["ai","risk"],exp:"When an AI confidently generates false or fabricated information.",ex:"We use guardrails to minimize hallucinations in production.",ex2:"Hallucinations are the number-one blocker for GenAI in regulated industries.",ipa:"/həˌluː.səˈneɪ.ʃən/",tip:"« heu-LOU-si-NÉ-shun ». 4 syllabes.",syn:["confabulation"],err:"Halluciner ≠ se tromper : le modèle invente avec assurance.",mem:"Comme rêver éveillé : le modèle voit des choses qui n'existent pas.",alts:["hallucination"]},
+{i:60,en:"Token",fr:"Token (jeton)",type:"noun",lvl:"B2",cat:"AI",tags:["ai","technical"],exp:"A unit of text (subword) processed by an LLM. Pricing is per token.",ex:"Pricing is based on the number of tokens processed per month.",ex2:"Long context windows let you process millions of tokens in one call.",ipa:"/ˈtoʊ.kən/",tip:"« TOH-keun ». 'o' long.",syn:["chunk"],err:"1 token ≠ 1 mot : ~4 caractères en anglais.",mem:"Un jeton de métro = une unité élémentaire de transit.",alts:["token","jeton"]},
+{i:61,en:"Prompt engineering",fr:"Ingénierie des prompts",type:"noun",lvl:"B2",cat:"AI",tags:["ai"],exp:"Crafting instructions to get the best outputs from a language model.",ex:"Good prompt engineering doubled the accuracy of our agent.",ex2:"System prompts, few-shot examples, and chain-of-thought are core techniques.",ipa:"/prɒmpt ˌen.dʒɪˈnɪər.ɪŋ/",tip:"« prompt en-dji-NIR-ing ».",syn:["prompt design"],err:"Un bon prompt > un meilleur modèle, sur de nombreux cas d'usage.",mem:"Engineering = on conçoit le prompt comme un produit.",alts:["ingenierie des prompts","ingénierie des prompts","prompt engineering"]},
+{i:62,en:"AI agent",fr:"Agent IA",type:"noun",lvl:"B2",cat:"AI",tags:["ai"],exp:"An autonomous AI system that plans actions and uses tools to reach a goal.",ex:"The AI agent autonomously handles tier-1 customer support tickets.",ex2:"Agentic workflows are the next big shift in enterprise AI.",ipa:"/eɪ aɪ ˈeɪ.dʒənt/",tip:"« EY-AÏ ÉI-djent ».",syn:["agentic AI","autonomous agent"],err:"Un chatbot scripté n'est pas un agent : il n'a ni outils ni plan.",mem:"Un agent qui agit, pas juste qui répond.",alts:["agent ia","agent ai","ai agent"]},
+{i:63,en:"Foundation model",fr:"Modèle de base",type:"noun",lvl:"B2",cat:"AI",tags:["ai","technical"],exp:"A large general-purpose model that you build other applications on top of.",ex:"Choosing the right foundation model balances cost, quality, and speed.",ex2:"GPT-4, Claude, and Llama 3 are common foundation models.",ipa:"/faʊnˈdeɪ.ʃən ˈmɒd.əl/",tip:"« faoun-DÉ-shun MO-deul ».",syn:["base model"],err:"Foundation model ≠ application : c'est le moteur, pas la voiture.",mem:"La fondation sur laquelle on construit ses applis.",alts:["modele de base","modèle de base","foundation model"]},
+{i:64,en:"Digital transformation",fr:"Transformation numérique",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","strategy","cloud"],exp:"Using digital tech to fundamentally change how a business operates.",ex:"Cloud adoption is at the core of their digital transformation roadmap.",ex2:"Digital transformation fails without strong executive sponsorship.",ipa:"/ˈdɪdʒ.ɪ.təl ˌtræns.fərˈmeɪ.ʃən/",tip:"« DI-dji-tal trans-feur-MÉ-shun ».",syn:["DX","digitalization"],err:"Acheter un outil SaaS ≠ transformation digitale.",mem:"Pas juste de l'IT : on transforme tout l'opérationnel.",alts:["transformation numerique","transformation numérique","transformation digitale"]},
+{i:65,en:"Vendor lock-in",fr:"Dépendance fournisseur",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","risk","negotiation"],exp:"When switching to another vendor is too costly or difficult.",ex:"Our open-standards approach prevents vendor lock-in.",ex2:"Procurement always asks about vendor lock-in during negotiation.",ipa:"/ˈven.dər lɒk ɪn/",tip:"« VEN-deur LOK-in ».",syn:["supplier lock-in"],err:"Tout SaaS crée un certain lock-in ; il faut le minimiser.",mem:"Tu te retrouves « verrouillé » chez le fournisseur.",alts:["dependance fournisseur","dépendance fournisseur","vendor lock-in"]},
+{i:66,en:"Proof of Value",fr:"Preuve de valeur",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","evaluation"],exp:"A trial focused on proving business value, not just technical fit.",ex:"The Proof of Value showed 200K in projected annual savings.",ex2:"PoV is replacing PoC in modern enterprise sales motions.",ipa:"/pruːf əv ˈvæl.juː/",tip:"« proof of VA-liou ».",syn:["PoV","value pilot"],err:"PoV = mesure de valeur business, pas une démo technique.",mem:"PROUVER la valeur, pas juste la faisabilité.",alts:["preuve de valeur","pov"]},
+{i:67,en:"Objection handling",fr:"Gestion des objections",type:"noun",lvl:"B2",cat:"Negotiation",tags:["sales","negotiation","meetings"],exp:"The skill of acknowledging and addressing buyer concerns.",ex:"Objection handling is one of the most critical skills for an AE.",ex2:"The best reps reframe objections as opportunities to deepen value.",ipa:"/əbˈdʒek.ʃən ˈhænd.lɪŋ/",tip:"« ob-DJEK-shun HAND-ling ».",syn:["dealing with objections"],err:"Ne contournez pas l'objection : reconnaissez-la d'abord.",mem:"Gérer (handle) plutôt que combattre les objections.",alts:["gestion des objections","traitement des objections"]},
+{i:68,en:"Negotiation",fr:"Négociation",type:"noun",lvl:"B1",cat:"Negotiation",tags:["sales","negotiation"],exp:"The discussion to reach agreement on price, terms, and scope.",ex:"Price negotiation should start only after value is fully established.",ex2:"Strong negotiators trade concessions, they don't give them away.",ipa:"/nɪˌɡoʊ.ʃiˈeɪ.ʃən/",tip:"« ni-go-shi-É-shun ». 5 syllabes.",syn:["bargaining","deal making"],err:"Verbe : « to negotiate » (pas « to negotiation »).",mem:"Discuter pour arriver à un accord.",alts:["negociation","négociation"]},
+{i:69,en:"Proposal",fr:"Proposition commerciale",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","negotiation"],exp:"A formal document presenting price, scope, and terms.",ex:"The proposal includes three pricing tiers tailored to their needs.",ex2:"Send the proposal in PDF, never as an editable document.",ipa:"/prəˈpoʊ.zəl/",tip:"« preu-POH-zeul ». Stress sur PO.",syn:["quote","offer"],err:"« Proposition » en anglais a un autre sens (souvent business value, pas devis).",mem:"Ce que tu PROPOSES officiellement au client.",alts:["proposition commerciale","proposition","propale","devis"]},
+{i:70,en:"MSA",fr:"Accord-cadre",type:"noun",lvl:"B2",cat:"Legal",tags:["legal","contracts"],exp:"Master Service Agreement — the umbrella contract for all future orders.",ex:"The MSA will govern every future purchase from this account.",ex2:"Once the MSA is signed, future deals only need a short SOW.",ipa:"/em es eɪ/",tip:"« EM-ES-EY ».",syn:["master service agreement","umbrella agreement"],err:"MSA seul ne génère pas de revenu — il faut un SOW ou Order Form.",mem:"M = Master (le contrat-parapluie).",alts:["msa","accord-cadre","accord cadre","master service agreement"]},
+{i:71,en:"SOW",fr:"Cahier des charges",type:"noun",lvl:"B2",cat:"Legal",tags:["legal","contracts","implementation"],exp:"Statement of Work — what exactly will be delivered, when, and for how much.",ex:"The SOW details the implementation scope and project timeline.",ex2:"Every SOW must reference the parent MSA.",ipa:"/es oʊ ˈdʌb.əl.juː/",tip:"« ES-OH-DOUBL-IOU » ou simplement « so ».",syn:["statement of work","scope of work"],err:"Scope flou = SOW flou = projet qui dérape.",mem:"S = Statement, O = Of, W = Work.",alts:["sow","cahier des charges","statement of work"]},
+{i:72,en:"NDA",fr:"Accord de non-divulgation",type:"noun",lvl:"B1",cat:"Legal",tags:["legal","contracts"],exp:"Non-Disclosure Agreement — keeps shared information confidential.",ex:"Sign the NDA before sharing any roadmap details.",ex2:"Mutual NDAs protect both parties, not just one.",ipa:"/en diː eɪ/",tip:"« EN-DI-EY ».",syn:["confidentiality agreement"],err:"Signer un NDA ≠ être engagé contractuellement à acheter.",mem:"N = Non, D = Disclosure, A = Agreement.",alts:["nda","accord de non-divulgation","accord de confidentialite","accord de confidentialité"]},
+{i:73,en:"Compliance",fr:"Conformité",type:"noun",lvl:"B2",cat:"Legal",tags:["legal","cloud","risk"],exp:"Adhering to laws, regulations, and standards (GDPR, SOC2, ISO 27001).",ex:"GDPR compliance is a blocking requirement for every European customer.",ex2:"Compliance reviews can add 6 to 12 weeks to enterprise sales cycles.",ipa:"/kəmˈplaɪ.əns/",tip:"« keum-PLAÏ-ens ». Stress sur PLAÏ.",syn:["regulatory adherence"],err:"Compliance ≠ security : la conformité prouve la sécurité par documentation.",mem:"On se conforme aux règles externes.",alts:["conformite","conformité","compliance"]},
+{i:74,en:"Data sovereignty",fr:"Souveraineté des données",type:"noun",lvl:"B2",cat:"Legal",tags:["legal","cloud","compliance"],exp:"The principle that data is subject to the laws of the country it sits in.",ex:"Data sovereignty laws prevent storing personal data outside the EU.",ex2:"Choosing an EU region is now table stakes for French public sector deals.",ipa:"/ˈdeɪ.tə ˈsɒv.rən.ti/",tip:"« DÉI-ta SO-vreun-ti ».",syn:["data residency"],err:"Data residency (où ça vit) ≠ sovereignty (quelles lois s'appliquent).",mem:"La donnée appartient au territoire où elle réside.",alts:["souverainete des donnees","souveraineté des données"]},
+{i:75,en:"Go-live",fr:"Mise en production",type:"noun",lvl:"B2",cat:"Customer Success",tags:["customer-success","implementation"],exp:"The moment the product is live and used by end users in production.",ex:"Go-live is confirmed for the 1st of next month.",ex2:"Plan a post-go-live hypercare window for 30 days.",ipa:"/ɡoʊ laɪv/",tip:"« GO-laïv ». 'live' rime avec 'five'.",syn:["launch","cutover"],err:"« Live » prononcé /lɪv/ = verbe ; ici on dit /laɪv/.",mem:"On passe en LIVE, en direct.",alts:["mise en production","go live","go-live","mise en prod"]},
+{i:76,en:"NPS",fr:"Score de recommandation net",type:"noun",lvl:"B2",cat:"Metrics",tags:["metrics","customer-success"],exp:"Net Promoter Score — likelihood that customers would recommend you (-100 to +100).",ex:"NPS is strongly correlated with renewal and expansion.",ex2:"A B2B SaaS NPS above 40 is considered excellent.",ipa:"/en piː es/",tip:"« EN-PI-ES ».",syn:["net promoter score"],err:"NPS = promoteurs - détracteurs ; les passifs ne comptent pas.",mem:"N = Net, P = Promoter, S = Score.",alts:["nps","net promoter score","score de recommandation net"]},
+{i:77,en:"Use case",fr:"Cas d'usage",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","discovery"],exp:"A specific business problem your product solves.",ex:"Their primary use case is automating invoice approvals.",ex2:"Anchoring a demo around one strong use case beats showing every feature.",ipa:"/juːs keɪs/",tip:"« YOUSS kéice ». 'use' (nom) avec 's' sourd, pas /juːz/.",syn:["scenario","workflow"],err:"Use case ≠ feature : un use case résout un problème métier.",mem:"Un usage concret du produit.",alts:["cas d'usage","cas d usage"]},
+{i:78,en:"Pain point",fr:"Point de douleur",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","discovery"],exp:"A specific, urgent business problem the buyer wants to fix.",ex:"Cost control is their most pressing pain point right now.",ex2:"No pain, no deal — surface and quantify the pain in discovery.",ipa:"/peɪn pɔɪnt/",tip:"« péïne poïnt ».",syn:["pain","challenge","problem"],err:"« Pain » signifie « douleur » ici ; rien à voir avec le pain à manger.",mem:"Le point où ça fait mal au client.",alts:["point de douleur","probleme cle","problème clé","pain point"]},
+{i:79,en:"Value proposition",fr:"Proposition de valeur",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","strategy"],exp:"A clear statement of why a customer should choose you.",ex:"Our value proposition centers on speed, security, and measurable savings.",ex2:"A weak value prop = a forecast that constantly slips.",ipa:"/ˈvæl.juː ˌprɒp.əˈzɪʃ.ən/",tip:"« VA-liou pro-peu-ZI-shun ».",syn:["value prop","unique selling proposition"],err:"Une fonctionnalité n'est pas une proposition de valeur.",mem:"La valeur que tu proposes, en une phrase.",alts:["proposition de valeur","valeur ajoutee","valeur ajoutée"]},
+{i:80,en:"Pipeline coverage",fr:"Couverture de pipeline",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","metrics","forecasting"],exp:"How many times your pipeline exceeds your quota.",ex:"We need 3x pipeline coverage to confidently hit our number.",ex2:"Below 2.5x coverage, the quarter is already at risk.",ipa:"/ˈpaɪp.laɪn ˈkʌv.ər.ɪdʒ/",tip:"« PAÏP-laïn KE-ver-idj ».",syn:["coverage ratio"],err:"3x coverage avec un mauvais pipeline = faux sentiment de sécurité.",mem:"Combien de fois ton pipe couvre ton quota.",alts:["couverture du pipeline","couverture de pipeline"]},
+{i:81,en:"Close plan",fr:"Plan de closing",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","negotiation"],exp:"A mutual document listing all remaining steps to sign by a target date.",ex:"A mutual close plan aligns both sides on remaining steps.",ex2:"No close plan = the deal will slip — guaranteed.",ipa:"/kloʊz plæn/",tip:"« kloze plan ». 'close' (verbe) avec 'z' sourd.",syn:["mutual action plan","MAP"],err:"« Close » prononcé /kloʊs/ = adjectif (proche), pas la même chose.",mem:"Le plan pour fermer (close) le deal proprement.",alts:["plan de closing","plan de cloture","plan de clôture"]},
+{i:82,en:"Cold outreach",fr:"Prospection à froid",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","prospecting"],exp:"Reaching out to prospects with no prior relationship.",ex:"Cold outreach on LinkedIn generated 15 qualified discovery calls.",ex2:"Personalized cold outreach beats high-volume blasts every time.",ipa:"/koʊld ˈaʊt.riːtʃ/",tip:"« kould AOUT-ritch ».",syn:["cold prospecting","cold email"],err:"« Cold call » est spécifiquement par téléphone ; outreach inclut email + social.",mem:"Sans relation préalable = à froid.",alts:["prospection a froid","prospection à froid","cold outreach"]},
+{i:83,en:"Warm introduction",fr:"Introduction chaleureuse",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","prospecting"],exp:"Being introduced to a prospect by someone they already trust.",ex:"A warm intro doubled our response rate compared to cold outreach.",ex2:"Ask happy customers for warm introductions to their peers.",ipa:"/wɔːrm ˌɪn.trəˈdʌk.ʃən/",tip:"« worm in-treu-DEK-shun ».",syn:["warm intro","referral"],err:"« Warm intro » est plus naturel à l'oral que « warm introduction ».",mem:"Le tiers fait le pont, l'ambiance est chaude.",alts:["introduction chaleureuse","warm intro","mise en relation"]},
+{i:84,en:"Managed services",fr:"Services managés",type:"noun",lvl:"B2",cat:"Cloud",tags:["cloud"],exp:"Services where the provider operates the infrastructure on your behalf.",ex:"Managed services free the client from day-to-day operations.",ex2:"Managed services typically come with premium SLAs.",ipa:"/ˈmæn.ɪdʒd ˈsɜːr.vɪs.ɪz/",tip:"« MA-nidjd SEUR-vis-iz ». Le 'ed' final est sourd.",syn:["managed offering"],err:"Managed ≠ self-managed : le client ne gère plus rien d'opérationnel.",mem:"On te gère ça pour toi.",alts:["services manages","services managés","services geres","services gérés"]},
+{i:85,en:"Consumption-based pricing",fr:"Tarification à l'usage",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","pricing"],exp:"Pricing model where you pay for what you actually use.",ex:"Consumption-based pricing lowers the barrier to entry for new customers.",ex2:"Snowflake popularized consumption pricing in the data space.",ipa:"/kənˈsʌmp.ʃən beɪst ˈpraɪs.ɪŋ/",tip:"« keun-SAMP-shun beïst PRAÏ-sing ».",syn:["usage-based pricing","pay-as-you-go"],err:"Consumption ≠ flat subscription : la facture peut varier chaque mois.",mem:"Tu paies ce que tu CONSOMMES.",alts:["tarification a l'usage","tarification à l'usage","pay as you go","consumption based pricing"]},
+{i:86,en:"Customer success",fr:"Succès client",type:"noun",lvl:"B1",cat:"Customer Success",tags:["customer-success"],exp:"Ensuring customers reach their desired business outcomes with your product.",ex:"Customer success is about outcomes, not just satisfaction.",ex2:"CS teams own renewal, adoption, and expansion in most modern SaaS companies.",ipa:"/ˈkʌs.tə.mər səkˈses/",tip:"« KAS-teu-meur seuk-SES ».",syn:["CS"],err:"CS ≠ support : le support résout des tickets ; CS pilote la valeur.",mem:"Ton succès = mon succès.",alts:["succes client","succès client","customer success","cs"]},
+{i:87,en:"To touch base",fr:"Reprendre contact",type:"expression",lvl:"B2",cat:"Meetings",tags:["meetings","sales","stakeholders"],exp:"To briefly reconnect with someone to check in.",ex:"I'll touch base with you next week to align before the QBR.",ex2:"Let's touch base on Monday to review the action items.",ipa:"/tʌtʃ beɪs/",tip:"« tetch béice ». 't' léger, 'a' court.",syn:["check in","circle back","sync up"],err:"Pas « touch the base » : l'expression est sans article.",mem:"Toucher la base (baseball) = revenir au point de départ.",alts:["reprendre contact","faire un point","prendre des nouvelles"]},
+{i:88,en:"Follow-up",fr:"Relance / Suivi",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","meetings","prospecting"],exp:"A message or meeting after an initial conversation to keep things moving.",ex:"I'll send a follow-up email by end of day with the recap and next steps.",ex2:"Most deals are won in the follow-up, not in the first meeting.",ipa:"/ˈfɒl.oʊ ʌp/",tip:"« FO-loh ap ». Stress sur FO.",syn:["next step","recap"],err:"Verbe : « to follow up » (deux mots) ; nom : « follow-up » (avec tiret).",mem:"Tu suis (follow) après (up) la première interaction.",alts:["relance","suivi","follow-up","follow up"]},
+{i:89,en:"Roadmap",fr:"Feuille de route",type:"noun",lvl:"B1",cat:"Sales",tags:["sales","product","strategy"],exp:"A high-level plan of upcoming features and milestones.",ex:"Sharing the product roadmap built trust with the technical buyer.",ex2:"Never commit roadmap dates to a customer without product sign-off.",ipa:"/ˈroʊd.mæp/",tip:"« ROUD-map ». Un seul mot, accent sur ROUD.",syn:["product plan","timeline"],err:"Un roadmap = direction, pas une promesse contractuelle.",mem:"La carte de la route à venir.",alts:["feuille de route","roadmap"]},
+{i:90,en:"Customer journey",fr:"Parcours client",type:"noun",lvl:"B2",cat:"Customer Success",tags:["customer-success","marketing"],exp:"The full sequence of stages a customer goes through with your brand.",ex:"We mapped the customer journey from first touch to expansion.",ex2:"Every churn signal sits somewhere in the customer journey.",ipa:"/ˈkʌs.tə.mər ˈdʒɜːr.ni/",tip:"« KAS-teu-meur DJEUR-ni ».",syn:["buyer journey","lifecycle"],err:"Customer journey ≠ sales funnel : le journey couvre post-vente aussi.",mem:"Le voyage complet de ton client.",alts:["parcours client","customer journey"]},
+{i:91,en:"Business outcomes",fr:"Résultats business",type:"noun",lvl:"B2",cat:"Customer Success",tags:["customer-success","sales","strategy"],exp:"Measurable results that matter to the customer's business.",ex:"Every meeting must tie back to the customer's business outcomes.",ex2:"Activity is vanity — business outcomes are sanity.",ipa:"/ˈbɪz.nəs ˈaʊt.kʌmz/",tip:"« BIZ-nes AOUT-kams ».",syn:["business results","KPIs"],err:"Logins, MAUs, et features sont des outputs — pas des outcomes.",mem:"Le résultat (outcome) côté business, pas côté produit.",alts:["resultats business","résultats business","business outcomes","resultats metiers"]},
+{i:92,en:"AI-powered",fr:"Propulsé par l'IA",type:"adjective",lvl:"B1",cat:"AI",tags:["ai","marketing"],exp:"A product that uses AI as a core component of its features.",ex:"Their AI-powered assistant cuts support resolution time in half.",ex2:"Buyers are skeptical of « AI-powered » without proof — show the outcome.",ipa:"/eɪ aɪ ˈpaʊ.ərd/",tip:"« EY-AÏ PAOU-eurd ».",syn:["AI-driven","AI-enabled"],err:"« AI-powered » est devenu vague : précisez quel modèle, quelle valeur.",mem:"Le moteur (power) du produit est de l'IA.",alts:["propulse par l'ia","propulsé par l'ia","alimente par ia","alimenté par ia","ai-powered"]},
+{i:93,en:"Scalable",fr:"Évolutif / Scalable",type:"adjective",lvl:"B1",cat:"Cloud",tags:["cloud","architecture","sales"],exp:"Able to grow to handle more demand without breaking.",ex:"Our solution is scalable from 10 to 100,000 users without re-architecting.",ex2:"« Scalable » without proof is a red flag in technical reviews.",ipa:"/ˈskeɪ.lə.bəl/",tip:"« SKÉI-leu-beul ». Stress sur SKEÏ.",syn:["elastic","extensible"],err:"« Scalable » est un adjectif ; « scalability » est le nom associé.",mem:"Capable de monter l'échelle (scale).",alts:["scalable","evolutif","évolutif","passable a l'echelle"]},
+{i:94,en:"Retention",fr:"Rétention",type:"noun",lvl:"B1",cat:"Metrics",tags:["metrics","customer-success"],exp:"Keeping customers or users instead of losing them.",ex:"Retention is the single biggest driver of long-term SaaS growth.",ex2:"Gross retention removes upsell; net retention includes it.",ipa:"/rɪˈten.ʃən/",tip:"« ri-TEN-shun ». Stress sur TEN.",syn:["customer retention"],err:"Retention ≠ engagement : on peut être engagé mais churner.",mem:"Garder (retain) les clients.",alts:["retention","rétention"]},
+{i:95,en:"Stakeholder buy-in",fr:"Adhésion des parties prenantes",type:"noun",lvl:"B2",cat:"Sales",tags:["sales","stakeholders","negotiation"],exp:"Active support and approval from all key people for a project.",ex:"Without stakeholder buy-in, the rollout will stall in week two.",ex2:"Securing buy-in from finance and IT is the toughest part of enterprise sales.",ipa:"/ˈsteɪkˌhoʊl.dər baɪ ɪn/",tip:"« STÉIK-hold-eur BAÏ-in ».",syn:["alignment","executive support"],err:"Un email d'accord ≠ vrai buy-in ; il faut un engagement actif.",mem:"Acheter (buy) l'adhésion des parties prenantes.",alts:["adhesion des parties prenantes","adhésion des parties prenantes","stakeholder buy-in","adhesion"]},
+{i:96,en:"To close a deal",fr:"Conclure un deal",type:"verb",lvl:"B1",cat:"Sales",tags:["sales","negotiation"],exp:"To finalize and sign a sales agreement.",ex:"We closed the deal last Friday after a three-month cycle.",ex2:"You close deals by helping customers buy, not by pushing harder.",ipa:"/kloʊz ə diːl/",tip:"« kloze a dil ». 'close' (verbe) avec /z/ final, pas /s/.",syn:["sign a contract","win a deal"],err:"« Close » /kloʊs/ (adj) = proche ; « close » /kloʊz/ (verbe) = fermer.",mem:"On ferme (close) la boucle commerciale.",alts:["conclure un deal","signer un contrat","fermer un deal","closer un deal"]},
+{i:97,en:"To reach out",fr:"Prendre contact",type:"phrasal verb",lvl:"B1",cat:"Sales",tags:["sales","prospecting","meetings"],exp:"To proactively contact someone, especially by email or message.",ex:"I'll reach out to the CFO this week to set up an intro call.",ex2:"Reach out to me if you have any questions before the demo.",ipa:"/riːtʃ aʊt/",tip:"« RITCH-aout ». Liaison fluide.",syn:["contact","get in touch"],err:"Au passé : « I reached out », pas « I reach-outed ».",mem:"Tendre la main (reach) vers quelqu'un.",alts:["prendre contact","contacter","faire signe","reach out"]},
+{i:98,en:"To loop in",fr:"Inclure (en copie)",type:"phrasal verb",lvl:"B2",cat:"Meetings",tags:["meetings","stakeholders"],exp:"To include someone in a conversation or email thread.",ex:"Let me loop in our CS team so they can take it from here.",ex2:"Always loop in Legal before sending a redlined contract back.",ipa:"/luːp ɪn/",tip:"« LOUP-in ». 'oo' long comme « food ».",syn:["include","CC"],err:"« Loop in » prend un complément (someone) : « loop me in ».",mem:"Ajouter quelqu'un dans la boucle de discussion.",alts:["inclure","mettre en copie","ajouter en copie","loop in","boucler"]},
+{i:99,en:"To circle back",fr:"Revenir vers (quelqu'un)",type:"phrasal verb",lvl:"B2",cat:"Meetings",tags:["meetings","sales","stakeholders"],exp:"To return to a topic or person later with an update or answer.",ex:"Let me circle back with the answer once I've checked with Product.",ex2:"I'll circle back on pricing after the procurement review.",ipa:"/ˈsɜːr.kəl bæk/",tip:"« SEUR-keul bak ».",syn:["follow up","get back to you"],err:"Souvent surutilisé en réunion — préférez « I'll get back to you » par écrit.",mem:"Faire un cercle et revenir.",alts:["revenir vers","faire un retour","recontacter","circle back"]},
+{i:100,en:"Deal slipping",fr:"Deal qui glisse",type:"expression",lvl:"B2",cat:"Sales",tags:["sales","forecasting","meetings"],exp:"When a deal expected to close in the current period moves to the next.",ex:"Three deals are slipping to next quarter — we need a recovery plan.",ex2:"Deals slip when there's no close plan or no executive sponsor.",ipa:"/diːl ˈslɪp.ɪŋ/",tip:"« dil SLIP-ing ».",syn:["slipped deal","deal pushed"],err:"« Slipping » ≠ perdu : le deal n'est pas mort, il est en retard.",mem:"Le deal glisse hors du trimestre.",alts:["deal qui glisse","deal repousse","deal repoussé","slip","glissement de deal"]}
+];
+
+const CATEGORIES = ["All","Sales","Customer Success","Cloud","AI","Metrics","Legal","Negotiation","Meetings"];
+const LEVELS = ["All","A2","B1","B2"];
+const MODES = [
+  {id:"flash",label:"Flashcards",icon:"🎴"},
+  {id:"en2fr",label:"EN → FR",icon:"⇢"},
+  {id:"fr2en",label:"FR → EN",icon:"⇠"},
+  {id:"listen",label:"Listening",icon:"🎧"},
+  {id:"timed",label:"Timed",icon:"⏱"}
+];
+
+/* ============================================================
+   STATE + PERSISTENCE
+   ============================================================ */
+const LS_KEY = "bep_state_v1";
+const defaultState = () => ({
+  xp:0, level:1, streak:0, lastDay:null,
+  totals:{correct:0,wrong:0,sessions:0},
+  // spaced repetition: per term { box:1..5, due:timestamp, wrong:0, right:0 }
+  srs:{},
+  weak:{},
+  theme:"dark",
+  prefs:{mode:"flash",cat:"All",lvl:"All",rate:0.95}
+});
+let S = loadState();
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    return Object.assign(defaultState(), parsed);
+  }catch(e){ return defaultState(); }
+}
+function saveState(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(S)); }catch(e){} }
+
+/* Daily streak update */
+(function tickStreak(){
+  const today = new Date().toISOString().slice(0,10);
+  if(S.lastDay !== today){
+    if(S.lastDay){
+      const a = new Date(S.lastDay), b = new Date(today);
+      const diff = Math.round((b-a)/86400000);
+      if(diff === 1) S.streak += 1;
+      else if(diff > 1) S.streak = 1;
+    } else S.streak = 1;
+    S.lastDay = today;
+    saveState();
+  }
+})();
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function $(sel,root=document){return root.querySelector(sel)}
+function $$(sel,root=document){return [...root.querySelectorAll(sel)]}
+function normalize(s){
+  return (s||"").toString().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[''`´]/g,"'")
+    .replace(/[—–]/g,"-")
+    .replace(/[.,!?;:]/g,"")
+    .replace(/\s+/g," ").trim();
+}
+function shuffle(arr){
+  const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function highlight(text, term){
+  if(!text || !term) return text;
+  try{
+    const escaped = term.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    return text.replace(new RegExp(`(${escaped})`,"gi"), "<b>$1</b>");
+  }catch(e){ return text; }
+}
+function levelFromXp(xp){ return 1 + Math.floor(Math.sqrt(xp/40)); }
+function nextLevelXp(lvl){ return Math.pow(lvl,2)*40; }
+
+/* ===== Audio (Web Speech API) ===== */
+let voices = [];
+function loadVoices(){
+  voices = (window.speechSynthesis ? window.speechSynthesis.getVoices() : []).filter(v=>/^en/i.test(v.lang));
+}
+if("speechSynthesis" in window){
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+function pickVoice(){
+  if(!voices.length) return null;
+  return voices.find(v=>/en[-_]US/i.test(v.lang) && /Google|Microsoft|Samantha|Alex|Aria|Natural/i.test(v.name))
+      || voices.find(v=>/en[-_]US/i.test(v.lang))
+      || voices.find(v=>/en[-_]GB/i.test(v.lang))
+      || voices[0];
+}
+function speak(text, rate=null, btn=null){
+  if(!("speechSynthesis" in window)){ toast("Audio non supporté par ce navigateur","ko"); return; }
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  const v = pickVoice();
+  if(v){ utt.voice = v; utt.lang = v.lang; } else { utt.lang = "en-US"; }
+  utt.rate = rate || S.prefs.rate || 0.95;
+  utt.pitch = 1;
+  if(btn){ btn.classList.add("speaking"); utt.onend = utt.onerror = ()=>btn.classList.remove("speaking"); }
+  window.speechSynthesis.speak(utt);
+}
+
+/* ===== Toast ===== */
+let toastTimer;
+function toast(msg, kind=""){
+  const t = $("#toast"); t.textContent = msg; t.className = "toast show " + kind;
+  clearTimeout(toastTimer); toastTimer = setTimeout(()=>{ t.className = "toast " + kind; }, 2200);
+}
+
+/* ===== XP / scoring ===== */
+function addXp(n, term){
+  S.xp += n;
+  const nl = levelFromXp(S.xp);
+  if(nl > S.level){ S.level = nl; toast(`🎉 Level up! You are now level ${nl}`,"xp"); }
+  saveState();
+  refreshHud();
+}
+function refreshHud(){
+  $("#hud-xp").textContent = S.xp;
+  $("#hud-lvl").textContent = S.level;
+  $("#hud-streak").textContent = S.streak;
+}
+
+/* ===== SRS (Leitner 5 boxes) ===== */
+const BOX_INTERVALS_H = [0, 4, 24, 72, 168, 336]; // 1->4h, 2->1d, 3->3d, 4->7d, 5->14d
+function srsRecord(id, ok){
+  const now = Date.now();
+  const r = S.srs[id] || {box:1,due:now,wrong:0,right:0};
+  if(ok){ r.right++; r.box = Math.min(5, r.box+1); }
+  else { r.wrong++; r.box = 1; S.weak[id] = (S.weak[id]||0)+1; }
+  r.due = now + BOX_INTERVALS_H[r.box]*3600*1000;
+  S.srs[id] = r;
+  saveState();
+}
+
+/* ============================================================
+   GAME ENGINE
+   ============================================================ */
+const G = {
+  mode:"flash", cat:"All", lvl:"All",
+  deck:[], i:0, status:"idle", session:{correct:0,wrong:0},
+  flipped:false, timer:null, timeLeft:0, timeMax:30, lastAnswer:""
+};
+
+function buildDeck(){
+  let d = VOCAB.slice();
+  if(G.cat !== "All") d = d.filter(v=>v.cat === G.cat);
+  if(G.lvl !== "All") d = d.filter(v=>v.lvl === G.lvl);
+  // SRS priority: items due first, then newest
+  d.sort((a,b)=>{
+    const ra = S.srs[a.i]?.due ?? 0, rb = S.srs[b.i]?.due ?? 0;
+    return ra - rb;
+  });
+  d = shuffle(d).slice(0, 20); // session of 20
+  G.deck = d; G.i = 0; G.status = "idle"; G.session = {correct:0,wrong:0}; G.flipped = false;
+  S.prefs.mode = G.mode; S.prefs.cat = G.cat; S.prefs.lvl = G.lvl; saveState();
+  render();
+}
+
+function render(){
+  if(!G.deck.length){
+    $("#main").innerHTML = `
+      <div class="welcome">
+        <h1>Master <span>Business English</span> for SaaS, Cloud & AI.</h1>
+        <p>100 termes natifs, audio, 5 modes de jeu, répétition espacée, et export Anki. Conçu pour les francophones visant un poste CSM, AE ou Sales en SaaS/AI/Cloud.</p>
+        <div class="actions">
+          <button class="btn primary" onclick="startSession()">Commencer · 20 cartes</button>
+          <button class="btn" onclick="openExport()">Exporter Anki / CSV / JSON</button>
+        </div>
+      </div>`;
+    return;
+  }
+  renderTabs();
+  renderFilters();
+  renderProgress();
+  renderStage();
+  refreshHud();
+}
+
+function renderTabs(){
+  const html = MODES.map(m=>`<button class="mode-btn ${m.id===G.mode?'active':''}" data-mode="${m.id}">${m.icon} ${m.label}</button>`).join("");
+  let bar = $("#mode-bar");
+  if(!bar){
+    bar = document.createElement("div"); bar.id = "mode-bar"; bar.className = "modes";
+    $("#main").innerHTML = "";
+    $("#main").appendChild(bar);
+  }
+  bar.innerHTML = html;
+  bar.onclick = e => {
+    const b = e.target.closest("[data-mode]"); if(!b) return;
+    G.mode = b.dataset.mode; buildDeck();
+  };
+}
+
+function renderFilters(){
+  let row = $("#filters-row");
+  if(!row){
+    row = document.createElement("div"); row.id = "filters-row"; row.className = "filters";
+    $("#main").appendChild(row);
+  }
+  row.innerHTML = `
+    <span class="filter-label">Theme</span>
+    <div class="filter-group">${CATEGORIES.map(c=>`<button class="f-btn ${c===G.cat?'active':''}" data-cat="${c}">${c}</button>`).join("")}</div>
+    <span class="filter-label" style="margin-left:8px">Level</span>
+    <div class="filter-group">${LEVELS.map(l=>`<button class="f-btn ${l===G.lvl?'active':''}" data-lvl="${l}">${l}</button>`).join("")}</div>`;
+  row.onclick = e => {
+    const c = e.target.closest("[data-cat]"); const l = e.target.closest("[data-lvl]");
+    if(c){ G.cat = c.dataset.cat; buildDeck(); }
+    if(l){ G.lvl = l.dataset.lvl; buildDeck(); }
+  };
+}
+
+function renderProgress(){
+  let p = $("#progress"); 
+  if(!p){
+    p = document.createElement("div"); p.id="progress"; p.className="progress"; p.innerHTML='<div></div>';
+    $("#main").appendChild(p);
+  }
+  const pct = G.deck.length ? Math.round(G.i / G.deck.length * 100) : 0;
+  p.querySelector("div").style.width = pct + "%";
+}
+
+function renderStage(){
+  let stage = $("#stage");
+  if(!stage){
+    stage = document.createElement("div"); stage.id="stage"; stage.className="stage";
+    $("#main").appendChild(stage);
+  }
+  if(G.i >= G.deck.length){ renderComplete(stage); return; }
+  const card = G.deck[G.i];
+  switch(G.mode){
+    case "flash": renderFlash(stage, card); break;
+    case "en2fr": renderTyping(stage, card, "en2fr"); break;
+    case "fr2en": renderTyping(stage, card, "fr2en"); break;
+    case "listen": renderListening(stage, card); break;
+    case "timed": renderTimed(stage, card); break;
+  }
+}
+
+function cardHeader(card){
+  return `
+    <div class="head">
+      <div class="tagrow">
+        <span class="tag">${card.cat}</span>
+        <span class="tag lvl-${card.lvl}">${card.lvl}</span>
+        <span class="tag type">${card.type}</span>
+      </div>
+      <span class="cardnum">${G.i+1} / ${G.deck.length}</span>
+    </div>`;
+}
+function audioBtns(text){
+  return `
+    <div class="audio-row">
+      <button class="audio-btn" onclick="speak(${JSON.stringify(text)},0.95,this)" title="Normal">🔊 Normal</button>
+      <button class="audio-btn slow" onclick="speak(${JSON.stringify(text)},0.6,this)" title="Slow">🐢 Slow</button>
+    </div>`;
+}
+function metaPanels(card){
+  return `
+    <div class="meta">
+      <div class="box tip">
+        <div class="lab">Pronunciation tip (FR)</div>
+        <div class="v">${card.tip}</div>
+      </div>
+      <div class="box err">
+        <div class="lab">Common mistake</div>
+        <div class="v">${card.err}</div>
+      </div>
+      <div class="box mem">
+        <div class="lab">Memory tip</div>
+        <div class="v">${card.mem}</div>
+      </div>
+      ${card.syn.length?`<div class="box">
+        <div class="lab">Synonyms</div>
+        <div class="v">${card.syn.join(", ")}</div>
+      </div>`:""}
+    </div>`;
+}
+
+/* ----- FLASH MODE ----- */
+function renderFlash(stage, card){
+  const back = `
+    <div class="head"><div class="tagrow"><span class="tag">${card.cat}</span></div><span class="cardnum">${G.i+1}/${G.deck.length}</span></div>
+    <div class="fr-prompt" style="margin-top:14px">${card.fr}</div>
+    <div class="example" style="margin-top:18px">${highlight(card.ex, card.en)}</div>
+    <div class="example" style="margin-top:8px">${highlight(card.ex2, card.en)}</div>
+    ${metaPanels(card)}`;
+  stage.innerHTML = `
+    <div class="flip ${G.flipped?'flipped':''}" id="flip" onclick="flipCard(event)">
+      <div class="flip-inner">
+        <div class="card flip-face">
+          <span class="hint-flip">click / space</span>
+          ${cardHeader(card)}
+          <div class="term-row"><span class="term">${card.en}</span></div>
+          <div class="ipa">${card.ipa}</div>
+          <div style="margin-top:14px">${audioBtns(card.en)}</div>
+          <div class="example" style="margin-top:18px">"${highlight(card.ex, card.en)}"</div>
+          <p class="hint">Cliquez ou appuyez sur <span class="kbd">Space</span> pour révéler · <span class="kbd">←</span>/<span class="kbd">→</span></p>
+        </div>
+        <div class="card flip-back">${back}</div>
+      </div>
+    </div>
+    ${G.flipped ? `
+    <div class="card" style="padding:14px">
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button class="btn" onclick="answerFlash(false)">😕 Hard (1 again)</button>
+        <button class="btn primary" onclick="answerFlash(true)">😊 Got it (+10 XP)</button>
+      </div>
+    </div>` : ""}`;
+}
+function flipCard(e){
+  if(e && e.target.closest(".audio-btn")) return;
+  G.flipped = !G.flipped;
+  render();
+}
+function answerFlash(ok){
+  const card = G.deck[G.i];
+  srsRecord(card.i, ok);
+  if(ok){ G.session.correct++; addXp(10, card.en); }
+  else  { G.session.wrong++; addXp(2, card.en); }
+  G.flipped = false; nextCard();
+}
+
+/* ----- TYPING MODES ----- */
+function renderTyping(stage, card, dir){
+  const fromEn = dir === "en2fr";
+  const prompt = fromEn ? card.en : card.fr;
+  const ipa = fromEn ? card.ipa : "";
+  const example = fromEn ? card.ex : card.ex2.replace(new RegExp(card.en, "gi"), "_____");
+  const placeholder = fromEn ? "Traduction française…" : "English translation…";
+  let inputClass = "tinput";
+  if(G.status === "ok") inputClass += " ok";
+  if(G.status === "ko") inputClass += " ko";
+  const showFeedback = G.status !== "idle";
+  let fb = "";
+  if(G.status === "ok"){
+    const target = fromEn ? card.fr : card.en;
+    fb = `<div class="feedback ok"><span class="ico">✓</span><div><span class="lab">Correct!</span><strong>${target}</strong> · +15 XP</div></div>`;
+  } else if(G.status === "ko" || G.status === "rev"){
+    const target = fromEn ? card.fr : card.en;
+    const yours = G.lastAnswer ? `<br><span style="opacity:.7">Votre réponse : « ${G.lastAnswer} »</span>` : "";
+    fb = `<div class="feedback ko"><span class="ico">✗</span><div><span class="lab">${G.status==="rev"?"Réponse révélée":"Réponse incorrecte"}</span><strong>${target}</strong>${yours}</div></div>`;
+  }
+  stage.innerHTML = `
+    <div class="card ${G.status==='ok'?'ok':''}${G.status==='ko'||G.status==='rev'?'ko':''}">
+      ${cardHeader(card)}
+      <div class="term-row">
+        <span class="${fromEn?'term':'fr-prompt'}">${prompt}</span>
+      </div>
+      ${ipa?`<div class="ipa">${ipa}</div>`:""}
+      <div style="margin-top:14px">${audioBtns(fromEn?card.en:card.en)}</div>
+      <div class="example">"${highlight(example, fromEn?card.en:"_____")}"</div>
+      <div class="input-row">
+        <input id="ans" class="${inputClass}" placeholder="${placeholder}" autocomplete="off" autocorrect="off" spellcheck="false" ${G.status!=="idle"?"disabled":""}>
+        ${G.status==="idle"
+          ? `<button class="btn ghost" onclick="revealTyping()">Reveal</button><button class="btn primary" onclick="checkTyping('${dir}')">Check ⏎</button>`
+          : `<button class="btn primary" onclick="nextCard()">${G.i>=G.deck.length-1?'Result':'Next →'}</button>`}
+      </div>
+      ${fb}
+      ${G.status!=="idle"?metaPanels(card):""}
+      <p class="hint"><span class="kbd">Enter</span> valider · <span class="kbd">Tab</span> reveal · <span class="kbd">→</span> suivant</p>
+    </div>`;
+  if(G.status === "idle"){
+    const inp = $("#ans"); if(inp){ inp.focus(); inp.addEventListener("keydown", e=>{
+      if(e.key==="Enter"){e.preventDefault(); checkTyping(dir);}
+      if(e.key==="Tab"){e.preventDefault(); revealTyping();}
+    });}
+  }
+}
+function checkTyping(dir){
+  const inp = $("#ans"); if(!inp) return;
+  const userVal = normalize(inp.value); if(!userVal) return;
+  G.lastAnswer = inp.value;
+  const card = G.deck[G.i];
+  let valid = [];
+  if(dir === "en2fr"){
+    valid = [card.fr, ...(card.alts||[])].map(normalize);
+  } else {
+    valid = [card.en, ...(card.alts||[]).filter(a=>/[a-z]/i.test(a) && !/[éèêàâîôùûç]/i.test(a))].map(normalize);
+    // Also accept lowercased English plain form
+    valid.push(normalize(card.en));
+  }
+  const ok = valid.includes(userVal);
+  G.status = ok ? "ok" : "ko";
+  if(ok){ G.session.correct++; addXp(15, card.en); srsRecord(card.i, true); }
+  else  { G.session.wrong++; addXp(2, card.en); srsRecord(card.i, false); }
+  render();
+}
+function revealTyping(){
+  G.status = "rev"; const card = G.deck[G.i];
+  G.session.wrong++; srsRecord(card.i, false); addXp(1, card.en);
+  render();
+}
+
+/* ----- LISTENING MODE ----- */
+function renderListening(stage, card){
+  let inputClass = "tinput";
+  if(G.status === "ok") inputClass += " ok";
+  if(G.status === "ko") inputClass += " ko";
+  let fb = "";
+  if(G.status !== "idle"){
+    fb = G.status === "ok"
+      ? `<div class="feedback ok"><span class="ico">✓</span><div><span class="lab">Correct!</span><strong>${card.en}</strong> · ${card.ipa}</div></div>`
+      : `<div class="feedback ko"><span class="ico">✗</span><div><span class="lab">${G.status==='rev'?'Révélé':'Incorrect'}</span><strong>${card.en}</strong> · ${card.ipa}<br><span style="opacity:.7">Votre réponse : « ${G.lastAnswer||''} »</span></div></div>`;
+  }
+  stage.innerHTML = `
+    <div class="card ${G.status==='ok'?'ok':''}${G.status==='ko'||G.status==='rev'?'ko':''}">
+      ${cardHeader(card)}
+      <div style="text-align:center;padding:30px 0">
+        <div style="font-size:64px;line-height:1">🎧</div>
+        <p style="color:var(--muted);font-size:13px;margin-top:6px">Listen and type what you hear</p>
+        <div style="display:inline-flex;gap:8px;margin-top:14px">
+          <button class="btn primary" onclick="speak(${JSON.stringify(card.en)},0.95,this)">▶ Normal</button>
+          <button class="btn" onclick="speak(${JSON.stringify(card.en)},0.55,this)">🐢 Slow</button>
+        </div>
+      </div>
+      <div class="input-row">
+        <input id="ans" class="${inputClass}" placeholder="Type the English term…" autocomplete="off" autocorrect="off" spellcheck="false" ${G.status!=="idle"?"disabled":""}>
+        ${G.status==="idle"
+          ? `<button class="btn ghost" onclick="revealListen()">Reveal</button><button class="btn primary" onclick="checkListen()">Check ⏎</button>`
+          : `<button class="btn primary" onclick="nextCard()">${G.i>=G.deck.length-1?'Result':'Next →'}</button>`}
+      </div>
+      ${fb}
+      ${G.status!=="idle"?`<div class="example">"${highlight(card.ex, card.en)}"</div>${metaPanels(card)}`:""}
+    </div>`;
+  if(G.status==="idle"){
+    const inp = $("#ans"); if(inp){
+      inp.focus();
+      inp.addEventListener("keydown", e=>{ if(e.key==="Enter"){e.preventDefault(); checkListen();} });
+      // auto-play once
+      setTimeout(()=>speak(card.en,0.95), 250);
+    }
+  }
+}
+function checkListen(){
+  const inp = $("#ans"); if(!inp) return;
+  const userVal = normalize(inp.value); if(!userVal) return;
+  G.lastAnswer = inp.value;
+  const card = G.deck[G.i];
+  const ok = normalize(card.en) === userVal;
+  G.status = ok ? "ok" : "ko";
+  if(ok){ G.session.correct++; addXp(15, card.en); srsRecord(card.i, true); }
+  else  { G.session.wrong++; addXp(2, card.en); srsRecord(card.i, false); }
+  render();
+}
+function revealListen(){ G.status = "rev"; G.session.wrong++; srsRecord(G.deck[G.i].i, false); render(); }
+
+/* ----- TIMED MODE ----- */
+function renderTimed(stage, card){
+  if(G.status === "idle" && !G.timer){
+    G.timeLeft = G.timeMax;
+    G.timer = setInterval(()=>{
+      G.timeLeft -= 0.1;
+      const bar = $("#timebar"); if(bar) bar.style.width = (G.timeLeft/G.timeMax*100) + "%";
+      const t = $("#timeval"); if(t){
+        t.textContent = G.timeLeft.toFixed(1)+"s";
+        t.className = "timer" + (G.timeLeft<10?" warn":"") + (G.timeLeft<5?" crit":"");
+      }
+      if(G.timeLeft <= 0){ stopTimer(); G.status = "ko"; G.session.wrong++; srsRecord(card.i,false); render(); }
+    }, 100);
+  }
+  renderTyping(stage, card, "en2fr");
+  // inject timer
+  const head = stage.querySelector(".head");
+  if(head){
+    const div = document.createElement("div");
+    div.innerHTML = `<span class="timer" id="timeval">${G.timeMax.toFixed(1)}s</span>
+      <div class="timer-bar"><div id="timebar" style="width:100%"></div></div>`;
+    head.appendChild(div);
+  }
+}
+function stopTimer(){ if(G.timer){ clearInterval(G.timer); G.timer = null; } }
+
+/* ----- COMPLETE ----- */
+function renderComplete(stage){
+  const total = G.session.correct + G.session.wrong;
+  const pct = total ? Math.round(G.session.correct/total*100) : 0;
+  const cls = pct>=80?'score-green':pct>=60?'score-amber':'score-red';
+  S.totals.correct += G.session.correct;
+  S.totals.wrong += G.session.wrong;
+  S.totals.sessions++;
+  saveState();
+  stage.innerHTML = `
+    <div class="complete">
+      <p style="color:var(--muted);font-size:13px">Session complete · ${total} cartes</p>
+      <div class="big">${pct}%</div>
+      <h2>${pct>=80?'🎯 Excellent':pct>=60?'📈 Bon progrès':'💪 On continue'}</h2>
+      <p>✓ ${G.session.correct} correct · ✗ ${G.session.wrong} wrong · +${G.session.correct*15+G.session.wrong*2} XP gagné</p>
+      <div class="actions">
+        <button class="btn primary" onclick="buildDeck()">Nouvelle session</button>
+        <button class="btn" onclick="openStats()">Voir mes stats</button>
+        <button class="btn" onclick="openExport()">Exporter</button>
+      </div>
+    </div>`;
+}
+
+function nextCard(){ stopTimer(); G.i++; G.status="idle"; G.flipped=false; G.lastAnswer=""; render(); }
+function prevCard(){ stopTimer(); if(G.i>0){G.i--; G.status="idle"; G.flipped=false; render();} }
+
+function startSession(){ buildDeck(); }
+
+/* ============================================================
+   KEYBOARD SHORTCUTS
+   ============================================================ */
+document.addEventListener("keydown", e=>{
+  if(e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+  if(e.key === " "){ e.preventDefault();
+    if(G.mode === "flash") flipCard();
+    else if(G.status !== "idle") nextCard();
+  }
+  if(e.key === "ArrowRight"){ if(G.status !== "idle") nextCard(); }
+  if(e.key === "ArrowLeft"){ prevCard(); }
+  if(e.key === "p" || e.key === "P"){ const c = G.deck[G.i]; if(c) speak(c.en); }
+  if(e.key === "s" || e.key === "S"){ openStats(); }
+  if(e.key === "e" || e.key === "E"){ openExport(); }
+  if(e.key === "Escape"){ closeModal(); }
+});
+
+/* ============================================================
+   STATS / EXPORTS MODAL
+   ============================================================ */
+function openModal(html){
+  $("#modal").innerHTML = html;
+  $("#modal-bg").classList.add("open");
+}
+function closeModal(){ $("#modal-bg").classList.remove("open"); }
+$("#modal-bg").addEventListener("click", e=>{ if(e.target.id==="modal-bg") closeModal(); });
+
+function openStats(){
+  const weakSorted = Object.entries(S.weak).sort((a,b)=>b[1]-a[1]).slice(0,15);
+  const items = weakSorted.map(([id,n])=>{
+    const v = VOCAB.find(x=>x.i==id); if(!v) return "";
+    return `<div class="witem"><div><span class="b">${v.en}</span> · <span style="color:var(--muted)">${v.fr}</span></div><span class="s">×${n}</span></div>`;
+  }).join("") || `<div style="color:var(--muted);font-size:13px">Aucune erreur encore — bravo !</div>`;
+  const total = S.totals.correct + S.totals.wrong;
+  const acc = total ? Math.round(S.totals.correct/total*100) : 0;
+  const known = Object.values(S.srs).filter(r=>r.box>=4).length;
+  openModal(`
+    <button class="close" onclick="closeModal()" aria-label="Fermer">×</button>
+    <h3>📊 Your stats</h3>
+    <div class="kgrid">
+      <div class="kpi"><div class="v">${S.xp}</div><div class="l">XP total</div></div>
+      <div class="kpi"><div class="v">${S.level}</div><div class="l">Level</div></div>
+      <div class="kpi"><div class="v">${S.streak}🔥</div><div class="l">Streak (days)</div></div>
+      <div class="kpi"><div class="v">${acc}%</div><div class="l">Accuracy</div></div>
+      <div class="kpi"><div class="v">${known}/100</div><div class="l">Mastered (box ≥4)</div></div>
+      <div class="kpi"><div class="v">${S.totals.sessions}</div><div class="l">Sessions</div></div>
+    </div>
+    <h3 style="margin-top:18px">🎯 Weak words</h3>
+    <div class="wlist">${items}</div>
+    <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn" onclick="if(confirm('Réinitialiser toutes les statistiques ?')){localStorage.removeItem('${LS_KEY}');location.reload()}">Reset</button>
+    </div>
+  `);
+}
+
+/* ===== Export builders ===== */
+function buildJSON(){ return JSON.stringify(VOCAB, null, 2); }
+function csvEscape(s){ s = (s==null?"":String(s)).replace(/"/g,'""'); return /[",\n]/.test(s) ? `"${s}"` : s; }
+function buildCSV(){
+  const cols = ["English","French","Category","Level","Type","Tags","Explanation","Example1","Example2","IPA","PronunciationTip","Synonyms","Mistakes","MemoryTip"];
+  const rows = VOCAB.map(v=>[v.en,v.fr,v.cat,v.lvl,v.type,(v.tags||[]).join("|"),v.exp,v.ex,v.ex2,v.ipa,v.tip,(v.syn||[]).join(", "),v.err,v.mem].map(csvEscape).join(","));
+  return cols.join(",") + "\n" + rows.join("\n");
+}
+function highlightAnki(text, term){
+  if(!text || !term) return text || "";
+  try{
+    const esc = term.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    return text.replace(new RegExp(`(${esc})`,"gi"),'<b class="hl">$1</b>');
+  }catch(e){ return text; }
+}
+function buildAnkiTSV(){
+  // Rich HTML matching the web app. Style lives in card template (Styling tab).
+  const rows = VOCAB.map(v=>{
+    const front =
+      `<div class="bep">`+
+        `<div class="tagrow">`+
+          `<span class="tag">${v.cat}</span>`+
+          `<span class="tag lvl-${v.lvl}">${v.lvl}</span>`+
+          `<span class="tag type">${v.type}</span>`+
+        `</div>`+
+        `<div class="term">${v.en}</div>`+
+        `<div class="ipa">${v.ipa}</div>`+
+        `<div class="example">"${highlightAnki(v.ex, v.en)}"</div>`+
+      `</div>`;
+    const back =
+      `<div class="bep back">`+
+        `<div class="fr">${v.fr}</div>`+
+        `<div class="def"><b>Definition.</b> ${v.exp}</div>`+
+        `<div class="example">"${highlightAnki(v.ex, v.en)}"</div>`+
+        `<div class="example example-2">"${highlightAnki(v.ex2, v.en)}"</div>`+
+        `<div class="meta">`+
+          `<div class="box tip"><div class="lab">🗣️ Pronunciation (FR)</div><div class="v">${v.tip}</div></div>`+
+          `<div class="box err"><div class="lab">⚠️ Common mistake</div><div class="v">${v.err}</div></div>`+
+          `<div class="box mem"><div class="lab">🧠 Memory tip</div><div class="v">${v.mem}</div></div>`+
+          (v.syn.length?`<div class="box syn"><div class="lab">🔁 Synonyms</div><div class="v">${v.syn.join(", ")}</div></div>`:"")+
+        `</div>`+
+      `</div>`;
+    const tags = (v.tags||[]).map(t=>t.replace(/\s+/g,"_")).join(" ") + " level_" + v.lvl + " cat_" + v.cat.toLowerCase().replace(/\s+/g,"_");
+    // single-line cells: strip newlines/tabs from HTML
+    const oneLine = s => s.replace(/[\r\n\t]+/g," ");
+    return [oneLine(front), oneLine(back), tags].join("\t");
+  });
+  return "#separator:tab\n#html:true\n#tags column:3\n#notetype:Basic\n#deck:Business English Pro\n" + rows.join("\n");
+}
+
+const ANKI_CSS = `/* ===== Business English Pro · Anki Card Styling ===== */
+.card{
+  font-family:-apple-system,"Inter","Segoe UI",Roboto,system-ui,sans-serif;
+  background:#0a0a0c; color:#f4f4f5;
+  padding:28px 22px; text-align:left; line-height:1.55;
+  font-size:16px;
+}
+.bep{max-width:680px;margin:0 auto}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tag{
+  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+  padding:3px 9px;border-radius:6px;background:#1d1d24;border:1px solid #26262f;
+  color:#a1a1aa;text-transform:uppercase
+}
+.tag.lvl-A2{color:#86efac;border-color:rgba(134,239,172,.35)}
+.tag.lvl-B1{color:#7dd3fc;border-color:rgba(125,211,252,.35)}
+.tag.lvl-B2{color:#fbbf24;border-color:rgba(251,191,36,.35)}
+.tag.type{color:#c4b5fd;border-color:rgba(124,92,255,.35)}
+.term{
+  font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1.1;
+  background:linear-gradient(135deg,#7c5cff 0%,#5b8cff 60%,#22d3ee 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin:6px 0 10px;
+}
+.ipa{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color:#a1a1aa;font-size:15px;margin-bottom:16px
+}
+.fr{
+  font-size:30px;font-weight:600;color:#c4b5fd;
+  margin:6px 0 16px;letter-spacing:-.01em;line-height:1.2
+}
+.def{font-size:14px;color:#a1a1aa;margin-bottom:12px}
+.def b{color:#f4f4f5;font-weight:600}
+.example{
+  font-size:14px;font-style:italic;color:#d4d4d8;
+  padding:12px 14px;background:#16161b;border-left:3px solid #7c5cff;
+  border-radius:8px;margin:8px 0;line-height:1.55
+}
+.example-2{border-left-color:#26262f;color:#a1a1aa}
+.example .hl, .hl{
+  color:#fff;font-style:normal;font-weight:600;
+  background:rgba(124,92,255,.22);padding:0 4px;border-radius:3px
+}
+.meta{display:grid;gap:8px;margin-top:16px}
+.box{
+  padding:11px 13px;background:#16161b;border:1px solid #26262f;
+  border-radius:10px;font-size:13.5px;line-height:1.5
+}
+.box .lab{
+  font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:#71717a;margin-bottom:5px;font-weight:700
+}
+.box .v{color:#e4e4e7}
+.box.tip{border-color:rgba(34,197,94,.3)}
+.box.tip .lab{color:#86efac}
+.box.err{border-color:rgba(239,68,68,.3)}
+.box.err .lab{color:#fca5a5}
+.box.mem{border-color:rgba(245,158,11,.3)}
+.box.mem .lab{color:#fbbf24}
+.box.syn{border-color:rgba(124,92,255,.3)}
+.box.syn .lab{color:#c4b5fd}
+hr#answer{border:none;border-top:1px solid #26262f;margin:22px 0}
+/* Light/Day mode: keep dark cards (premium look) */
+.card.nightMode, .card.night_mode{background:#0a0a0c;color:#f4f4f5}
+/* Mobile (AnkiDroid / AnkiMobile) */
+@media (max-width:520px){
+  .card{padding:22px 16px;font-size:15px}
+  .term{font-size:34px}
+  .fr{font-size:24px}
+}`;
+
+const ANKI_FRONT_TMPL = `{{Front}}`;
+const ANKI_BACK_TMPL = `{{FrontSide}}\n<hr id="answer">\n{{Back}}`;
+
+function copyToClipboard(text, label){
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(()=>toast(`✓ ${label} copié`,"ok"));
+  } else {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); toast(`✓ ${label} copié`,"ok"); }catch(e){ toast("Copie échouée","ko"); }
+    ta.remove();
+  }
+}
+
+function openAnkiTemplate(){
+  openModal(`
+    <button class="close" onclick="closeModal()" aria-label="Fermer">×</button>
+    <h3>🎨 Style Anki — interface premium</h3>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:14px">Pour reproduire l'interface de l'app dans Anki, copiez ce CSS dans <b>Cartes → Styling</b> de votre type de note <b>Basic</b>.</p>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <button class="btn primary" onclick="copyToClipboard(ANKI_CSS,'CSS')">📋 Copier le CSS Anki</button>
+      <button class="btn" onclick="copyToClipboard(ANKI_FRONT_TMPL,'Template Recto')">📋 Copier le template <b>Recto</b></button>
+      <button class="btn" onclick="copyToClipboard(ANKI_BACK_TMPL,'Template Verso')">📋 Copier le template <b>Verso</b></button>
+    </div>
+    <details open style="margin-top:6px">
+      <summary style="cursor:pointer;color:var(--muted);font-size:13px;font-weight:600">📖 Procédure complète (5 min)</summary>
+      <ol style="font-size:12.5px;color:var(--muted);line-height:1.7;margin:10px 0 0 18px">
+        <li>Anki Desktop → onglet <b>Parcourir</b> → cliquez une carte du deck.</li>
+        <li>Bouton <b>Cartes…</b> (en haut) — éditeur du modèle s'ouvre.</li>
+        <li>Onglet <b>Styling</b> → effacez tout → <b>Collez le CSS</b>.</li>
+        <li>Onglet <b>Front Template</b> → effacez → collez <code>{{Front}}</code>.</li>
+        <li>Onglet <b>Back Template</b> → effacez → collez <code>{{FrontSide}}&lt;hr id="answer"&gt;{{Back}}</code>.</li>
+        <li>Cliquez <b>Save</b>. Toutes les cartes adoptent le nouveau style.</li>
+        <li><b>Synchronisez</b> → les mobiles AnkiDroid / AnkiMobile reçoivent le style aussi.</li>
+      </ol>
+    </details>
+    <details style="margin-top:12px">
+      <summary style="cursor:pointer;color:var(--muted);font-size:13px;font-weight:600">🔄 Mettre à jour les cartes existantes</summary>
+      <ol style="font-size:12.5px;color:var(--muted);line-height:1.7;margin:10px 0 0 18px">
+        <li>Téléchargez la nouvelle version du <b>.tsv</b> (bouton 🃏 ci-dessous dans Export).</li>
+        <li>Anki → <b>Fichier → Importer</b> → sélectionnez le fichier.</li>
+        <li>Option <b>Notes existantes</b> → <b>Mettre à jour</b>.</li>
+        <li>Importer → 100 notes mises à jour avec le nouveau HTML.</li>
+      </ol>
+    </details>
+  `);
+}
+function buildMarkdown(){
+  let md = "# Business English Pro · 100 Terms\n\n*For French native speakers targeting CSM / AE / SaaS / Cloud / AI roles.*\n\n";
+  for(const v of VOCAB){
+    md += `## ${v.i}. ${v.en} — *${v.fr}*\n\n`;
+    md += `**Category:** ${v.cat} · **Level:** ${v.lvl} · **Type:** ${v.type} · **Tags:** ${(v.tags||[]).join(", ")}\n\n`;
+    md += `**IPA:** \`${v.ipa}\`\n\n`;
+    md += `**Definition.** ${v.exp}\n\n`;
+    md += `> ${v.ex}\n>\n> ${v.ex2}\n\n`;
+    md += `- 🗣️ **Pronunciation (FR):** ${v.tip}\n`;
+    md += `- ⚠️ **Common mistake:** ${v.err}\n`;
+    md += `- 🧠 **Memory tip:** ${v.mem}\n`;
+    if(v.syn.length) md += `- 🔁 **Synonyms:** ${v.syn.join(", ")}\n`;
+    md += "\n---\n\n";
+  }
+  return md;
+}
+function download(name, content, type="text/plain;charset=utf-8"){
+  const blob = new Blob([content], {type});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 200);
+}
+
+function openExport(){
+  openModal(`
+    <button class="close" onclick="closeModal()" aria-label="Fermer">×</button>
+    <h3>⬇ Export your deck</h3>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:14px">Exportez les 100 termes au format de votre choix. Pour Anki : ouvrez Anki → Fichier → Importer → choisissez le .tsv.</p>
+    <div style="display:grid;gap:8px">
+      <button class="btn primary" onclick="download('business-english-anki.tsv', buildAnkiTSV(),'text/tab-separated-values;charset=utf-8')">🃏 Anki TSV (recommandé)</button>
+      <button class="btn" onclick="openAnkiTemplate()" style="border-color:rgba(124,92,255,.4);color:#c4b5fd">🎨 Style Anki premium (CSS + template)</button>
+      <button class="btn" onclick="download('business-english.csv', buildCSV(),'text/csv;charset=utf-8')">📊 CSV (Excel / Google Sheets)</button>
+      <button class="btn" onclick="download('business-english.json', buildJSON(),'application/json')">{ } JSON</button>
+      <button class="btn" onclick="download('business-english.md', buildMarkdown(),'text/markdown')">📝 Markdown (dictionnaire)</button>
+    </div>
+    <details style="margin-top:14px">
+      <summary style="cursor:pointer;color:var(--muted);font-size:13px">📖 Instructions Anki</summary>
+      <div style="font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:10px">
+        1. Ouvrez Anki → <b>Fichier → Importer</b><br>
+        2. Sélectionnez <code>business-english-anki.tsv</code><br>
+        3. Type: <b>Basic</b> · Field 1 → Front · Field 2 → Back · Field 3 → Tags<br>
+        4. Cochez « Allow HTML in fields »<br>
+        5. Importer ✓
+      </div>
+    </details>
+  `);
+}
+
+/* ===== Theme toggle ===== */
+function applyTheme(){ document.documentElement.dataset.theme = S.theme; }
+applyTheme();
+$("#btn-theme").onclick = ()=>{ S.theme = S.theme === "dark" ? "light" : "dark"; saveState(); applyTheme(); };
+$("#btn-stats").onclick = openStats;
+$("#btn-export").onclick = openExport;
+
+/* ===== INIT ===== */
+G.mode = S.prefs.mode || "flash";
+G.cat = S.prefs.cat || "All";
+G.lvl = S.prefs.lvl || "All";
+buildDeck();
+refreshHud();
+</script>
+</body>
+</html>
