@@ -211,7 +211,7 @@ Cible avant entretien : **80%+ d'accuracy en Timed B2**.
 
 Toutes les phrases d'exemple ont été rédigées pour sonner **natif**, comme dans de vraies réunions B2B :
 
-- ✅ Anglais SaaS moderne (« crush quota », « land and expand », « slip to next quarter »)
+- ✅ Anglais SaaS moderne (« crush quota », « land and expand », « slip into next quarter »)
 - ✅ Pas de buzzwords démodés (« synergy », « blue-sky thinking »)
 - ✅ Traductions FR validées pour le contexte business français
 - ✅ Erreurs courantes des francophones ciblées (« forecast » mal prononcé, confusion `close /kloʊz/` vs `/kloʊs/`)
