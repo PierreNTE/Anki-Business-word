@@ -3,30 +3,58 @@
 > **100 termes Business English pour francophones visant un poste**
 > **Customer Success Manager · Account Executive · SaaS Sales · AI / Cloud Sales**
 
-Application web premium, gamifiée, prête à l'emploi — un seul fichier `index.html`.
-Audio natif (Web Speech API), 5 modes de jeu, répétition espacée, et export Anki en un clic.
+Application web premium, gamifiée, prête à l'emploi — publiée sur GitHub Pages et installable sur mobile.
+Audio natif (Web Speech API), choix d'accent US/UK, 5 modes de jeu, répétition espacée, et export Anki en un clic.
 
 ---
 
 ## 🚀 Démarrage rapide
 
-```
+Version en ligne : [https://pierrente.github.io/Anki-Business-word/](https://pierrente.github.io/Anki-Business-word/)
+
+Sur téléphone, ouvrez ce lien dans Chrome ou Safari, puis ajoutez l'app à l'écran d'accueil.
+
+```bash
 # 1. Double-cliquez sur index.html (Chrome / Edge / Safari recommandés)
 # OU servez-le localement pour de meilleures voix audio :
-npx serve .
+python -m http.server 4173
+# puis ouvrez http://127.0.0.1:4173/
 ```
 
 C'est tout. Aucune installation, aucune dépendance, aucun backend.
-Toute la progression (XP, niveau, série, répétition espacée, mots faibles) est sauvegardée dans `localStorage`.
+Toute la progression (XP, niveau, série, répétition espacée, mots faibles) est sauvegardée dans `localStorage`, appareil par appareil.
+
+---
+
+## 📱 Installation mobile / PWA
+
+L'app inclut un `manifest.webmanifest`, un service worker et des icônes pour être installée comme une application.
+
+### Android
+
+1. Ouvrir [https://pierrente.github.io/Anki-Business-word/](https://pierrente.github.io/Anki-Business-word/) dans Chrome.
+2. Menu `⋮` → **Ajouter à l'écran d'accueil**.
+3. Lancer l'app depuis l'icône **English Pro**.
+
+### iPhone / iPad
+
+1. Ouvrir l'URL dans Safari.
+2. Bouton **Partager** → **Sur l'écran d'accueil**.
+3. Lancer l'app depuis l'icône.
+
+Si une ancienne version reste affichée, fermez l'app complètement puis rouvrez-la. Le service worker met le cache à jour automatiquement après publication.
 
 ---
 
 ## 📦 Contenu
 
 | Fichier | Description |
-|---|---|
+| --- | --- |
 | `index.html` | App premium gamifiée — 100 termes, 5 modes, exports intégrés |
-| `vocabulary.json` | Dataset canonique (100 entrées × 13 champs) |
+| `vocabulary.json` | Dataset canonique (100 entrées × 16 champs) |
+| `manifest.webmanifest` | Métadonnées PWA pour installation mobile |
+| `sw.js` | Service worker : cache offline + mise à jour PWA |
+| `icon-192.png` / `icon-512.png` | Icônes mobile / PWA |
 | `README.md` | Ce fichier |
 | `cloud_ai_vocab_game.html` | Version originale minimaliste (conservée pour référence) |
 
@@ -34,10 +62,10 @@ Toute la progression (XP, niveau, série, répétition espacée, mots faibles) e
 
 ## 🎓 Le dataset (100 termes)
 
-Chaque entrée contient **13 champs** rigoureusement vérifiés :
+Chaque entrée contient **16 champs** rigoureusement vérifiés :
 
 | Champ | Description | Exemple |
-|---|---|---|
+| --- | --- | --- |
 | `en` | English term | `Churn` |
 | `fr` | Traduction française naturelle | `Attrition / Résiliation` |
 | `type` | noun · verb · expression · adjective · phrasal verb | `noun` |
@@ -69,11 +97,11 @@ Chaque entrée contient **13 champs** rigoureusement vérifiés :
 ## 🎮 Modes de jeu
 
 | Mode | Description | XP gagné |
-|---|---|---|
-| 🎴 **Flashcards** | Flip carte EN → FR avec exemples enrichis | +10 |
+| --- | --- | --- |
+| 🎴 **Flashcards** | Recto anglais → bouton **Voir la réponse** → verso traduction + auto-évaluation | +10 |
 | ⇢ **EN → FR** | Tape la traduction française du terme anglais | +15 |
 | ⇠ **FR → EN** | Tape le terme anglais (B2 → fluency) | +15 |
-| 🎧 **Listening** | Écoute (Normal / Slow) et tape ce que tu entends | +15 |
+| 🎧 **Listening** | Écoute US/UK (Normal / Slow), choisis une voix anglaise, puis tape ce que tu entends | +15 |
 | ⏱ **Timed** | 30 s par carte — pression réelle de l'entretien | +15 |
 
 Filtres : **Catégorie** + **Niveau CEFR**. Sessions de 20 cartes priorisées par la répétition espacée (Leitner 5 boîtes).
@@ -93,13 +121,24 @@ Filtres : **Catégorie** + **Niveau CEFR**. Sessions de 20 cartes priorisées pa
 - **Répétition espacée** (Leitner : 4 h → 1 j → 3 j → 7 j → 14 j)
 - **Tableau « weak words »** (les 15 termes les plus ratés)
 - **Stats dashboard** (Accuracy, Mastered count, Sessions)
-- **Sound effects** via Web Speech API (Slow mode pour francophones)
+- **Audio Web Speech API** avec choix **US / UK**, menu de voix anglaises disponibles et bouton **Tester la voix**
+
+### Audio et accents
+
+Le mode Listening utilise les voix disponibles dans le navigateur ou le système.
+
+- Choix rapide : **US** ou **UK**.
+- Menu **Voix** : sélection manuelle d'une voix anglaise précise (`Google US English`, `Microsoft Aria`, `Samantha`, `Google UK English`, etc.).
+- Bouton **Tester la voix** pour comparer rapidement les options.
+- Les voix non anglaises sont ignorées pour éviter une prononciation trop française.
+
+Si aucune voix anglaise n'apparaît, installez une voix **English US** ou **English UK** dans les paramètres système, ou testez dans Chrome / Edge.
 
 ### Raccourcis clavier
 
 | Touche | Action |
-|---|---|
-| `Space` | Retourner / passer à la suivante |
+| --- | --- |
+| `Space` | Révéler la flashcard / passer à la suivante selon le mode |
 | `Enter` | Valider la réponse |
 | `Tab` | Révéler la bonne réponse |
 | `←` / `→` | Carte précédente / suivante |
@@ -120,16 +159,30 @@ Filtres : **Catégorie** + **Niveau CEFR**. Sessions de 20 cartes priorisées pa
 6. Importer ✓
 
 Le deck Anki produit inclut :
+
 - **Recto** : terme, IPA, catégorie, niveau, type
 - **Verso** : traduction FR, définition EN, deux exemples, tip prononciation, erreur typique, mnémo, synonymes
 - **Tags** : `level_B2`, `cat_sales`, `customer-success`, etc.
+
+### Style premium dans Anki
+
+L'app fournit aussi un bouton **🎨 Style Anki premium (CSS + template)** dans le panneau d'export.
+
+Procédure :
+
+1. Dans Anki Desktop → **Parcourir** → cliquez une carte du deck.
+2. Bouton **Cartes…** → onglet **Styling**.
+3. Dans l'app web → **⬇** → **🎨 Style Anki premium** → **Copier le CSS Anki**.
+4. Collez le CSS dans **Styling**.
+5. Utilisez `{{Front}}` pour le recto et `{{FrontSide}}<hr id="answer">{{Back}}` pour le verso.
+6. Synchronisez Anki : le style suit sur mobile.
 
 ---
 
 ## 📤 Autres exports
 
 | Format | Usage |
-|---|---|
+| --- | --- |
 | **CSV** | Excel · Google Sheets · Notion · Quizlet |
 | **JSON** | Réutilisation programmatique, autres apps |
 | **Markdown** | Dictionnaire imprimable, Obsidian, blog perso |
@@ -142,7 +195,7 @@ Tous générés côté client — aucune donnée n'est envoyée à un serveur.
 ## 🎯 Plan d'apprentissage suggéré (30 jours)
 
 | Phase | Durée | Objectif |
-|---|---|---|
+| --- | --- | --- |
 | 1. **Découverte** | J1 → J3 | Flashcards uniquement · toutes catégories · niveau A2/B1 |
 | 2. **Production** | J4 → J10 | EN → FR · catégorie ciblée par jour (Sales / CS / Cloud / AI) |
 | 3. **Inversion** | J11 → J18 | FR → EN · révèle les vrais trous |
@@ -176,10 +229,11 @@ Toutes les phrases d'exemple ont été rédigées pour sonner **natif**, comme d
 ## 🛠 Stack technique
 
 | Couche | Choix |
-|---|---|
+| --- | --- |
 | Front | HTML5 + CSS3 (variables, grid) + JavaScript (vanilla, zéro dépendance) |
-| Audio | Web Speech API (`speechSynthesis`) — voix natives du système |
+| Audio | Web Speech API (`speechSynthesis`) — accent US/UK + sélection de voix anglaise |
 | Persistance | `localStorage` (Leitner SRS + XP + stats) |
+| PWA | `manifest.webmanifest` + `sw.js` + icônes PNG |
 | Design | Inspiré Linear / Notion / Stripe / Vercel · gamification façon Duolingo |
 | Theming | Dark mode par défaut + Light mode (toggle 🌓) |
 | Responsive | Mobile-first, breakpoint 640 px |
@@ -187,7 +241,7 @@ Toutes les phrases d'exemple ont été rédigées pour sonner **natif**, comme d
 
 ### Pourquoi pas React/Next.js ?
 
-L'app tient en un seul fichier (~80 ko), démarre instantanément, fonctionne hors ligne dès le premier chargement, sans build ni install. C'est parfait pour de l'apprentissage quotidien. Le dataset `vocabulary.json` reste exportable vers n'importe quel stack moderne (React, Vue, Svelte, Next.js…).
+Le coeur de l'app tient dans `index.html`, démarre instantanément et ne demande aucun build. Les fichiers PWA ajoutent seulement l'installation mobile, les icônes et le cache offline. C'est parfait pour de l'apprentissage quotidien. Le dataset `vocabulary.json` reste exportable vers n'importe quel stack moderne (React, Vue, Svelte, Next.js…).
 
 ---
 
@@ -207,4 +261,4 @@ Usage personnel libre. Pour ajouter des termes, éditez le tableau `VOCAB` dans 
 
 ---
 
-**Bon entraînement. Crush your interview. 🚀**
+Bon entraînement. Crush your interview. 🚀
