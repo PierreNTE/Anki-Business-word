@@ -4,7 +4,6 @@
     "en": "Pipeline",
     "fr": "Pipeline commercial",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -32,7 +31,6 @@
     "en": "Forecast",
     "fr": "Prévision des ventes",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -62,7 +60,6 @@
     "en": "Quota",
     "fr": "Quota / Objectif de vente",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -91,7 +88,6 @@
     "en": "Churn",
     "fr": "Attrition / Résiliation client",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -124,7 +120,6 @@
     "en": "Renewal",
     "fr": "Renouvellement",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -152,7 +147,6 @@
     "en": "Upsell",
     "fr": "Montée en gamme",
     "type": "verb",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -182,7 +176,6 @@
     "en": "Cross-sell",
     "fr": "Vente croisée",
     "type": "verb",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -211,7 +204,6 @@
     "en": "ARR",
     "fr": "Revenu Annuel Récurrent",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Metrics",
     "tags": [
       "metrics",
@@ -239,7 +231,6 @@
     "en": "MRR",
     "fr": "Revenu Mensuel Récurrent",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Metrics",
     "tags": [
       "metrics",
@@ -267,7 +258,6 @@
     "en": "NRR",
     "fr": "Rétention Nette des Revenus",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Metrics",
     "tags": [
       "metrics",
@@ -296,7 +286,6 @@
     "en": "ACV",
     "fr": "Valeur Annuelle du Contrat",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Metrics",
     "tags": [
       "metrics",
@@ -322,7 +311,6 @@
     "en": "CAC",
     "fr": "Coût d'Acquisition Client",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Metrics",
     "tags": [
       "metrics",
@@ -351,7 +339,6 @@
     "en": "LTV",
     "fr": "Valeur Vie Client",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Metrics",
     "tags": [
       "metrics",
@@ -380,7 +367,6 @@
     "en": "TCO",
     "fr": "Coût Total de Possession",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -408,7 +394,6 @@
     "en": "ROI",
     "fr": "Retour sur Investissement",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -436,7 +421,6 @@
     "en": "SaaS",
     "fr": "Logiciel en tant que Service",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -462,7 +446,6 @@
     "en": "PaaS",
     "fr": "Plateforme en tant que Service",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud"
@@ -487,7 +470,6 @@
     "en": "IaaS",
     "fr": "Infrastructure en tant que Service",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -513,7 +495,6 @@
     "en": "Cloud-native",
     "fr": "Natif cloud",
     "type": "adjective",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -541,7 +522,6 @@
     "en": "Multi-cloud",
     "fr": "Multi-cloud",
     "type": "adjective",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -568,7 +548,6 @@
     "en": "Hybrid cloud",
     "fr": "Cloud hybride",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -594,7 +573,6 @@
     "en": "Migration",
     "fr": "Migration",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -620,7 +598,6 @@
     "en": "Lift and shift",
     "fr": "Migration à l'identique",
     "type": "expression",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -648,7 +625,6 @@
     "en": "Workload",
     "fr": "Charge de travail",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -675,7 +651,6 @@
     "en": "Scalability",
     "fr": "Scalabilité",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -702,7 +677,6 @@
     "en": "Elasticity",
     "fr": "Élasticité",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud"
@@ -727,7 +701,6 @@
     "en": "Proof of Concept",
     "fr": "Preuve de concept (PoC)",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -755,7 +728,6 @@
     "en": "RFP",
     "fr": "Appel d'offres",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -783,7 +755,6 @@
     "en": "SLA",
     "fr": "Accord de niveau de service",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Legal",
     "tags": [
       "legal",
@@ -810,7 +781,6 @@
     "en": "Discovery call",
     "fr": "Appel de découverte",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -839,7 +809,6 @@
     "en": "Champion",
     "fr": "Champion interne",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -867,7 +836,6 @@
     "en": "Stakeholder",
     "fr": "Partie prenante",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -897,7 +865,6 @@
     "en": "Executive sponsor",
     "fr": "Sponsor exécutif",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -925,7 +892,6 @@
     "en": "QBR",
     "fr": "Bilan trimestriel client",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -952,7 +918,6 @@
     "en": "Onboarding",
     "fr": "Intégration / Prise en main",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -981,7 +946,6 @@
     "en": "Adoption",
     "fr": "Adoption",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -1007,7 +971,6 @@
     "en": "Health score",
     "fr": "Score de santé client",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -1035,7 +998,6 @@
     "en": "Success plan",
     "fr": "Plan de succès",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -1062,7 +1024,6 @@
     "en": "Time-to-value",
     "fr": "Délai de création de valeur",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -1092,7 +1053,6 @@
     "en": "Land and expand",
     "fr": "Conquérir puis élargir",
     "type": "expression",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1120,7 +1080,6 @@
     "en": "White space",
     "fr": "Potentiel inexploité",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1150,7 +1109,6 @@
     "en": "Account mapping",
     "fr": "Cartographie du compte",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1177,7 +1135,6 @@
     "en": "Decision maker",
     "fr": "Décideur",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1204,7 +1161,6 @@
     "en": "Economic buyer",
     "fr": "Acheteur économique",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1233,7 +1189,6 @@
     "en": "MEDDIC",
     "fr": "Méthode de qualification MEDDIC",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1261,7 +1216,6 @@
     "en": "BANT",
     "fr": "BANT (Budget, Autorité, Besoin, Délai)",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1289,7 +1243,6 @@
     "en": "Business case",
     "fr": "Dossier de justification",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1319,7 +1272,6 @@
     "en": "API",
     "fr": "API (Interface de programmation)",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -1345,7 +1297,6 @@
     "en": "DevOps",
     "fr": "DevOps",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -1370,7 +1321,6 @@
     "en": "Kubernetes",
     "fr": "Kubernetes",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -1396,7 +1346,6 @@
     "en": "Serverless",
     "fr": "Sans serveur",
     "type": "adjective",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -1423,7 +1372,6 @@
     "en": "Microservices",
     "fr": "Microservices",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -1449,7 +1397,6 @@
     "en": "Deployment",
     "fr": "Déploiement",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -1476,7 +1423,6 @@
     "en": "LLM",
     "fr": "Grand modèle de langage",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai",
@@ -1503,7 +1449,6 @@
     "en": "GenAI",
     "fr": "IA générative",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai"
@@ -1530,7 +1475,6 @@
     "en": "RAG",
     "fr": "Génération augmentée par récupération",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai",
@@ -1558,7 +1502,6 @@
     "en": "Fine-tuning",
     "fr": "Ajustement fin",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai",
@@ -1586,7 +1529,6 @@
     "en": "Inference",
     "fr": "Inférence",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai",
@@ -1613,7 +1555,6 @@
     "en": "Hallucination",
     "fr": "Hallucination",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai",
@@ -1638,7 +1579,6 @@
     "en": "Token",
     "fr": "Token (jeton)",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai",
@@ -1664,7 +1604,6 @@
     "en": "Prompt engineering",
     "fr": "Ingénierie des prompts",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai"
@@ -1690,7 +1629,6 @@
     "en": "AI agent",
     "fr": "Agent IA",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai"
@@ -1717,7 +1655,6 @@
     "en": "Foundation model",
     "fr": "Modèle de base",
     "type": "noun",
-    "lvl": "B2",
     "cat": "AI",
     "tags": [
       "ai",
@@ -1744,7 +1681,6 @@
     "en": "Digital transformation",
     "fr": "Transformation numérique",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1773,7 +1709,6 @@
     "en": "Vendor lock-in",
     "fr": "Dépendance fournisseur",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1801,7 +1736,6 @@
     "en": "Proof of Value",
     "fr": "Preuve de valeur",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1828,7 +1762,6 @@
     "en": "Objection handling",
     "fr": "Gestion des objections",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Negotiation",
     "tags": [
       "sales",
@@ -1855,7 +1788,6 @@
     "en": "Negotiation",
     "fr": "Négociation",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Negotiation",
     "tags": [
       "sales",
@@ -1882,7 +1814,6 @@
     "en": "Proposal",
     "fr": "Proposition commerciale",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -1911,7 +1842,6 @@
     "en": "MSA",
     "fr": "Accord-cadre",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Legal",
     "tags": [
       "legal",
@@ -1940,7 +1870,6 @@
     "en": "SOW",
     "fr": "Cahier des charges",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Legal",
     "tags": [
       "legal",
@@ -1969,7 +1898,6 @@
     "en": "NDA",
     "fr": "Accord de non-divulgation",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Legal",
     "tags": [
       "legal",
@@ -1997,7 +1925,6 @@
     "en": "Compliance",
     "fr": "Conformité",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Legal",
     "tags": [
       "legal",
@@ -2025,7 +1952,6 @@
     "en": "Data sovereignty",
     "fr": "Souveraineté des données",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Legal",
     "tags": [
       "legal",
@@ -2052,7 +1978,6 @@
     "en": "Go-live",
     "fr": "Mise en production",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -2081,7 +2006,6 @@
     "en": "NPS",
     "fr": "Score de recommandation net",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Metrics",
     "tags": [
       "metrics",
@@ -2108,7 +2032,6 @@
     "en": "Use case",
     "fr": "Cas d'usage",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2135,7 +2058,6 @@
     "en": "Pain point",
     "fr": "Point de douleur",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2165,7 +2087,6 @@
     "en": "Value proposition",
     "fr": "Proposition de valeur",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2193,7 +2114,6 @@
     "en": "Pipeline coverage",
     "fr": "Couverture de pipeline",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2220,7 +2140,6 @@
     "en": "Close plan",
     "fr": "Plan de closing",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2248,7 +2167,6 @@
     "en": "Cold outreach",
     "fr": "Prospection à froid",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2276,7 +2194,6 @@
     "en": "Warm introduction",
     "fr": "Introduction chaleureuse",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2304,7 +2221,6 @@
     "en": "Managed services",
     "fr": "Services managés",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Cloud",
     "tags": [
       "cloud"
@@ -2331,7 +2247,6 @@
     "en": "Consumption-based pricing",
     "fr": "Tarification à l'usage",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2360,7 +2275,6 @@
     "en": "Customer success",
     "fr": "Succès client",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Customer Success",
     "tags": [
       "customer-success"
@@ -2387,7 +2301,6 @@
     "en": "To touch base",
     "fr": "Reprendre contact",
     "type": "expression",
-    "lvl": "B2",
     "cat": "Meetings",
     "tags": [
       "meetings",
@@ -2416,7 +2329,6 @@
     "en": "Follow-up",
     "fr": "Relance / Suivi",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2446,7 +2358,6 @@
     "en": "Roadmap",
     "fr": "Feuille de route",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2474,7 +2385,6 @@
     "en": "Customer journey",
     "fr": "Parcours client",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -2501,7 +2411,6 @@
     "en": "Business outcomes",
     "fr": "Résultats business",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Customer Success",
     "tags": [
       "customer-success",
@@ -2531,7 +2440,6 @@
     "en": "AI-powered",
     "fr": "Propulsé par l'IA",
     "type": "adjective",
-    "lvl": "B1",
     "cat": "AI",
     "tags": [
       "ai",
@@ -2561,7 +2469,6 @@
     "en": "Scalable",
     "fr": "Évolutif / Scalable",
     "type": "adjective",
-    "lvl": "B1",
     "cat": "Cloud",
     "tags": [
       "cloud",
@@ -2592,7 +2499,6 @@
     "en": "Retention",
     "fr": "Rétention",
     "type": "noun",
-    "lvl": "B1",
     "cat": "Metrics",
     "tags": [
       "metrics",
@@ -2618,7 +2524,6 @@
     "en": "Stakeholder buy-in",
     "fr": "Adhésion des parties prenantes",
     "type": "noun",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2648,7 +2553,6 @@
     "en": "To close a deal",
     "fr": "Conclure un deal",
     "type": "verb",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2677,7 +2581,6 @@
     "en": "To reach out",
     "fr": "Prendre contact",
     "type": "phrasal verb",
-    "lvl": "B1",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2707,7 +2610,6 @@
     "en": "To loop in",
     "fr": "Inclure (en copie)",
     "type": "phrasal verb",
-    "lvl": "B2",
     "cat": "Meetings",
     "tags": [
       "meetings",
@@ -2737,7 +2639,6 @@
     "en": "To circle back",
     "fr": "Revenir vers (quelqu'un)",
     "type": "phrasal verb",
-    "lvl": "B2",
     "cat": "Meetings",
     "tags": [
       "meetings",
@@ -2767,7 +2668,6 @@
     "en": "Deal slipping",
     "fr": "Deal qui glisse",
     "type": "expression",
-    "lvl": "B2",
     "cat": "Sales",
     "tags": [
       "sales",
@@ -2791,6 +2691,792 @@
       "deal repoussé",
       "slip",
       "glissement de deal"
+    ]
+  },
+  {
+    "i": 101,
+    "en": "Tremendous",
+    "fr": "Énorme / Considérable",
+    "type": "adjective",
+    "cat": "Expressions",
+    "tags": [
+      "adjective",
+      "emphasis",
+      "sales",
+      "executive"
+    ],
+    "exp": "Very large in amount, scale or impact — used positively by execs and in sales pitches.",
+    "ex": "There's tremendous upside if we land just two of these enterprise accounts.",
+    "ex2": "The team has made tremendous progress on the onboarding flow this quarter.",
+    "ipa": "/trɪˈmen.dəs/",
+    "tip": "« tri-MEN-deuss ». Stress sur MEN. Évitez « tré-MAN-douss » à la française.",
+    "syn": [
+      "huge",
+      "massive",
+      "significant",
+      "substantial"
+    ],
+    "err": "Évitez « very tremendous » : le mot est déjà superlatif.",
+    "mem": "Tremendous → tremblement → impact qui fait trembler.",
+    "alts": [
+      "enorme",
+      "énorme",
+      "considerable",
+      "considérable",
+      "tremendous",
+      "massif"
+    ]
+  },
+  {
+    "i": 102,
+    "en": "Robust",
+    "fr": "Solide / Robuste",
+    "type": "adjective",
+    "cat": "Expressions",
+    "tags": [
+      "adjective",
+      "product",
+      "engineering",
+      "sales"
+    ],
+    "exp": "Strong, well-built, able to handle real-world load or pushback.",
+    "ex": "We need a more robust pipeline before we forecast the quarter.",
+    "ex2": "Their API is robust enough to handle our enterprise volumes.",
+    "ipa": "/roʊˈbʌst/",
+    "tip": "« roh-BUSST ». Stress sur la 2e syllabe, pas « RO-buste ».",
+    "syn": [
+      "solid",
+      "resilient",
+      "strong"
+    ],
+    "err": "« Robust » se prononce avec stress final en anglais, contrairement au français « robuste ».",
+    "mem": "Pensez à un robot bien bâti : ro-BUST.",
+    "alts": [
+      "robuste",
+      "solide",
+      "fiable",
+      "resilient",
+      "résilient"
+    ]
+  },
+  {
+    "i": 103,
+    "en": "Seamless",
+    "fr": "Fluide / Sans friction",
+    "type": "adjective",
+    "cat": "Customer Success",
+    "tags": [
+      "adjective",
+      "product",
+      "cx",
+      "onboarding"
+    ],
+    "exp": "Smooth and uninterrupted, especially across systems or steps.",
+    "ex": "The SSO integration makes the login flow completely seamless for end users.",
+    "ex2": "We want a seamless handoff from Sales to Customer Success.",
+    "ipa": "/ˈsiːm.ləs/",
+    "tip": "« SIIM-less ». 'ea' = ii long.",
+    "syn": [
+      "smooth",
+      "frictionless",
+      "integrated"
+    ],
+    "err": "« Seamless » décrit l'expérience, pas la difficulté du build derrière.",
+    "mem": "Sans couture (seam = couture) = fluide.",
+    "alts": [
+      "fluide",
+      "sans friction",
+      "sans accroc",
+      "seamless",
+      "transparent"
+    ]
+  },
+  {
+    "i": 104,
+    "en": "Compelling",
+    "fr": "Convaincant / Percutant",
+    "type": "adjective",
+    "cat": "Sales",
+    "tags": [
+      "adjective",
+      "sales",
+      "pitch",
+      "executive"
+    ],
+    "exp": "Strong enough to grab attention and drive action — typically about a pitch, case or story.",
+    "ex": "We need a more compelling business case before we go to the CFO.",
+    "ex2": "Her demo was compelling — the CTO leaned in within the first 90 seconds.",
+    "ipa": "/kəmˈpel.ɪŋ/",
+    "tip": "« keum-PEL-ling ». Stress sur PEL.",
+    "syn": [
+      "persuasive",
+      "powerful",
+      "convincing"
+    ],
+    "err": "« Compelling reason » est presque un cliché : variez avec « strong rationale ».",
+    "mem": "Compelling → ça vous pousse (compel) à agir.",
+    "alts": [
+      "convaincant",
+      "percutant",
+      "persuasif",
+      "compelling"
+    ]
+  },
+  {
+    "i": 105,
+    "en": "Granular",
+    "fr": "Détaillé / Fin",
+    "type": "adjective",
+    "cat": "Metrics",
+    "tags": [
+      "adjective",
+      "analytics",
+      "data",
+      "reporting"
+    ],
+    "exp": "At a fine level of detail — often about data, reporting or permissions.",
+    "ex": "Can you give me a more granular breakdown of churn by segment?",
+    "ex2": "The dashboard lets you drill down to granular activity at the user level.",
+    "ipa": "/ˈɡræn.jə.lɚ/",
+    "tip": "« GRAN-you-leur ». 'a' court comme dans « cat ».",
+    "syn": [
+      "detailed",
+      "fine-grained",
+      "specific"
+    ],
+    "err": "« Granular » s'applique aux données, pas aux personnes (« a granular person » ✗).",
+    "mem": "Comme du sable : beaucoup de petits grains de détail.",
+    "alts": [
+      "granulaire",
+      "detaille",
+      "détaillé",
+      "fin",
+      "precis",
+      "précis"
+    ]
+  },
+  {
+    "i": 106,
+    "en": "Actionable",
+    "fr": "Exploitable / Concret",
+    "type": "adjective",
+    "cat": "Metrics",
+    "tags": [
+      "adjective",
+      "insights",
+      "reporting",
+      "strategy"
+    ],
+    "exp": "Specific enough that someone can actually do something with it — about insights, feedback or next steps.",
+    "ex": "That feedback is interesting but not actionable — what should we change?",
+    "ex2": "Every QBR should end with three actionable next steps and owners.",
+    "ipa": "/ˈæk.ʃə.nə.bəl/",
+    "tip": "« AK-cheu-na-beul ». 4 syllabes, stress sur AK.",
+    "syn": [
+      "practical",
+      "concrete",
+      "useful"
+    ],
+    "err": "« Actionable insight » est devenu cliché : préférez « insight we can act on ».",
+    "mem": "Action + able = sur lequel on peut agir.",
+    "alts": [
+      "exploitable",
+      "concret",
+      "actionnable",
+      "actionable"
+    ]
+  },
+  {
+    "i": 107,
+    "en": "Significantly",
+    "fr": "De manière significative",
+    "type": "adverb",
+    "cat": "Metrics",
+    "tags": [
+      "adverb",
+      "data",
+      "executive",
+      "reporting"
+    ],
+    "exp": "By a meaningful amount — used to qualify a measurable change.",
+    "ex": "Activation rates improved significantly after we shipped the new onboarding.",
+    "ex2": "Pipeline coverage is significantly below where we need to be for Q4.",
+    "ipa": "/sɪɡˈnɪf.ɪ.kənt.li/",
+    "tip": "« sig-NIF-i-keunt-li ». Stress sur NIF.",
+    "syn": [
+      "materially",
+      "substantially",
+      "meaningfully"
+    ],
+    "err": "Ne dites pas « significantly » pour « importantly » : ça parle d'ampleur, pas d'importance.",
+    "mem": "Significant → grosse différence chiffrée.",
+    "alts": [
+      "significativement",
+      "de maniere significative",
+      "de manière significative",
+      "notablement"
+    ]
+  },
+  {
+    "i": 108,
+    "en": "Ultimately",
+    "fr": "En fin de compte / Au final",
+    "type": "adverb",
+    "cat": "Expressions",
+    "tags": [
+      "adverb",
+      "executive",
+      "strategy",
+      "meetings"
+    ],
+    "exp": "In the end, after everything is considered — used to bring a discussion to its core point.",
+    "ex": "Ultimately, the question is whether we have product-market fit in this segment.",
+    "ex2": "We tested three pricing models, but ultimately the per-seat model won.",
+    "ipa": "/ˈʌl.tə.mət.li/",
+    "tip": "« UL-teu-meut-li ». 4 syllabes, 'u' court comme dans « cup ».",
+    "syn": [
+      "in the end",
+      "at the end of the day",
+      "eventually"
+    ],
+    "err": "« Ultimately » ≠ « finally » (= dernier dans une liste).",
+    "mem": "Ultimate → le point ultime du raisonnement.",
+    "alts": [
+      "en fin de compte",
+      "finalement",
+      "au final",
+      "ultimement",
+      "en definitive",
+      "en définitive"
+    ]
+  },
+  {
+    "i": 109,
+    "en": "Proactively",
+    "fr": "De manière proactive / En anticipant",
+    "type": "adverb",
+    "cat": "Customer Success",
+    "tags": [
+      "adverb",
+      "cs",
+      "communication",
+      "executive"
+    ],
+    "exp": "Before being asked — anticipating an issue or need.",
+    "ex": "Let's proactively reach out to the top 20 accounts before renewal season.",
+    "ex2": "She proactively flagged the security gap before the audit.",
+    "ipa": "/proʊˈæk.tɪv.li/",
+    "tip": "« pro-AK-tiv-li ». Stress sur AK.",
+    "syn": [
+      "ahead of time",
+      "preemptively"
+    ],
+    "err": "Évitez d'en abuser dans les emails — « proactively » sonne corporate.",
+    "mem": "Pro = avant + active = agir.",
+    "alts": [
+      "proactivement",
+      "de maniere proactive",
+      "de manière proactive",
+      "en anticipant"
+    ]
+  },
+  {
+    "i": 110,
+    "en": "Strategically",
+    "fr": "Stratégiquement",
+    "type": "adverb",
+    "cat": "Expressions",
+    "tags": [
+      "adverb",
+      "strategy",
+      "executive",
+      "planning"
+    ],
+    "exp": "In a way that's aligned with broader long-term goals.",
+    "ex": "We need to strategically pick which segments we double down on next year.",
+    "ex2": "This hire is strategically important — they own our new EMEA motion.",
+    "ipa": "/strəˈtiː.dʒɪk.li/",
+    "tip": "« streu-TII-djik-li ». 'a' devient un schwa.",
+    "syn": [
+      "deliberately",
+      "with intent"
+    ],
+    "err": "« Strategic » est sur-utilisé : si tout est « strategic », rien ne l'est.",
+    "mem": "Strategy → comme aux échecs, chaque coup compte.",
+    "alts": [
+      "strategiquement",
+      "stratégiquement",
+      "de facon strategique",
+      "de façon stratégique"
+    ]
+  },
+  {
+    "i": 111,
+    "en": "To sum up",
+    "fr": "Pour résumer / En résumé",
+    "type": "expression",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "meetings",
+      "executive",
+      "communication"
+    ],
+    "exp": "Used to introduce a brief summary at the end of a discussion or pitch.",
+    "ex": "To sum up: we ship the beta in May, GA in July, with three pilot customers committed.",
+    "ex2": "To sum up, the data points to a pricing problem, not a positioning problem.",
+    "ipa": "/tə sʌm ʌp/",
+    "tip": "« teu SOM op ». 'u' court, comme dans « sun ».",
+    "syn": [
+      "in summary",
+      "to recap",
+      "in short"
+    ],
+    "err": "« To sum up » prend rarement un complément direct — c'est une transition, pas un verbe à objet.",
+    "mem": "Add things up → sum → résumé.",
+    "alts": [
+      "pour resumer",
+      "pour résumer",
+      "en resume",
+      "en résumé",
+      "en bref",
+      "recapitulons",
+      "récapitulons"
+    ]
+  },
+  {
+    "i": 112,
+    "en": "At the end of the day",
+    "fr": "En fin de compte / Au final",
+    "type": "expression",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "executive",
+      "meetings"
+    ],
+    "exp": "Used to bring a discussion back to its core point, ignoring secondary details.",
+    "ex": "At the end of the day, the customer just wants a faster time-to-value.",
+    "ex2": "At the end of the day, we either hit the number or we don't.",
+    "ipa": "/æt ði end əv ðə deɪ/",
+    "tip": "« att thi end ov theu DEY ». Liaison fluide.",
+    "syn": [
+      "ultimately",
+      "when all is said and done"
+    ],
+    "err": "Surutilisé en réunion — alternez avec « ultimately » ou « bottom line ».",
+    "mem": "À la fin de la journée, ce qui compte vraiment.",
+    "alts": [
+      "en fin de compte",
+      "au final",
+      "au bout du compte",
+      "in fine"
+    ]
+  },
+  {
+    "i": 113,
+    "en": "Move the needle",
+    "fr": "Faire bouger les choses / Avoir un vrai impact",
+    "type": "expression",
+    "cat": "Metrics",
+    "tags": [
+      "expression",
+      "strategy",
+      "executive",
+      "impact"
+    ],
+    "exp": "To produce a noticeable, measurable change on a key metric.",
+    "ex": "Will this feature actually move the needle on activation, or is it just a nice-to-have?",
+    "ex2": "Cutting onboarding from 14 days to 3 really moved the needle on NRR.",
+    "ipa": "/muːv ðə ˈniː.dəl/",
+    "tip": "« mouv theu NII-deul ». Le 'd' est presque un 't' doux en anglais US.",
+    "syn": [
+      "have impact",
+      "drive results"
+    ],
+    "err": "Si le résultat est faible, dites « doesn't really move the needle ».",
+    "mem": "L'aiguille (needle) d'un cadran qui bouge → impact mesurable.",
+    "alts": [
+      "faire bouger les choses",
+      "avoir un impact",
+      "deplacer l'aiguille",
+      "déplacer l'aiguille",
+      "faire la difference",
+      "faire la différence"
+    ]
+  },
+  {
+    "i": 114,
+    "en": "Low-hanging fruit",
+    "fr": "Gain rapide / Tâche facile",
+    "type": "expression",
+    "cat": "Expressions",
+    "tags": [
+      "expression",
+      "strategy",
+      "prioritization"
+    ],
+    "exp": "An easy win — something quick to do with clear payoff.",
+    "ex": "Fixing those three onboarding emails is low-hanging fruit — let's ship it this sprint.",
+    "ex2": "We exhausted the low-hanging fruit; the next wins will take real engineering work.",
+    "ipa": "/ˌloʊ ˈhæŋ.ɪŋ fruːt/",
+    "tip": "« lo HANG-ing frout ». Sans accent sur fruit (un seul syllabe).",
+    "syn": [
+      "quick win",
+      "easy win"
+    ],
+    "err": "À éviter au pluriel : on dit « low-hanging fruit » (singulier collectif).",
+    "mem": "Le fruit le plus bas sur l'arbre est le plus facile à cueillir.",
+    "alts": [
+      "gain rapide",
+      "tache facile",
+      "tâche facile",
+      "quick win",
+      "facile à faire",
+      "facile a faire"
+    ]
+  },
+  {
+    "i": 115,
+    "en": "Drill down",
+    "fr": "Approfondir / Creuser",
+    "type": "phrasal verb",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "analytics",
+      "meetings"
+    ],
+    "exp": "To look more closely at a specific subset, especially in data.",
+    "ex": "Let's drill down into the EMEA numbers — that's where the gap is.",
+    "ex2": "Can we drill down on why activation drops on day 3?",
+    "ipa": "/drɪl daʊn/",
+    "tip": "« dril DAWN ». 'i' court.",
+    "syn": [
+      "dig into",
+      "zoom in",
+      "deep-dive"
+    ],
+    "err": "« Drill down on » + sujet ; « drill into » + données.",
+    "mem": "Comme une perceuse qui creuse dans la donnée.",
+    "alts": [
+      "approfondir",
+      "creuser",
+      "zoomer sur",
+      "plonger dans"
+    ]
+  },
+  {
+    "i": 116,
+    "en": "Deep dive",
+    "fr": "Analyse approfondie",
+    "type": "noun",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "analytics",
+      "meetings",
+      "strategy"
+    ],
+    "exp": "A detailed, focused exploration of a topic — often a dedicated session.",
+    "ex": "Let's schedule a deep dive on the pricing model with Finance next week.",
+    "ex2": "The deep dive surfaced two churn drivers we hadn't seen in the aggregate.",
+    "ipa": "/diːp daɪv/",
+    "tip": "« diip DAYV ». 'ee' = ii long.",
+    "syn": [
+      "thorough analysis",
+      "detailed review"
+    ],
+    "err": "« Deep-dive » (verbe) ou « deep dive » (nom) ; en réunion, c'est plus souvent le nom.",
+    "mem": "Plongée profonde dans un sujet.",
+    "alts": [
+      "analyse approfondie",
+      "plongee",
+      "plongée",
+      "etude approfondie",
+      "étude approfondie",
+      "deep dive"
+    ]
+  },
+  {
+    "i": 117,
+    "en": "Get on the same page",
+    "fr": "Se mettre d'accord / Aligner",
+    "type": "expression",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "alignment",
+      "meetings",
+      "stakeholders"
+    ],
+    "exp": "To reach shared understanding among stakeholders.",
+    "ex": "Before we talk to the customer, let's get on the same page internally.",
+    "ex2": "Sales and Product need to get on the same page about Q3 priorities.",
+    "ipa": "/ɡet ɒn ðə seɪm peɪdʒ/",
+    "tip": "« guett on theu seym PEYDJ ».",
+    "syn": [
+      "align",
+      "sync up"
+    ],
+    "err": "« On the same page » ≠ « of the same opinion » : c'est plus large (mêmes faits, mêmes priorités).",
+    "mem": "Lire le même paragraphe = même compréhension.",
+    "alts": [
+      "se mettre d'accord",
+      "aligner",
+      "s'aligner",
+      "etre sur la meme longueur d'onde",
+      "être sur la même longueur d'onde"
+    ]
+  },
+  {
+    "i": 118,
+    "en": "Push back",
+    "fr": "Objecter / Contester",
+    "type": "phrasal verb",
+    "cat": "Negotiation",
+    "tags": [
+      "expression",
+      "negotiation",
+      "meetings",
+      "stakeholders"
+    ],
+    "exp": "To express disagreement with a decision, request or price.",
+    "ex": "The buyer pushed back hard on our discount structure.",
+    "ex2": "It's healthy when engineers push back on unrealistic timelines.",
+    "ipa": "/pʊʃ bæk/",
+    "tip": "« pouch BAK ». 'u' comme dans « book ».",
+    "syn": [
+      "object",
+      "challenge",
+      "resist"
+    ],
+    "err": "« Pushback » (un mot, nom) ≠ « push back » (verbe en deux mots).",
+    "mem": "Pousser en sens inverse = contester.",
+    "alts": [
+      "objecter",
+      "contester",
+      "resister",
+      "résister",
+      "s'opposer",
+      "pushback"
+    ]
+  },
+  {
+    "i": 119,
+    "en": "Get buy-in",
+    "fr": "Obtenir l'adhésion",
+    "type": "expression",
+    "cat": "Negotiation",
+    "tags": [
+      "expression",
+      "stakeholders",
+      "executive",
+      "alignment"
+    ],
+    "exp": "To secure agreement and support from key stakeholders before moving forward.",
+    "ex": "We need to get buy-in from Legal and Security before we can sign.",
+    "ex2": "Without exec buy-in, this initiative will stall by mid-quarter.",
+    "ipa": "/ɡet ˈbaɪ.ɪn/",
+    "tip": "« guett BAY-in ». Stress sur BAY.",
+    "syn": [
+      "secure support",
+      "get sign-off"
+    ],
+    "err": "« Buy-in » avec trait d'union (nom). « Buy in » sans trait d'union (verbe).",
+    "mem": "Les gens « achètent » votre idée = adhèrent.",
+    "alts": [
+      "obtenir l'adhesion",
+      "obtenir l'adhésion",
+      "faire adherer",
+      "faire adhérer",
+      "embarquer",
+      "aligner les parties"
+    ]
+  },
+  {
+    "i": 120,
+    "en": "Align on",
+    "fr": "S'aligner sur",
+    "type": "phrasal verb",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "alignment",
+      "meetings"
+    ],
+    "exp": "To reach agreement on a specific point or decision.",
+    "ex": "Can we align on the launch date before we leave this call?",
+    "ex2": "We aligned on three key metrics for the pilot phase.",
+    "ipa": "/əˈlaɪn ɒn/",
+    "tip": "« eu-LAYN on ». Stress sur LAYN.",
+    "syn": [
+      "agree on",
+      "sync on"
+    ],
+    "err": "« Align on » + sujet précis ; « align with » + personne/équipe.",
+    "mem": "Mettre en ligne = s'accorder.",
+    "alts": [
+      "s'aligner sur",
+      "s'accorder sur",
+      "se mettre d'accord sur",
+      "aligner"
+    ]
+  },
+  {
+    "i": 121,
+    "en": "Bandwidth",
+    "fr": "Disponibilité / Capacité",
+    "type": "noun",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "workload",
+      "meetings",
+      "prioritization"
+    ],
+    "exp": "The time or mental capacity someone has to take on more work.",
+    "ex": "I don't have the bandwidth to own that project this quarter.",
+    "ex2": "Do you have bandwidth for a 30-minute discovery call on Thursday?",
+    "ipa": "/ˈbænd.wɪdθ/",
+    "tip": "« BAND-witth ». Le 'dth' final est délicat — un son 'd' suivi de 'th' doux.",
+    "syn": [
+      "capacity",
+      "availability"
+    ],
+    "err": "« Bandwidth » au figuré = capacité humaine, pas la bande passante réseau.",
+    "mem": "Capacité du tuyau = capacité de la personne.",
+    "alts": [
+      "disponibilite",
+      "disponibilité",
+      "capacite",
+      "capacité",
+      "bande passante",
+      "bandwidth"
+    ]
+  },
+  {
+    "i": 122,
+    "en": "In the weeds",
+    "fr": "Dans les détails / Submergé par les détails",
+    "type": "expression",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "meetings",
+      "executive",
+      "details"
+    ],
+    "exp": "Too deep in the details, often at the expense of the big picture.",
+    "ex": "Let's not get in the weeds on the API spec — we need a yes or no first.",
+    "ex2": "The exec doesn't want to be in the weeds, just a clear recommendation.",
+    "ipa": "/ɪn ðə wiːdz/",
+    "tip": "« in theu WIIDZ ». 'ee' = ii long.",
+    "syn": [
+      "bogged down",
+      "too deep in details"
+    ],
+    "err": "« In the weeds » ≠ noyé sous le travail (= « slammed »).",
+    "mem": "Perdu dans les hautes herbes = perdu dans les détails.",
+    "alts": [
+      "dans les details",
+      "dans les détails",
+      "perdu dans les details",
+      "submerge par les details",
+      "submergé par les détails"
+    ]
+  },
+  {
+    "i": 123,
+    "en": "Run it by",
+    "fr": "Soumettre à / Demander l'avis de",
+    "type": "phrasal verb",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "stakeholders",
+      "review"
+    ],
+    "exp": "To share a draft or idea with someone to get their input before finalizing.",
+    "ex": "Let me run it by Legal before we send the redlines back.",
+    "ex2": "Run the new pricing by your CFO and let me know what they push back on.",
+    "ipa": "/rʌn ɪt baɪ/",
+    "tip": "« RUN it bay ». 'u' court.",
+    "syn": [
+      "check with",
+      "loop in for review"
+    ],
+    "err": "« Run by » + personne, pas + sujet : « run it by Sarah », pas « run it by pricing ».",
+    "mem": "Faire passer l'idée DEVANT quelqu'un avant de valider.",
+    "alts": [
+      "soumettre",
+      "demander l'avis",
+      "valider avec",
+      "faire valider"
+    ]
+  },
+  {
+    "i": 124,
+    "en": "Take it offline",
+    "fr": "En parler à part / Hors réunion",
+    "type": "expression",
+    "cat": "Meetings",
+    "tags": [
+      "expression",
+      "meetings",
+      "etiquette"
+    ],
+    "exp": "To move a side discussion out of the current meeting to keep the agenda on track.",
+    "ex": "Great point — let's take it offline so we can finish the agenda.",
+    "ex2": "We took the contract details offline and closed them by end of day.",
+    "ipa": "/teɪk ɪt ˈɒf.laɪn/",
+    "tip": "« teyk it OFF-layn ».",
+    "syn": [
+      "follow up separately",
+      "handle 1:1"
+    ],
+    "err": "« Offline » ici n'a rien à voir avec internet : c'est « en dehors de cette réunion ».",
+    "mem": "Sortir le sujet de la « ligne » de la réunion en cours.",
+    "alts": [
+      "en parler a part",
+      "en parler à part",
+      "hors reunion",
+      "hors réunion",
+      "en discuter separement",
+      "en discuter séparément",
+      "prendre offline"
+    ]
+  },
+  {
+    "i": 125,
+    "en": "Raise a flag",
+    "fr": "Tirer la sonnette d'alarme",
+    "type": "expression",
+    "cat": "Customer Success",
+    "tags": [
+      "expression",
+      "cs",
+      "risk",
+      "escalation"
+    ],
+    "exp": "To alert stakeholders to a risk or problem early.",
+    "ex": "I want to raise a flag on the renewal — the champion just left the company.",
+    "ex2": "If you see usage drop two weeks in a row, raise a flag with the CSM.",
+    "ipa": "/reɪz ə flæɡ/",
+    "tip": "« reyz eu FLAG ». 'ai' = ey.",
+    "syn": [
+      "flag a risk",
+      "escalate",
+      "alert"
+    ],
+    "err": "« Raise a red flag » insiste sur l'urgence ; « raise a flag » est plus neutre.",
+    "mem": "Lever un drapeau = signaler un risque visible.",
+    "alts": [
+      "tirer la sonnette d'alarme",
+      "alerter",
+      "signaler un risque",
+      "remonter un risque",
+      "flagger"
     ]
   }
 ]

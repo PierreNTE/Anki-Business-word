@@ -1,6 +1,6 @@
 # Business English Pro · SaaS · Cloud · AI
 
-> **100 termes Business English pour francophones visant un poste**
+> **125 termes Business English pour francophones visant un poste**
 > **Customer Success Manager · Account Executive · SaaS Sales · AI / Cloud Sales**
 
 Application web premium, gamifiée, prête à l'emploi — publiée sur GitHub Pages et installable sur mobile.
@@ -50,8 +50,8 @@ Si une ancienne version reste affichée, fermez l'app complètement puis rouvrez
 
 | Fichier | Description |
 | --- | --- |
-| `index.html` | App premium gamifiée — 100 termes, 5 modes, exports intégrés |
-| `vocabulary.json` | Dataset canonique (100 entrées × 16 champs) |
+| `index.html` | App premium gamifiée — 125 termes, 5 modes, exports intégrés |
+| `vocabulary.json` | Dataset canonique (125 entrées × 15 champs) |
 | `manifest.webmanifest` | Métadonnées PWA pour installation mobile |
 | `sw.js` | Service worker : cache offline + mise à jour PWA |
 | `icon-192.png` / `icon-512.png` | Icônes mobile / PWA |
@@ -60,17 +60,16 @@ Si une ancienne version reste affichée, fermez l'app complètement puis rouvrez
 
 ---
 
-## 🎓 Le dataset (100 termes)
+## 🎓 Le dataset (125 termes)
 
-Chaque entrée contient **16 champs** rigoureusement vérifiés :
+Chaque entrée contient **15 champs** rigoureusement vérifiés :
 
 | Champ | Description | Exemple |
 | --- | --- | --- |
 | `en` | English term | `Churn` |
 | `fr` | Traduction française naturelle | `Attrition / Résiliation` |
-| `type` | noun · verb · expression · adjective · phrasal verb | `noun` |
-| `lvl` | CEFR — A2 / B1 / B2 | `B2` |
-| `cat` | Sales · Customer Success · Cloud · AI · Metrics · Legal · Negotiation · Meetings | `Customer Success` |
+| `type` | noun · verb · expression · adjective · adverb · phrasal verb | `noun` |
+| `cat` | Sales · Customer Success · Cloud · AI · Metrics · Legal · Negotiation · Meetings · Expressions | `Customer Success` |
 | `tags` | Liste de tags fonctionnels | `["customer-success","metrics"]` |
 | `exp` | Définition courte en anglais simple | `When customers cancel or stop paying.` |
 | `ex` | Phrase d'exemple professionnelle réaliste | `Reducing churn is our top priority...` |
@@ -91,6 +90,7 @@ Chaque entrée contient **16 champs** rigoureusement vérifiés :
 - **Metrics** — ARR, MRR, NRR, ACV, CAC, LTV, TCO, ROI, NPS, Retention…
 - **Legal** — SLA, MSA, SOW, NDA, Compliance, Data sovereignty…
 - **Meetings / Negotiation** — Touch base, Loop in, Circle back, Reach out, Objection handling…
+- **Expressions** — Adjectifs & adverbes business (tremendous, robust, seamless, granular, significantly, ultimately…), idiomes (to sum up, at the end of the day, low-hanging fruit, move the needle…)
 
 ---
 
@@ -100,11 +100,11 @@ Chaque entrée contient **16 champs** rigoureusement vérifiés :
 | --- | --- | --- |
 | 🎴 **Flashcards** | Recto anglais → bouton **Voir la réponse** → verso traduction + auto-évaluation | +10 |
 | ⇢ **EN → FR** | Tape la traduction française du terme anglais | +15 |
-| ⇠ **FR → EN** | Tape le terme anglais (B2 → fluency) | +15 |
+| ⇠ **FR → EN** | Tape le terme anglais (production active) | +15 |
 | 🎧 **Listening** | Écoute US/UK (Normal / Slow), choisis une voix anglaise, puis tape ce que tu entends | +15 |
 | ⏱ **Timed** | 30 s par carte — pression réelle de l'entretien | +15 |
 
-Filtres : **Catégorie** + **Niveau CEFR**. Sessions de 20 cartes priorisées par la répétition espacée (Leitner 5 boîtes).
+Filtre : **Catégorie** (Sales, Customer Success, Cloud, AI, Metrics, Legal, Negotiation, Meetings, Expressions). Sessions de 20 cartes priorisées par la répétition espacée (Leitner 5 boîtes).
 
 ### Système de correction strict mais juste
 
@@ -160,9 +160,9 @@ Si aucune voix anglaise n'apparaît, installez une voix **English US** ou **Engl
 
 Le deck Anki produit inclut :
 
-- **Recto** : terme, IPA, catégorie, niveau, type
+- **Recto** : terme, IPA, catégorie, type
 - **Verso** : traduction FR, définition EN, deux exemples, tip prononciation, erreur typique, mnémo, synonymes
-- **Tags** : `level_B2`, `cat_sales`, `customer-success`, etc.
+- **Tags** : `cat_sales`, `cat_expressions`, `customer-success`, etc.
 
 ### Style premium dans Anki
 
@@ -196,14 +196,14 @@ Tous générés côté client — aucune donnée n'est envoyée à un serveur.
 
 | Phase | Durée | Objectif |
 | --- | --- | --- |
-| 1. **Découverte** | J1 → J3 | Flashcards uniquement · toutes catégories · niveau A2/B1 |
+| 1. **Découverte** | J1 → J3 | Flashcards uniquement · toutes catégories |
 | 2. **Production** | J4 → J10 | EN → FR · catégorie ciblée par jour (Sales / CS / Cloud / AI) |
 | 3. **Inversion** | J11 → J18 | FR → EN · révèle les vrais trous |
 | 4. **Compréhension orale** | J19 → J24 | Listening · Slow mode au début, puis Normal |
-| 5. **Pression entretien** | J25 → J30 | Timed mode 30s · niveau B2 uniquement |
+| 5. **Pression entretien** | J25 → J30 | Timed mode 30s · toutes catégories |
 
 Objectif raisonnable : **20–30 min/jour**, streak quotidien maintenu.
-Cible avant entretien : **80%+ d'accuracy en Timed B2**.
+Cible avant entretien : **80%+ d'accuracy en Timed**.
 
 ---
 
