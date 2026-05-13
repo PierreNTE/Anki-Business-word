@@ -1,6 +1,6 @@
 # Business English Pro · SaaS · Cloud · AI
 
-> **125 termes Business English pour francophones visant un poste**
+> **180 termes Business English pour francophones visant un poste**
 > **Customer Success Manager · Account Executive · SaaS Sales · AI / Cloud Sales**
 
 Application web premium, gamifiée, prête à l'emploi — publiée sur GitHub Pages et installable sur mobile.
@@ -50,8 +50,8 @@ Si une ancienne version reste affichée, fermez l'app complètement puis rouvrez
 
 | Fichier | Description |
 | --- | --- |
-| `index.html` | App premium gamifiée — 125 termes, 5 modes, exports intégrés |
-| `vocabulary.json` | Dataset canonique (125 entrées × 15 champs) |
+| `index.html` | App premium gamifiée — 180 termes, 2 modes, exports intégrés |
+| `vocabulary.json` | Dataset canonique (180 entrées × 15 champs) |
 | `manifest.webmanifest` | Métadonnées PWA pour installation mobile |
 | `sw.js` | Service worker : cache offline + mise à jour PWA |
 | `icon-192.png` / `icon-512.png` | Icônes mobile / PWA |
@@ -60,7 +60,7 @@ Si une ancienne version reste affichée, fermez l'app complètement puis rouvrez
 
 ---
 
-## 🎓 Le dataset (125 termes)
+## 🎓 Le dataset (180 termes)
 
 Chaque entrée contient **15 champs** rigoureusement vérifiés :
 
@@ -91,6 +91,7 @@ Chaque entrée contient **15 champs** rigoureusement vérifiés :
 - **Legal** — SLA, MSA, SOW, NDA, Compliance, Data sovereignty…
 - **Meetings / Negotiation** — Touch base, Loop in, Circle back, Reach out, Objection handling…
 - **Expressions** — Adjectifs & adverbes business (tremendous, robust, seamless, granular, significantly, ultimately…), idiomes (to sum up, at the end of the day, low-hanging fruit, move the needle…)
+- **Formal business** (55 entrées, tag `formal-business`) — Vocabulaire soutenu et tournures executive (acknowledged, convey, covet, furthermore, moreover, however, regardless, thorough, insightful, foresight, worthwhile, unleash, taken aback…)
 
 ---
 
@@ -99,10 +100,9 @@ Chaque entrée contient **15 champs** rigoureusement vérifiés :
 | Mode | Description | XP gagné |
 | --- | --- | --- |
 | 🎴 **Flashcards** | Recto anglais → bouton **Voir la réponse** → verso traduction + auto-évaluation | +10 |
-| ⇢ **EN → FR** | Tape la traduction française du terme anglais | +15 |
-| ⇠ **FR → EN** | Tape le terme anglais (production active) | +15 |
 | 🎧 **Listening** | Écoute US/UK (Normal / Slow), choisis une voix anglaise, puis tape ce que tu entends | +15 |
-| ⏱ **Timed** | 30 s par carte — pression réelle de l'entretien | +15 |
+
+> Les anciens modes **EN→FR / FR→EN / Timed** ont été retirés : l'app est désormais focalisée mobile-first, avec écoute audio fiable et flashcards SRS comme cœur d'apprentissage.
 
 Filtre : **Catégorie** (Sales, Customer Success, Cloud, AI, Metrics, Legal, Negotiation, Meetings, Expressions). Sessions de 20 cartes priorisées par la répétition espacée (Leitner 5 boîtes).
 

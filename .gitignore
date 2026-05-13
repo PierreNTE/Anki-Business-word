@@ -1,0 +1,8 @@
+# Personal / private artefacts (CV, generated docx)
+Entretien/*.pdf
+Entretien/*.docx
+
+# OS / editor
+Thumbs.db
+.DS_Store
+*.swp

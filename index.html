@@ -218,6 +218,8 @@ img,svg{max-width:100%;display:block}
 
 /* ===== SR helpers ===== */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.desktop-only{display:block}
+@media (hover:none) and (pointer:coarse){ .desktop-only{display:none} }
 
 @media (max-width:640px){
   .shell{padding-left:calc(env(safe-area-inset-left,0px) + 14px);padding-right:calc(env(safe-area-inset-right,0px) + 14px);padding-top:calc(env(safe-area-inset-top,0px) + 14px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 48px)}
@@ -277,9 +279,9 @@ img,svg{max-width:100%;display:block}
       <span class="chip lvl" title="Niveau"><b id="hud-lvl">1</b> Level</span>
       <span class="chip xp" title="Expérience">⚡ <b id="hud-xp">0</b> XP</span>
       <span class="chip streak" title="Série quotidienne">🔥 <b id="hud-streak">0</b></span>
-      <button class="icon-btn" id="btn-stats" title="Statistiques (S)" aria-label="Statistiques">📊</button>
-      <button class="icon-btn" id="btn-export" title="Exporter (E)" aria-label="Exporter">⬇</button>
-      <button class="icon-btn" id="btn-theme" title="Thème" aria-label="Changer le thème">🌓</button>
+      <button class="icon-btn" id="btn-audio" title="Play audio (P)" aria-label="Play audio">🔊</button>
+      <button class="icon-btn" id="btn-stats" title="Stats (S)" aria-label="Stats">📊</button>
+      <button class="icon-btn" id="btn-export" title="Export (E)" aria-label="Export">⬇</button>
     </div>
   </header>
 
@@ -425,7 +427,62 @@ const VOCAB = [
 {i:122,en:"In the weeds",fr:"Dans les détails / Submergé par les détails",type:"expression",cat:"Meetings",tags:["expression","meetings","executive","details"],exp:"Too deep in the details, often at the expense of the big picture.",ex:"Let's not get in the weeds on the API spec — we need a yes or no first.",ex2:"The exec doesn't want to be in the weeds, just a clear recommendation.",ipa:"/ɪn ðə wiːdz/",tip:"« in theu WIIDZ ». 'ee' = ii long.",syn:["bogged down","too deep in details"],err:"« In the weeds » ≠ noyé sous le travail (= « slammed »).",mem:"Perdu dans les hautes herbes = perdu dans les détails.",alts:["dans les details","dans les détails","perdu dans les details","submerge par les details","submergé par les détails"]},
 {i:123,en:"Run it by",fr:"Soumettre à / Demander l'avis de",type:"phrasal verb",cat:"Meetings",tags:["expression","stakeholders","review"],exp:"To share a draft or idea with someone to get their input before finalizing.",ex:"Let me run it by Legal before we send the redlines back.",ex2:"Run the new pricing by your CFO and let me know what they push back on.",ipa:"/rʌn ɪt baɪ/",tip:"« RUN it bay ». 'u' court.",syn:["check with","loop in for review"],err:"« Run by » + personne, pas + sujet : « run it by Sarah », pas « run it by pricing ».",mem:"Faire passer l'idée DEVANT quelqu'un avant de valider.",alts:["soumettre","demander l'avis","valider avec","faire valider"]},
 {i:124,en:"Take it offline",fr:"En parler à part / Hors réunion",type:"expression",cat:"Meetings",tags:["expression","meetings","etiquette"],exp:"To move a side discussion out of the current meeting to keep the agenda on track.",ex:"Great point — let's take it offline so we can finish the agenda.",ex2:"We took the contract details offline and closed them by end of day.",ipa:"/teɪk ɪt ˈɒf.laɪn/",tip:"« teyk it OFF-layn ».",syn:["follow up separately","handle 1:1"],err:"« Offline » ici n'a rien à voir avec internet : c'est « en dehors de cette réunion ».",mem:"Sortir le sujet de la « ligne » de la réunion en cours.",alts:["en parler a part","en parler à part","hors reunion","hors réunion","en discuter separement","en discuter séparément","prendre offline"]},
-{i:125,en:"Raise a flag",fr:"Tirer la sonnette d'alarme",type:"expression",cat:"Customer Success",tags:["expression","cs","risk","escalation"],exp:"To alert stakeholders to a risk or problem early.",ex:"I want to raise a flag on the renewal — the champion just left the company.",ex2:"If you see usage drop two weeks in a row, raise a flag with the CSM.",ipa:"/reɪz ə flæɡ/",tip:"« reyz eu FLAG ». 'ai' = ey.",syn:["flag a risk","escalate","alert"],err:"« Raise a red flag » insiste sur l'urgence ; « raise a flag » est plus neutre.",mem:"Lever un drapeau = signaler un risque visible.",alts:["tirer la sonnette d'alarme","alerter","signaler un risque","remonter un risque","flagger"]}
+{i:125,en:"Raise a flag",fr:"Tirer la sonnette d'alarme",type:"expression",cat:"Customer Success",tags:["expression","cs","risk","escalation"],exp:"To alert stakeholders to a risk or problem early.",ex:"I want to raise a flag on the renewal — the champion just left the company.",ex2:"If you see usage drop two weeks in a row, raise a flag with the CSM.",ipa:"/reɪz ə flæɡ/",tip:"« reyz eu FLAG ». 'ai' = ey.",syn:["flag a risk","escalate","alert"],err:"« Raise a red flag » insiste sur l'urgence ; « raise a flag » est plus neutre.",mem:"Lever un drapeau = signaler un risque visible.",alts:["tirer la sonnette d'alarme","alerter","signaler un risque","remonter un risque","flagger"]},
+{i:126,en:"Acknowledged",fr:"Reconnu / Pris en compte",type:"adjective",cat:"Expressions",tags:["formal-business","communication","email"],exp:"Recognised, noted or formally received — common in business email replies.",ex:"Your concern is acknowledged and we'll address it in the next review.",ex2:"Receipt of the contract is hereby acknowledged.",ipa:"/əkˈnɒl.ɪdʒd/",tip:"« ak-NO-lidjd ». Le 'k' est muet ; stress sur NO.",syn:["noted","recognised","received"],err:"Pas « aknowledged » : il faut le 'c' silencieux.",mem:"Ack = signal d'accusé de réception.",alts:["reconnu","admis","accuse de reception","accusé de réception","acknowledged","pris en compte"]},
+{i:127,en:"Be at ease",fr:"Soyez à l'aise",type:"expression",cat:"Expressions",tags:["formal-business","communication","meetings"],exp:"Polite invitation to relax or feel comfortable in a situation.",ex:"Please be at ease — this is an informal discussion, not an evaluation.",ex2:"Be at ease around senior leaders; they want a peer, not a pitch.",ipa:"/biː ət iːz/",tip:"« bi at IIZ ». 'ea' = ii long.",syn:["feel free","make yourself comfortable"],err:"« At ease » ≠ « easy » : c'est l'état mental, pas la difficulté.",mem:"At + ease = en état détendu.",alts:["soyez a l'aise","soyez à l'aise","detendez-vous","détendez-vous","mettez-vous à l'aise"]},
+{i:128,en:"Bear that in mind",fr:"Gardez cela à l'esprit",type:"expression",cat:"Expressions",tags:["formal-business","communication","meetings"],exp:"Used to ask someone to remember a point throughout a decision or discussion.",ex:"We'll cover three options — bear that in mind when you weigh costs.",ex2:"Bear in mind that EMEA pricing must include VAT.",ipa:"/beər ðæt ɪn maɪnd/",tip:"« BÈR thatt in MAYND ». 'ea' = èr.",syn:["keep in mind","remember"],err:"« Bear » (porter, ours) ≠ « bare » (nu). Homophones piégeux.",mem:"Tu portes (bear) cette pensée dans l'esprit.",alts:["garder a l'esprit","garder à l'esprit","gardez cela a l'esprit","gardez cela à l'esprit","n'oubliez pas que"]},
+{i:129,en:"Bestow",fr:"Accorder / Conférer",type:"verb",cat:"Expressions",tags:["formal-business","executive","literary"],exp:"To formally grant something — title, honour, privilege — typically by an authority.",ex:"The board bestowed the title of Distinguished Engineer on three principals this year.",ex2:"Trust is bestowed slowly and lost quickly.",ipa:"/bɪˈstoʊ/",tip:"« bi-STOH ». Stress sur STOH.",syn:["grant","confer","award"],err:"« Bestow on/upon someone », pas « bestow to someone ».",mem:"Be + stow (ranger) → placer un honneur sur quelqu'un.",alts:["accorder","conferer","conférer","decerner","décerner","octroyer"]},
+{i:130,en:"Boasting",fr:"Se vanter",type:"verb",cat:"Expressions",tags:["formal-business","communication","behavior"],exp:"Talking with excessive pride about one's achievements — often viewed negatively.",ex:"There's a fine line between confidence and boasting in a sales call.",ex2:"Without boasting, our retention is the best in the segment.",ipa:"/ˈboʊ.stɪŋ/",tip:"« BOH-sting ». 'oa' = oh long.",syn:["bragging","showing off"],err:"« To boast about » (verbe d'action), pas « to boast on ».",mem:"Boast = bombe la poitrine.",alts:["se vanter","fanfaronner","s'enorgueillir","frimer"]},
+{i:131,en:"Convey",fr:"Transmettre / Faire passer",type:"verb",cat:"Expressions",tags:["formal-business","communication","executive"],exp:"To communicate an idea, message or feeling — often more formal than 'tell'.",ex:"Please convey our thanks to the security team for the fast response.",ex2:"The slide doesn't convey the urgency we want the board to feel.",ipa:"/kənˈveɪ/",tip:"« keun-VEY ». Stress sur VEY.",syn:["communicate","express","relay"],err:"« Convey » s'applique à un message, pas à un objet physique (sauf transport).",mem:"Comme un tapis roulant (conveyor) : tu fais passer l'idée.",alts:["transmettre","faire passer","vehiculer","véhiculer","communiquer"]},
+{i:132,en:"Covet",fr:"Convoiter",type:"verb",cat:"Expressions",tags:["formal-business","executive","literary"],exp:"To desire something strongly, especially something belonging to someone else.",ex:"Every account executive on the team covets the Global 2000 patch.",ex2:"The CMO role is one of the most coveted positions in the company.",ipa:"/ˈkʌv.ɪt/",tip:"« KO-vitt ». 'o' court comme dans 'cup'.",syn:["desire","crave","yearn for"],err:"Le passé est « coveted », pas « coved ».",mem:"Pensé à 'covid'… non, 'co-VIT' — tu en veux à tout prix.",alts:["convoiter","desirer ardemment","désirer ardemment","lorgner sur"]},
+{i:133,en:"Entertain an idea",fr:"Envisager une idée",type:"expression",cat:"Expressions",tags:["formal-business","executive","strategy"],exp:"To consider a possibility seriously, without yet committing.",ex:"Would you entertain the idea of a multi-year deal with quarterly check-ins?",ex2:"The CTO won't even entertain a private-cloud migration this year.",ipa:"/ˌen.tərˈteɪn ən aɪˈdɪə/",tip:"« en-teur-TEYN eun ay-DIA ». Liaison fluide.",syn:["consider","weigh","contemplate"],err:"Ici « entertain » ≠ divertir. C'est ouvrir l'esprit à une idée.",mem:"Recevoir (entertain) une idée comme un invité.",alts:["envisager","considerer","considérer","examiner l'idee","examiner l'idée"]},
+{i:134,en:"Even",fr:"Même",type:"adverb",cat:"Expressions",tags:["formal-business","grammar","communication"],exp:"Used to emphasise something surprising or unexpected.",ex:"Even our most senior reps struggle with enterprise procurement timelines.",ex2:"The model performs well, even on noisy production data.",ipa:"/ˈiː.vən/",tip:"« II-veun ». 'e' = ii long.",syn:["still","yet","also"],err:"« Even » avant le verbe principal : « we even tested it », pas « we tested it even ».",mem:"Mettre l'accent sur quelque chose d'inattendu.",alts:["meme","même","y compris"]},
+{i:135,en:"Even though",fr:"Même si / Bien que",type:"expression",cat:"Expressions",tags:["formal-business","grammar","writing"],exp:"Used to introduce a fact that contrasts with the main clause.",ex:"Even though pipeline is healthy, win rates have dropped.",ex2:"We shipped on time even though two engineers were out sick.",ipa:"/ˈiː.vən ðoʊ/",tip:"« II-veun thô ». 'th' doux comme dans 'this'.",syn:["although","though","despite the fact that"],err:"« Even though » + fait réel ; « even if » + hypothèse.",mem:"Même + bien que → contraste renforcé.",alts:["meme si","même si","bien que","quoique"]},
+{i:136,en:"Even I",fr:"Même moi",type:"expression",cat:"Expressions",tags:["formal-business","grammar","communication"],exp:"Used to stress that something is true for a particularly unlikely person — including the speaker.",ex:"Even I struggle to remember every clause of the new MSA.",ex2:"Even I, after ten years in the space, was surprised by their pricing model.",ipa:"/ˈiː.vən aɪ/",tip:"« II-veun AY ». Bien marquer le AY.",syn:["myself included","including me"],err:"« Even me » à l'oral est courant mais moins formel que « even I ».",mem:"Même la personne qui parle est concernée.",alts:["meme moi","même moi"]},
+{i:137,en:"Feat",fr:"Exploit / Prouesse",type:"noun",cat:"Expressions",tags:["formal-business","achievement","executive"],exp:"An impressive achievement, often requiring skill, courage, or effort.",ex:"Shipping that platform in six months was no small feat.",ex2:"It's a remarkable feat of engineering — three nines of uptime from day one.",ipa:"/fiːt/",tip:"« FIIT ». 'ea' = ii long ; ne dites pas 'feet'.",syn:["achievement","accomplishment","triumph"],err:"« Feat » (exploit) ≠ « feet » (pieds) malgré la prononciation similaire.",mem:"Un feat = un exploit dont on parle.",alts:["exploit","prouesse","accomplissement","tour de force"]},
+{i:138,en:"Filthy",fr:"Sale / Crasseux",type:"adjective",cat:"Expressions",tags:["formal-business","literary","behavior"],exp:"Extremely dirty — also used figuratively for unethical behaviour or huge sums.",ex:"That practice is filthy — the regulator would have a field day.",ex2:"He made filthy money on that exit and retired at 38.",ipa:"/ˈfɪl.θi/",tip:"« FIL-thi ». 'th' sourd comme dans 'think'.",syn:["dirty","disgusting","grimy"],err:"« Filthy rich » est une expression figée signifiant 'immensément riche'.",mem:"Filth = saleté → filthy = sale.",alts:["sale","crasseux","degoutant","dégoûtant","immonde"]},
+{i:139,en:"Furthermore",fr:"De plus / Par ailleurs",type:"adverb",cat:"Expressions",tags:["formal-business","writing","executive"],exp:"Used to add another formal point to an argument, typically in writing.",ex:"Furthermore, the new pricing aligns us with the top three competitors.",ex2:"The platform is faster; furthermore, it costs 30% less to operate.",ipa:"/ˈfɜːr.ðər.mɔːr/",tip:"« FEUR-theur-mor ». Stress sur la première syllabe.",syn:["moreover","in addition","besides"],err:"À éviter à l'oral informel — préférez « and » ou « also ».",mem:"Va plus loin (further) + en plus (more).",alts:["de plus","par ailleurs","en outre","de surcroit","de surcroît","qui plus est"]},
+{i:140,en:"Moreover",fr:"De plus / Qui plus est",type:"adverb",cat:"Expressions",tags:["formal-business","writing","executive"],exp:"Used in formal writing to add a related and reinforcing point.",ex:"The integration cut onboarding time in half; moreover, support tickets dropped 40%.",ex2:"Moreover, the new region opens up significant public-sector pipeline.",ipa:"/mɔːrˈoʊ.vər/",tip:"« mor-OH-veur ». Stress sur OH.",syn:["furthermore","in addition","what's more"],err:"Toujours suivi d'une virgule en début de phrase.",mem:"More + over = quelque chose en plus, par-dessus.",alts:["de plus","qui plus est","en outre","par ailleurs"]},
+{i:141,en:"Getting along with",fr:"S'entendre avec",type:"expression",cat:"Expressions",tags:["formal-business","behavior","communication"],exp:"To have a good and cooperative relationship with someone.",ex:"She's known for getting along with even the toughest procurement teams.",ex2:"Getting along with engineering is half the AE's job in technical sales.",ipa:"/ˈɡet.ɪŋ əˈlɒŋ wɪð/",tip:"« GUE-ting eu-LONG with ». Liaison fluide.",syn:["working well with","building rapport with"],err:"« Get along with » + personne, pas + tâche.",mem:"Avancer ensemble (along) sans friction.",alts:["s'entendre avec","bien s'entendre","cooperer avec","coopérer avec"]},
+{i:142,en:"Harm",fr:"Nuire / Faire du tort",type:"verb",cat:"Expressions",tags:["formal-business","risk","executive"],exp:"To cause damage — physical, reputational, or commercial.",ex:"A public outage would harm the brand far more than a delayed launch.",ex2:"This clause could harm us in any future acquisition discussion.",ipa:"/hɑːrm/",tip:"« HARRM ». 'h' bien expiré, 'r' roulé léger.",syn:["damage","hurt","injure"],err:"« Harm » + objet direct ; pas « harm to someone » sauf en formule (« cause harm to »).",mem:"Harm = tort, à éviter à tout prix.",alts:["nuire","faire du tort","porter prejudice","porter préjudice","leser","léser"]},
+{i:143,en:"It causes harm",fr:"Ça cause du tort",type:"expression",cat:"Expressions",tags:["formal-business","risk","communication"],exp:"Used to flag that a decision or behaviour produces real negative impact.",ex:"Skipping the security review feels efficient but it causes harm downstream.",ex2:"It causes harm to morale when feedback never reaches the team.",ipa:"/ɪt ˈkɔː.zɪz hɑːrm/",tip:"« itt KOZIZ harm ».",syn:["it's damaging","it has a negative impact"],err:"« Cause harm to + someone/something », jamais « cause harm of ».",mem:"Ça crée du tort, pas juste de la gêne.",alts:["ca cause du tort","ça cause du tort","ca fait du mal","ça fait du mal","c'est nuisible"]},
+{i:144,en:"However",fr:"Cependant / Toutefois",type:"adverb",cat:"Expressions",tags:["formal-business","writing","executive"],exp:"Used to introduce a contrasting statement in a formal tone.",ex:"The pilot succeeded; however, the rollout will require additional headcount.",ex2:"However tempting the discount, it would break our floor pricing policy.",ipa:"/haʊˈev.ər/",tip:"« haou-EV-eur ». Stress sur EV.",syn:["nevertheless","nonetheless","still"],err:"« However » en milieu de phrase prend une virgule de chaque côté.",mem:"Un 'mais' poli et formel.",alts:["cependant","toutefois","neanmoins","néanmoins","pourtant"]},
+{i:145,en:"I can't fathom",fr:"Je n'arrive pas à comprendre",type:"expression",cat:"Expressions",tags:["formal-business","communication","executive"],exp:"To be unable to grasp or make sense of something, often surprising or absurd.",ex:"I can't fathom why they'd walk away from a deal this aligned.",ex2:"It's hard to fathom the scale until you see the production traffic.",ipa:"/aɪ kɑːnt ˈfæð.əm/",tip:"« ay kant FA-them ». 'th' doux.",syn:["I can't grasp","I can't understand"],err:"« Fathom » sans 'don't' = saisir. Avec 'can't' = ne pas saisir.",mem:"Fathom = unité de profondeur → mesurer la profondeur d'une idée.",alts:["je n'arrive pas a comprendre","je n'arrive pas à comprendre","ca me depasse","ça me dépasse","incomprehensible","incompréhensible"]},
+{i:146,en:"Look further",fr:"Regarder plus loin",type:"expression",cat:"Expressions",tags:["formal-business","strategy","executive"],exp:"To investigate or consider beyond the surface or current scope.",ex:"Look further than this quarter — what does the segment look like in 18 months?",ex2:"If you want talent like that, you won't have to look further than this team.",ipa:"/lʊk ˈfɜːr.ðər/",tip:"« louk FEUR-theur ».",syn:["look beyond","dig deeper"],err:"« Further » pour la métaphore ; « farther » pour la distance physique.",mem:"Regarder au-delà de ce qui est évident.",alts:["regarder plus loin","aller plus loin","creuser","approfondir"]},
+{i:147,en:"My grasp",fr:"Ma compréhension / Ma portée",type:"noun",cat:"Expressions",tags:["formal-business","executive","communication"],exp:"The extent of one's understanding or reach.",ex:"That kind of advanced ML architecture is outside my grasp — let's get a SE on the call.",ex2:"The fundamentals are now within my grasp after three months of ramp.",ipa:"/maɪ ɡræsp/",tip:"« may GRASP ». 'a' court.",syn:["my understanding","my reach"],err:"« Grasp » s'utilise au singulier dans cette expression.",mem:"Grasp = saisir → la portée de ta compréhension.",alts:["ma comprehension","ma compréhension","ma portee","ma portée","ma maitrise","ma maîtrise"]},
+{i:148,en:"Out of my grasp",fr:"Hors de ma portée",type:"expression",cat:"Expressions",tags:["formal-business","executive","communication"],exp:"Beyond what one can understand, achieve, or control.",ex:"The CTO meeting was out of my grasp this week — we'll loop in the RVP.",ex2:"That promotion is still out of my grasp without two more enterprise wins.",ipa:"/aʊt əv maɪ ɡræsp/",tip:"« aout ov may GRASP ».",syn:["beyond me","out of reach"],err:"Reconnaître ce qui est out of grasp est un signe de maturité, pas de faiblesse.",mem:"Trop loin pour être attrapé.",alts:["hors de ma portee","hors de ma portée","au-dela de ma portee","au-delà de ma portée","inaccessible"]},
+{i:149,en:"On that",fr:"À ce sujet",type:"expression",cat:"Expressions",tags:["formal-business","meetings","communication"],exp:"Used to transition to a specific topic just mentioned.",ex:"On that, let me share what Procurement sent over last night.",ex2:"Quick build on that — we saw a similar pattern in EMEA.",ipa:"/ɒn ðæt/",tip:"« on THATT ». 'th' doux.",syn:["on that note","speaking of which"],err:"« On that note » = transition complète ; « on that » = enchaînement court.",mem:"Reprendre la balle sur le sujet venant d'être lancé.",alts:["a ce sujet","à ce sujet","la-dessus","là-dessus","sur ce point"]},
+{i:150,en:"Onto",fr:"Vers / Sur",type:"preposition",cat:"Expressions",tags:["formal-business","grammar","communication"],exp:"Indicates movement towards a position on top of something, or transition to a new topic.",ex:"Let's move onto the next quarter's targets.",ex2:"She quickly latched onto the strategic implications of the new pricing.",ipa:"/ˈɒn.tuː/",tip:"« ON-tou ». Stress sur ON.",syn:["on to","towards"],err:"« Onto » (mouvement) ≠ « on to » (deux mots, autre construction).",mem:"On + to → vers et dessus.",alts:["sur","vers","par-dessus","jusqu'à","onto"]},
+{i:151,en:"Otherwise",fr:"Sinon / Autrement",type:"adverb",cat:"Expressions",tags:["formal-business","writing","executive"],exp:"In a different way, or as a consequence of something not happening.",ex:"We need exec buy-in by Friday — otherwise the launch slips.",ex2:"The deal is solid; otherwise, the forecast would be off by 200K.",ipa:"/ˈʌð.ər.waɪz/",tip:"« UTH-eur-wayz ». 'th' doux.",syn:["if not","or else","else"],err:"« Otherwise » au début d'une phrase prend toujours une virgule.",mem:"Other + wise → d'une autre manière.",alts:["sinon","autrement","faute de quoi","sans quoi"]},
+{i:152,en:"Recklessly",fr:"Imprudemment",type:"adverb",cat:"Expressions",tags:["formal-business","risk","behavior"],exp:"In a careless way, without regard for risk or consequence.",ex:"They scaled the team recklessly and now half the desks are empty.",ex2:"Don't discount recklessly — it sets a precedent for the next renewal.",ipa:"/ˈrek.ləs.li/",tip:"« REK-leuss-li ». Stress sur REK.",syn:["carelessly","rashly","irresponsibly"],err:"« Reckless » (adj) ≠ « wreckless » (n'existe pas).",mem:"Reck (souci) + less → sans souci du risque.",alts:["imprudemment","temerairement","témérairement","inconsequence","inconséquemment"]},
+{i:153,en:"Regardless",fr:"Quoi qu'il en soit / Malgré tout",type:"adverb",cat:"Expressions",tags:["formal-business","executive","communication"],exp:"Without considering the situation or in spite of it.",ex:"Regardless of the cost, we need to protect the brand here.",ex2:"The team shipped on time regardless of two unexpected outages.",ipa:"/rɪˈɡɑːrd.ləs/",tip:"« ri-GARD-leuss ». Stress sur GARD.",syn:["nevertheless","anyway","in any case"],err:"« Irregardless » n'existe pas en anglais standard — utilisez « regardless ».",mem:"Sans (less) considération (regard) du contexte.",alts:["quoi qu'il en soit","malgre tout","malgré tout","peu importe","quoi qu'il arrive"]},
+{i:154,en:"Relief",fr:"Soulagement",type:"noun",cat:"Expressions",tags:["formal-business","communication","executive"],exp:"A feeling of reassurance after pressure, worry or pain.",ex:"It was a real relief to see the renewal come in last night.",ex2:"The new tooling will be a relief to the support team — current ticket volume is unsustainable.",ipa:"/rɪˈliːf/",tip:"« ri-LIIF ». 'ie' = ii long.",syn:["reassurance","ease","comfort"],err:"« Relief » (nom) ≠ « relieve » (verbe).",mem:"Re + lief (léger) → on se sent plus léger.",alts:["soulagement","apaisement","reconfort","réconfort"]},
+{i:155,en:"Restless",fr:"Agité / Impatient",type:"adjective",cat:"Expressions",tags:["formal-business","behavior","executive"],exp:"Unable to relax or stay still, often due to anxiety or impatience.",ex:"The board is getting restless about the EMEA hiring plan.",ex2:"Customers grow restless when status updates slip more than once.",ipa:"/ˈrest.ləs/",tip:"« REST-leuss ». Stress sur REST.",syn:["uneasy","fidgety","impatient"],err:"« Restless » ne signifie pas « fatigué » — c'est l'opposé du repos calme.",mem:"Sans (less) repos (rest) → agité.",alts:["agite","agité","impatient","nerveux","inquiet"]},
+{i:156,en:"Scornful",fr:"Méprisant",type:"adjective",cat:"Expressions",tags:["formal-business","behavior","communication"],exp:"Showing strong contempt or disrespect toward someone or something.",ex:"His tone became scornful the moment we mentioned a competitor's solution.",ex2:"Avoid scornful language in objection handling — it always backfires.",ipa:"/ˈskɔːrn.fəl/",tip:"« SKORN-feul ». Stress sur SKORN.",syn:["contemptuous","disdainful","derisive"],err:"À éviter dans toute communication client — détruit la confiance.",mem:"Scorn = mépris → scornful = qui méprise.",alts:["meprisant","méprisant","dedaigneux","dédaigneux","condescendant"]},
+{i:157,en:"Screwed",fr:"Foutu / Mal barré",type:"adjective",cat:"Expressions",tags:["formal-business","informal","executive"],exp:"In serious trouble — informal but extremely common in tech and sales.",ex:"If we miss this renewal, the Q4 number is screwed.",ex2:"We're screwed without exec sponsorship on this account.",ipa:"/skruːd/",tip:"« SKROUD ». 'ew' = ou long.",syn:["in trouble","doomed","done for"],err:"Informel ; à éviter en client meeting formel, OK entre collègues.",mem:"Comme une vis qui a foiré : tout est bloqué.",alts:["foutu","mal barre","mal barré","cuit","fichu","dans la mouise"]},
+{i:158,en:"Severalfold",fr:"Plusieurs fois plus / Multiplié par plusieurs",type:"adverb",cat:"Expressions",tags:["formal-business","metrics","writing"],exp:"By multiple times the original amount — a formal multiplier.",ex:"Inference costs dropped severalfold after we migrated to the new instances.",ex2:"The TAM has grown severalfold in the past three years.",ipa:"/ˈsev.rəl.foʊld/",tip:"« SEV-reul-fold ». 3 syllabes.",syn:["many times over","multiple times"],err:"« Severalfold » en un seul mot. Pas « several-fold » dans la prose pro.",mem:"Several + fold → plié plusieurs fois en taille.",alts:["plusieurs fois","plusieurs fois plus","multiplie","multiplié"]},
+{i:159,en:"Shameless",fr:"Sans honte / Éhonté",type:"adjective",cat:"Expressions",tags:["formal-business","behavior","communication"],exp:"Lacking any sense of embarrassment, often about behaviour others might find inappropriate.",ex:"It was a shameless pitch — half the slides were about their CEO.",ex2:"Shameless plug, but our case study on this exact use case is in the deck.",ipa:"/ˈʃeɪm.ləs/",tip:"« CHEYM-leuss ». 'sh' doux.",syn:["brazen","unabashed","blatant"],err:"« Shameless plug » est une formule auto-dérisoire courante en présentation.",mem:"Shame + less → sans honte.",alts:["sans honte","ehonte","éhonté","effronte","effronté","sans gene","sans gêne"]},
+{i:160,en:"So blatantly",fr:"De manière si flagrante",type:"expression",cat:"Expressions",tags:["formal-business","executive","communication"],exp:"In a way that is obviously and openly bad or inappropriate.",ex:"They so blatantly copied our pricing page — even the typos are the same.",ex2:"The clause was so blatantly one-sided that procurement walked away.",ipa:"/soʊ ˈbleɪ.tənt.li/",tip:"« so BLEY-teunt-li ». Stress sur BLEY.",syn:["so obviously","so flagrantly"],err:"« Blatant » est négatif : on ne dit pas « blatantly excellent ».",mem:"Si visible que personne ne peut l'ignorer.",alts:["de maniere si flagrante","de manière si flagrante","si ouvertement","de facon eclatante","de façon éclatante"]},
+{i:161,en:"Taken aback",fr:"Surpris / Déstabilisé",type:"expression",cat:"Expressions",tags:["formal-business","executive","communication"],exp:"Surprised, shocked or unsettled — usually by something unexpected.",ex:"I was taken aback when they pushed for a 60% discount on day one.",ex2:"The CFO was taken aback by the accuracy of our forecasting model.",ipa:"/ˈteɪ.kən əˈbæk/",tip:"« TEY-keun eu-BAK ». Stress sur TEY et BAK.",syn:["surprised","caught off guard","stunned"],err:"Toujours au passif : « I was taken aback », pas « it taken me aback ».",mem:"On te tire (take) en arrière (aback) → surprise.",alts:["surpris","destabilise","déstabilisé","decontenance","décontenancé","interloque","interloqué"]},
+{i:162,en:"Thorough",fr:"Approfondi / Minutieux",type:"adjective",cat:"Expressions",tags:["formal-business","executive","quality"],exp:"Done with great care, completeness, and attention to detail.",ex:"Their security review is the most thorough I've seen this year.",ex2:"A thorough discovery saves you from three months of misalignment later.",ipa:"/ˈθɜːr.oʊ/",tip:"« THEUR-ô ». 'th' sourd ; ne dites pas 'tough'.",syn:["comprehensive","detailed","meticulous"],err:"« Thorough » (adj) ≠ « through » (préposition) ≠ « though » (conjonction).",mem:"Tu fais le tour complet, en profondeur.",alts:["approfondi","minutieux","exhaustif","complet","meticuleux","méticuleux"]},
+{i:163,en:"Though",fr:"Cependant / Bien que",type:"conjunction",cat:"Expressions",tags:["formal-business","grammar","writing"],exp:"Used to introduce a contrast — softer and more conversational than 'although'.",ex:"The numbers look great this quarter, though we shouldn't get complacent.",ex2:"Though the budget is tight, the strategic value justifies the spend.",ipa:"/ðoʊ/",tip:"« THÔ ». 'th' doux ; un seul son.",syn:["although","however","even though"],err:"« Though » (contraste) ≠ « through » (à travers) ≠ « thought » (pensée).",mem:"Petit frère de « although ».",alts:["cependant","bien que","quoique","meme si","même si"]},
+{i:164,en:"Thought",fr:"Pensée / Réflexion",type:"noun",cat:"Expressions",tags:["formal-business","communication","executive"],exp:"An idea, opinion, or moment of mental activity. Also past tense of 'think'.",ex:"My initial thought is to run a smaller pilot before we commit to the full rollout.",ex2:"Quick thought before we move on — have we validated this with Legal?",ipa:"/θɔːt/",tip:"« THOTT ». 'th' sourd, 'gh' muet.",syn:["idea","reflection","consideration"],err:"« Thought » (nom/passé de think) ≠ « through » ≠ « though ».",mem:"Le résultat de penser = pensée.",alts:["pensee","pensée","reflexion","réflexion","idee","idée"]},
+{i:165,en:"To propose something",fr:"Proposer quelque chose",type:"verb",cat:"Expressions",tags:["formal-business","communication","sales"],exp:"To suggest a plan, idea or terms for someone to consider.",ex:"I'd like to propose a phased rollout starting with the top three regions.",ex2:"Let me propose a different framing for the renewal conversation.",ipa:"/tə prəˈpoʊz ˈsʌm.θɪŋ/",tip:"« teu preu-POHZ SUM-thing ». Stress sur POHZ.",syn:["suggest","offer","put forward"],err:"« Propose » + objet direct ; « propose to + someone » = demander en mariage.",mem:"Mettre une proposition sur la table.",alts:["proposer quelque chose","suggerer","suggérer","soumettre une idee","soumettre une idée"]},
+{i:166,en:"To propose to someone",fr:"Demander en mariage",type:"verb",cat:"Expressions",tags:["formal-business","communication","ambiguity"],exp:"To ask someone to marry you — the romantic meaning of 'propose'.",ex:"He proposed to her last weekend after ten years together.",ex2:"Don't say 'I'd like to propose to you' in a sales meeting — say 'I'd like to make a proposal'.",ipa:"/tə prəˈpoʊz tə ˈsʌm.wʌn/",tip:"« teu preu-POHZ teu SUM-wun ».",syn:["ask for someone's hand"],err:"En contexte business, dites « make a proposal », jamais « propose to you ».",mem:"« To » + personne = romantique.",alts:["demander en mariage","faire sa demande"]},
+{i:167,en:"Uneasy",fr:"Mal à l'aise / Préoccupé",type:"adjective",cat:"Expressions",tags:["formal-business","executive","risk"],exp:"Anxious or uncomfortable, often about a situation that might go wrong.",ex:"I'm uneasy about the close plan — too many things have to land on the same week.",ex2:"The team feels uneasy about the new comp model before they see real examples.",ipa:"/ʌnˈiː.zi/",tip:"« un-II-zi ». Stress sur II.",syn:["uncomfortable","anxious","apprehensive"],err:"« Uneasy » s'accorde avec un sentiment, pas avec une chose difficile.",mem:"Pas (un) à l'aise (easy) → inquiet.",alts:["mal a l'aise","mal à l'aise","preoccupe","préoccupé","anxieux","inquiet"]},
+{i:168,en:"Unleash",fr:"Libérer / Déchaîner",type:"verb",cat:"Expressions",tags:["formal-business","executive","strategy"],exp:"To release something powerful that was held back — capacity, potential, or impact.",ex:"The new pricing will unleash significant pipeline in mid-market.",ex2:"Removing those approval steps unleashed the team's velocity.",ipa:"/ʌnˈliːʃ/",tip:"« un-LIICH ». Stress sur LIICH.",syn:["release","let loose","trigger"],err:"« Unleash » a une charge forte — réservez-le aux changements majeurs.",mem:"Détacher la laisse (leash) → libérer.",alts:["liberer","libérer","dechainer","déchaîner","declencher","déclencher"]},
+{i:169,en:"Upon",fr:"Sur / Dès / Au moment de",type:"preposition",cat:"Expressions",tags:["formal-business","writing","executive"],exp:"A formal alternative to 'on', often used for timing or contractual clauses.",ex:"Payment is due upon receipt of the signed order form.",ex2:"Upon reflection, we should push the launch to Q1.",ipa:"/əˈpɒn/",tip:"« eu-PON ». Stress sur PON.",syn:["on","at the moment of","once"],err:"En business writing formel, « upon » remplace souvent « on » pour gagner en gravité.",mem:"« Up » + « on » → posé dessus, au moment de.",alts:["sur","des","dès","au moment de","apres","après","upon"]},
+{i:170,en:"Whether",fr:"Si (alternative) / Que ce soit",type:"conjunction",cat:"Expressions",tags:["formal-business","grammar","writing"],exp:"Used to introduce a choice between two or more possibilities.",ex:"We need to decide whether to expand EMEA or double down on North America.",ex2:"Whether or not Procurement approves, Legal will still review the clause.",ipa:"/ˈweð.ər/",tip:"« WÈ-theur ». 'th' doux ; homophone de 'weather'.",syn:["if","regardless of whether"],err:"« Whether » (choix) ≠ « weather » (météo). Souvent confondu à l'écrit.",mem:"Whether → toujours un choix binaire ou multiple.",alts:["si","que ce soit","peu importe que"]},
+{i:171,en:"Whether he dies or not",fr:"Qu'il meure ou non",type:"expression",cat:"Expressions",tags:["formal-business","literary","grammar"],exp:"A vivid example of the 'whether X or not' structure used to dismiss alternatives.",ex:"Whether he dies or not, the dynasty was already on its knees.",ex2:"In Shakespeare's plays, characters often pose the dilemma: whether to act or not, to live or to die.",ipa:"/ˈweð.ər hiː daɪz ɔːr nɒt/",tip:"« WÈ-theur hi dayz or NOTT ».",syn:["regardless of whether he dies","whether he lives or not"],err:"En contexte pro, préférez « whether the deal closes or not » à des exemples dramatiques.",mem:"Whether + verbe + or not → ne change rien à la conclusion.",alts:["qu'il meure ou non","qu'il vive ou meure"]},
+{i:172,en:"While",fr:"Pendant que / Alors que",type:"conjunction",cat:"Expressions",tags:["formal-business","grammar","writing"],exp:"Used to describe simultaneous actions, or to introduce a contrast.",ex:"While Sales focuses on net new, CS will run the expansion plays.",ex2:"While the discount is generous, the multi-year commit is what unlocks it.",ipa:"/waɪl/",tip:"« WAYL ». Un seul son long.",syn:["whereas","whilst","at the same time as"],err:"« While » (contraste/simultanéité) ≠ « a while » (un moment).",mem:"Deux choses en parallèle, ou en opposition.",alts:["pendant que","alors que","tandis que","tout en"]},
+{i:173,en:"Willing",fr:"Disposé à / Prêt à",type:"adjective",cat:"Expressions",tags:["formal-business","negotiation","communication"],exp:"Ready and open to do something, often as part of negotiation.",ex:"Are you willing to consider a two-year commit in exchange for the discount?",ex2:"The CTO is willing to sponsor the pilot if Procurement approves the SOW.",ipa:"/ˈwɪl.ɪŋ/",tip:"« WIL-ling ». Stress sur WIL.",syn:["ready","prepared","open to"],err:"« Willing to + base verb » : « willing to consider », pas « willing for considering ».",mem:"Avoir la volonté (will) de.",alts:["dispose a","disposé à","pret a","prêt à","ouvert a","ouvert à","enclin a","enclin à"]},
+{i:174,en:"Within",fr:"Dans / Au sein de / Sous",type:"preposition",cat:"Expressions",tags:["formal-business","writing","executive"],exp:"Inside the limits of time, space or an organisation.",ex:"We'll deliver the first phase within six weeks of signature.",ex2:"Within EMEA, public sector is our fastest-growing segment.",ipa:"/wɪˈðɪn/",tip:"« wi-THIN ». 'th' doux.",syn:["inside","in","under"],err:"« Within » (limite incluse) ≠ « in » (général).",mem:"Avec (with) + dedans (in) → à l'intérieur des limites.",alts:["dans","au sein de","sous","a l'interieur de","à l'intérieur de","en moins de"]},
+{i:175,en:"You spout that",fr:"Tu débites ça",type:"expression",cat:"Expressions",tags:["formal-business","behavior","communication"],exp:"To say something repeatedly or without thinking — usually critical.",ex:"You spout that line about 'customer obsession' but the data tells a different story.",ex2:"Don't just spout buzzwords in interviews — back every claim with a STAR story.",ipa:"/juː spaʊt ðæt/",tip:"« iou SPAOUT thatt ». 'ou' = aou.",syn:["repeat","parrot","rattle off"],err:"« Spout » est péjoratif — implique un discours mécanique ou creux.",mem:"Une fontaine qui spout = qui jaillit sans contrôle.",alts:["debiter","débiter","reciter","réciter","sortir des phrases toutes faites"]},
+{i:176,en:"Insightful",fr:"Perspicace / Éclairant",type:"adjective",cat:"Expressions",tags:["formal-business","executive","feedback"],exp:"Showing a deep, accurate understanding — often used to praise a comment or analysis.",ex:"That was an insightful question about our churn cohorts.",ex2:"The post-mortem was the most insightful I've read on this incident class.",ipa:"/ˈɪn.saɪt.fəl/",tip:"« IN-sayt-feul ». Stress sur IN.",syn:["perceptive","penetrating","astute"],err:"Évitez d'en abuser dans les compliments — ça devient un tic américain.",mem:"In + sight → tu vois à l'intérieur des choses.",alts:["perspicace","eclairant","éclairant","pertinent","fin","penetrant","pénétrant"]},
+{i:177,en:"Foresight",fr:"Prévoyance / Anticipation",type:"noun",cat:"Expressions",tags:["formal-business","executive","strategy"],exp:"The ability to anticipate what will happen and act in advance.",ex:"It took real foresight to lock in compute capacity before the AI demand spiked.",ex2:"Their hiring plan shows remarkable foresight about the GTM motion.",ipa:"/ˈfɔːr.saɪt/",tip:"« FOR-sayt ». Stress sur FOR.",syn:["anticipation","prescience","planning"],err:"« Foresight » (n.) ≠ « foresee » (v.). On dit « show foresight », pas « foresight something ».",mem:"Voir (sight) avant (fore) → prévoyance.",alts:["prevoyance","prévoyance","anticipation","clairvoyance","previsibilite","prévisibilité"]},
+{i:178,en:"Has gone to naught",fr:"N'a rien donné / Parti à néant",type:"expression",cat:"Expressions",tags:["formal-business","literary","executive"],exp:"To have come to nothing despite effort — a formal way to say work was wasted.",ex:"Six months of negotiation has gone to naught after the merger.",ex2:"All those discovery calls have gone to naught — they went with the incumbent.",ipa:"/hæz ɡɒn tə nɔːt/",tip:"« haz gonn teu NOTT ». 'au' = o ouvert.",syn:["come to nothing","amounted to nothing","fallen through"],err:"« Naught » (zéro littéraire) ≠ « not » (négation).",mem:"Naught = zéro → tout est revenu à zéro.",alts:["n'a rien donne","n'a rien donné","parti a neant","parti à néant","tombe a l'eau","tombé à l'eau","echec total","échec total"]},
+{i:179,en:"Meaningless",fr:"Sans sens / Vide de sens",type:"adjective",cat:"Expressions",tags:["formal-business","executive","communication"],exp:"Having no purpose, value or significance.",ex:"That metric is meaningless without a baseline.",ex2:"Pipeline coverage is meaningless if half the deals aren't qualified.",ipa:"/ˈmiː.nɪŋ.ləs/",tip:"« MII-ning-leuss ». Stress sur MII.",syn:["pointless","empty","insignificant"],err:"Distinguer « meaningless » (vide de sens) de « insignificant » (peu important).",mem:"Meaning + less → sans sens.",alts:["sans sens","vide de sens","sans signification","insignifiant","sans interet","sans intérêt"]},
+{i:180,en:"Worthwhile",fr:"Qui en vaut la peine",type:"adjective",cat:"Expressions",tags:["formal-business","executive","strategy"],exp:"Worth the time, effort or cost invested.",ex:"The integration project is heavy but absolutely worthwhile for retention.",ex2:"Is a 30-minute discovery call worthwhile if the budget isn't confirmed?",ipa:"/ˌwɜːrθˈwaɪl/",tip:"« weurth-WAYL ». Stress sur WAYL.",syn:["valuable","rewarding","worth it"],err:"« Worthwhile » en un seul mot, pas « worth while ».",mem:"Worth + while → ça vaut le temps passé.",alts:["qui en vaut la peine","interessant","intéressant","payant","ca vaut le coup","ça vaut le coup"]}
 ];
 
 const CATEGORIES = ["All","Sales","Customer Success","Cloud","AI","Metrics","Legal","Negotiation","Meetings","Expressions"];
@@ -435,10 +492,7 @@ const ACCENTS = [
 ];
 const MODES = [
   {id:"flash",label:"Flashcards",icon:"🎴"},
-  {id:"en2fr",label:"EN → FR",icon:"⇢"},
-  {id:"fr2en",label:"FR → EN",icon:"⇠"},
-  {id:"listen",label:"Listening",icon:"🎧"},
-  {id:"timed",label:"Timed",icon:"⏱"}
+  {id:"listen",label:"Listening",icon:"🎧"}
 ];
 
 /* ============================================================
@@ -451,7 +505,6 @@ const defaultState = () => ({
   // spaced repetition: per term { box:1..5, due:timestamp, wrong:0, right:0 }
   srs:{},
   weak:{},
-  theme:"dark",
   prefs:{mode:"flash",cat:"All",rate:0.95,accent:"en-US",voiceURI:""}
 });
 let S = loadState();
@@ -516,13 +569,33 @@ function nextLevelXp(lvl){ return Math.pow(lvl,2)*40; }
 
 /* ===== Audio (Web Speech API) ===== */
 let voices = [];
+let speechPrimed = false;
 function loadVoices(){
   voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
   return voices;
 }
+function primeSpeech(){
+  if(speechPrimed || !("speechSynthesis" in window)) return;
+  try {
+    const u = new SpeechSynthesisUtterance("");
+    u.volume = 0;
+    window.speechSynthesis.speak(u);
+    speechPrimed = true;
+  } catch(e){}
+}
 if("speechSynthesis" in window){
   loadVoices();
   window.speechSynthesis.onvoiceschanged = ()=>{ loadVoices(); if($("#voice-select")) render(); };
+  // Prime the speech engine on the first user gesture (required on iOS Safari).
+  const primer = ()=>{ primeSpeech(); document.removeEventListener("click", primer, true); document.removeEventListener("touchstart", primer, true); };
+  document.addEventListener("click", primer, {capture:true});
+  document.addEventListener("touchstart", primer, {capture:true, passive:true});
+  // Some browsers (esp. iOS) pause synthesis after ~15s idle; periodically resume.
+  setInterval(()=>{
+    try {
+      if(window.speechSynthesis.paused) window.speechSynthesis.resume();
+    } catch(e){}
+  }, 4000);
 }
 function currentAccent(){ return S.prefs.accent === "en-GB" ? "en-GB" : "en-US"; }
 function accentInfo(id=currentAccent()){ return ACCENTS.find(a=>a.id===id) || ACCENTS[0]; }
@@ -589,24 +662,37 @@ function voiceSelect(){
 }
 function speak(text, rate=null, btn=null){
   if(!("speechSynthesis" in window)){ toast("Audio non supporté par ce navigateur","ko"); return; }
-  window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
+  if(!text){ return; }
+  primeSpeech();
+  const ss = window.speechSynthesis;
+  // Resume if the engine got paused silently (iOS / long idle).
+  try { ss.resume(); } catch(e){}
+  // Cancel any queued/in-flight utterance. On Chrome/Safari, calling speak()
+  // immediately after cancel() can race; wait a tick.
+  ss.cancel();
   const accent = currentAccent();
   const v = pickVoice(accent);
-  if(v){
-    utt.voice = v;
-    utt.lang = voiceLang(v) || accent;
-  } else {
-    utt.lang = accent;
-    if(voices.length){
-      toast("Aucune voix anglaise trouvée. Installez une voix English US/UK sur l'appareil.", "ko");
-      return;
-    }
+  if(!v && voices.length){
+    toast("Aucune voix anglaise trouvée. Installez une voix English US/UK sur l'appareil.", "ko");
+    return;
   }
-  utt.rate = rate || S.prefs.rate || 0.95;
-  utt.pitch = 1;
-  if(btn){ btn.classList.add("speaking"); utt.onend = utt.onerror = ()=>btn.classList.remove("speaking"); }
-  window.speechSynthesis.speak(utt);
+  if(btn){ btn.classList.add("speaking"); }
+  const launch = ()=>{
+    const utt = new SpeechSynthesisUtterance(text);
+    if(v){ utt.voice = v; utt.lang = voiceLang(v) || accent; }
+    else { utt.lang = accent; }
+    utt.rate = rate || S.prefs.rate || 0.95;
+    utt.pitch = 1;
+    utt.onend = utt.onerror = ()=>{ if(btn) btn.classList.remove("speaking"); };
+    try { ss.speak(utt); } catch(e){ if(btn) btn.classList.remove("speaking"); }
+    // iOS sometimes drops the first utterance after a cancel; double-check.
+    setTimeout(()=>{
+      if(!ss.speaking && !ss.pending){
+        try { ss.speak(utt); } catch(e){}
+      }
+    }, 220);
+  };
+  setTimeout(launch, 60);
 }
 
 /* ===== Toast ===== */
@@ -648,7 +734,7 @@ function srsRecord(id, ok){
 const G = {
   mode:"flash", cat:"All",
   deck:[], i:0, status:"idle", session:{correct:0,wrong:0},
-  flipped:false, timer:null, timeLeft:0, timeMax:30, lastAnswer:""
+  flipped:false, lastAnswer:""
 };
 
 function buildDeck(){
@@ -739,10 +825,8 @@ function renderStage(){
   const card = G.deck[G.i];
   switch(G.mode){
     case "flash": renderFlash(stage, card); break;
-    case "en2fr": renderTyping(stage, card, "en2fr"); break;
-    case "fr2en": renderTyping(stage, card, "fr2en"); break;
     case "listen": renderListening(stage, card); break;
-    case "timed": renderTimed(stage, card); break;
+    default: renderFlash(stage, card);
   }
 }
 
@@ -802,7 +886,7 @@ function renderFlash(stage, card){
         <div class="flash-actions">
           <button class="btn primary" onclick="flipCard(event)">Voir la réponse</button>
         </div>
-        <p class="hint"><span class="kbd">Space</span> réponse · <span class="kbd">P</span> audio</p>
+        <p class="hint desktop-only"><span class="kbd">Space</span> réponse · <span class="kbd">P</span> audio</p>
       </div>`;
     return;
   }
@@ -822,7 +906,7 @@ function renderFlash(stage, card){
         <button class="btn ghost" onclick="flipCard(event)">Revoir le recto</button>
         <button class="btn primary" onclick="answerFlash(true)">Je savais · +10 XP</button>
       </div>
-      <p class="hint"><span class="kbd">←</span>/<span class="kbd">→</span> navigation · <span class="kbd">P</span> audio</p>
+      <p class="hint desktop-only"><span class="kbd">←</span>/<span class="kbd">→</span> navigation · <span class="kbd">P</span> audio</p>
     </div>`;
 }
 function flipCard(e){
@@ -836,77 +920,6 @@ function answerFlash(ok){
   if(ok){ G.session.correct++; addXp(10, card.en); }
   else  { G.session.wrong++; addXp(2, card.en); }
   G.flipped = false; nextCard();
-}
-
-/* ----- TYPING MODES ----- */
-function renderTyping(stage, card, dir){
-  const fromEn = dir === "en2fr";
-  const prompt = fromEn ? card.en : card.fr;
-  const ipa = fromEn ? card.ipa : "";
-  const example = fromEn ? card.ex : card.ex2.replace(new RegExp(card.en, "gi"), "_____");
-  const placeholder = fromEn ? "Traduction française…" : "English translation…";
-  let inputClass = "tinput";
-  if(G.status === "ok") inputClass += " ok";
-  if(G.status === "ko") inputClass += " ko";
-  const showFeedback = G.status !== "idle";
-  let fb = "";
-  if(G.status === "ok"){
-    const target = fromEn ? card.fr : card.en;
-    fb = `<div class="feedback ok"><span class="ico">✓</span><div><span class="lab">Correct!</span><strong>${target}</strong> · +15 XP</div></div>`;
-  } else if(G.status === "ko" || G.status === "rev"){
-    const target = fromEn ? card.fr : card.en;
-    const yours = G.lastAnswer ? `<br><span style="opacity:.7">Votre réponse : « ${G.lastAnswer} »</span>` : "";
-    fb = `<div class="feedback ko"><span class="ico">✗</span><div><span class="lab">${G.status==="rev"?"Réponse révélée":"Réponse incorrecte"}</span><strong>${target}</strong>${yours}</div></div>`;
-  }
-  stage.innerHTML = `
-    <div class="card ${G.status==='ok'?'ok':''}${G.status==='ko'||G.status==='rev'?'ko':''}">
-      ${cardHeader(card)}
-      <div class="term-row">
-        <span class="${fromEn?'term':'fr-prompt'}">${prompt}</span>
-      </div>
-      ${ipa?`<div class="ipa">${ipa}</div>`:""}
-      <div style="margin-top:14px">${audioBtns(fromEn?card.en:card.en)}</div>
-      <div class="example">"${highlight(example, fromEn?card.en:"_____")}"</div>
-      <div class="input-row">
-        <input id="ans" class="${inputClass}" placeholder="${placeholder}" autocomplete="off" autocorrect="off" spellcheck="false" ${G.status!=="idle"?"disabled":""}>
-        ${G.status==="idle"
-          ? `<button class="btn ghost" onclick="revealTyping()">Reveal</button><button class="btn primary" onclick="checkTyping('${dir}')">Check ⏎</button>`
-          : `<button class="btn primary" onclick="nextCard()">${G.i>=G.deck.length-1?'Result':'Next →'}</button>`}
-      </div>
-      ${fb}
-      ${G.status!=="idle"?metaPanels(card):""}
-      <p class="hint"><span class="kbd">Enter</span> valider · <span class="kbd">Tab</span> reveal · <span class="kbd">→</span> suivant</p>
-    </div>`;
-  if(G.status === "idle"){
-    const inp = $("#ans"); if(inp){ inp.focus(); inp.addEventListener("keydown", e=>{
-      if(e.key==="Enter"){e.preventDefault(); checkTyping(dir);}
-      if(e.key==="Tab"){e.preventDefault(); revealTyping();}
-    });}
-  }
-}
-function checkTyping(dir){
-  const inp = $("#ans"); if(!inp) return;
-  const userVal = normalize(inp.value); if(!userVal) return;
-  G.lastAnswer = inp.value;
-  const card = G.deck[G.i];
-  let valid = [];
-  if(dir === "en2fr"){
-    valid = [card.fr, ...(card.alts||[])].map(normalize);
-  } else {
-    valid = [card.en, ...(card.alts||[]).filter(a=>/[a-z]/i.test(a) && !/[éèêàâîôùûç]/i.test(a))].map(normalize);
-    // Also accept lowercased English plain form
-    valid.push(normalize(card.en));
-  }
-  const ok = valid.includes(userVal);
-  G.status = ok ? "ok" : "ko";
-  if(ok){ G.session.correct++; addXp(15, card.en); srsRecord(card.i, true); }
-  else  { G.session.wrong++; addXp(2, card.en); srsRecord(card.i, false); }
-  render();
-}
-function revealTyping(){
-  G.status = "rev"; const card = G.deck[G.i];
-  G.session.wrong++; srsRecord(card.i, false); addXp(1, card.en);
-  render();
 }
 
 /* ----- LISTENING MODE ----- */
@@ -970,32 +983,6 @@ function checkListen(){
 }
 function revealListen(){ G.status = "rev"; G.session.wrong++; srsRecord(G.deck[G.i].i, false); render(); }
 
-/* ----- TIMED MODE ----- */
-function renderTimed(stage, card){
-  if(G.status === "idle" && !G.timer){
-    G.timeLeft = G.timeMax;
-    G.timer = setInterval(()=>{
-      G.timeLeft -= 0.1;
-      const bar = $("#timebar"); if(bar) bar.style.width = (G.timeLeft/G.timeMax*100) + "%";
-      const t = $("#timeval"); if(t){
-        t.textContent = G.timeLeft.toFixed(1)+"s";
-        t.className = "timer" + (G.timeLeft<10?" warn":"") + (G.timeLeft<5?" crit":"");
-      }
-      if(G.timeLeft <= 0){ stopTimer(); G.status = "ko"; G.session.wrong++; srsRecord(card.i,false); render(); }
-    }, 100);
-  }
-  renderTyping(stage, card, "en2fr");
-  // inject timer
-  const head = stage.querySelector(".head");
-  if(head){
-    const div = document.createElement("div");
-    div.innerHTML = `<span class="timer" id="timeval">${G.timeMax.toFixed(1)}s</span>
-      <div class="timer-bar"><div id="timebar" style="width:100%"></div></div>`;
-    head.appendChild(div);
-  }
-}
-function stopTimer(){ if(G.timer){ clearInterval(G.timer); G.timer = null; } }
-
 /* ----- COMPLETE ----- */
 function renderComplete(stage){
   const total = G.session.correct + G.session.wrong;
@@ -1019,8 +1006,8 @@ function renderComplete(stage){
     </div>`;
 }
 
-function nextCard(){ stopTimer(); G.i++; G.status="idle"; G.flipped=false; G.lastAnswer=""; render(); }
-function prevCard(){ stopTimer(); if(G.i>0){G.i--; G.status="idle"; G.flipped=false; render();} }
+function nextCard(){ G.i++; G.status="idle"; G.flipped=false; G.lastAnswer=""; render(); }
+function prevCard(){ if(G.i>0){G.i--; G.status="idle"; G.flipped=false; render();} }
 
 function startSession(){ buildDeck(); }
 
@@ -1295,14 +1282,15 @@ function openExport(){
 }
 
 /* ===== Theme toggle ===== */
-function applyTheme(){ document.documentElement.dataset.theme = S.theme; }
+function applyTheme(){ document.documentElement.dataset.theme = "dark"; }
 applyTheme();
-$("#btn-theme").onclick = ()=>{ S.theme = S.theme === "dark" ? "light" : "dark"; saveState(); applyTheme(); };
 $("#btn-stats").onclick = openStats;
 $("#btn-export").onclick = openExport;
+$("#btn-audio").onclick = (e)=>{ const c = G.deck[G.i]; if(c) speak(c.en, 0.95, e.currentTarget); };
 
 /* ===== INIT ===== */
 G.mode = S.prefs.mode || "flash";
+if (!MODES.some(m => m.id === G.mode)) G.mode = "flash";
 G.cat = S.prefs.cat || "All";
 buildDeck();
 refreshHud();
