@@ -4,7 +4,7 @@
 > **Customer Success Manager · Account Executive · SaaS Sales · AI / Cloud Sales**
 
 Application web premium, gamifiée, prête à l'emploi — publiée sur GitHub Pages et installable sur mobile.
-Audio natif (Web Speech API), choix d'accent US/UK, 5 modes de jeu, répétition espacée, et export Anki en un clic.
+Audio natif (Web Speech API), choix d'accent US/UK, 4 modes (Flashcards, Listening, Interview Trainer, STAR Practice), répétition espacée SM-2, et export Anki en un clic.
 
 ---
 
@@ -50,7 +50,7 @@ Si une ancienne version reste affichée, fermez l'app complètement puis rouvrez
 
 | Fichier | Description |
 | --- | --- |
-| `index.html` | App premium gamifiée — 180 termes, 2 modes, exports intégrés |
+| `index.html` | App premium gamifiée — 180 termes, 4 modes (Flashcards, Listening, Interview Trainer, STAR Practice), exports intégrés |
 | `vocabulary.json` | Dataset canonique (180 entrées × 15 champs) |
 | `manifest.webmanifest` | Métadonnées PWA pour installation mobile |
 | `sw.js` | Service worker : cache offline + mise à jour PWA |

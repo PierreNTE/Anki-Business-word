@@ -221,6 +221,52 @@ img,svg{max-width:100%;display:block}
 .desktop-only{display:block}
 @media (hover:none) and (pointer:coarse){ .desktop-only{display:none} }
 
+/* ===== Interview Trainer ===== */
+.interview{margin-top:8px}
+.sub-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding:6px;background:var(--bg-2);border-radius:12px;border:1px solid var(--bord)}
+.sub-tab{padding:9px 13px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;display:inline-flex;gap:6px;align-items:center;min-height:38px}
+.sub-tab:hover{color:var(--text)}
+.sub-tab.active{background:var(--bg-3);color:var(--text);box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+.iv-block{margin-bottom:22px}
+.iv-block h3{font-size:14px;font-weight:600;color:var(--text);margin:0 0 10px 0;letter-spacing:-.005em}
+.iv-block h4{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 6px}
+.iv-pitch{font-size:14px;line-height:1.55;color:var(--text);background:var(--bg-2);border:1px solid var(--bord);border-radius:12px;padding:14px 16px;margin:0 0 10px}
+.iv-card{background:var(--bg-2);border:1px solid var(--bord);border-radius:12px;padding:12px 14px;margin-bottom:8px;font-size:13.5px;line-height:1.55}
+.iv-card.open{padding:14px 16px}
+.iv-card summary{cursor:pointer;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.iv-card summary::-webkit-details-marker{display:none}
+.iv-card summary::before{content:"▸ ";color:var(--muted);margin-right:4px}
+.iv-card[open] summary::before{content:"▾ "}
+.iv-card p{margin:8px 0 0;color:var(--text)}
+.iv-card b{color:var(--text)}
+.iv-lp{font-size:11px;color:var(--muted);font-weight:500}
+.iv-hint{font-size:13px;color:var(--muted);font-style:italic}
+.iv-co-picker{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.iv-killer{font-style:italic;color:#bda7ff}
+.iv-list{margin:0;padding-left:20px;font-size:13.5px;line-height:1.6;color:var(--text)}
+.iv-list li{margin-bottom:6px}
+
+/* ===== STAR Practice ===== */
+.star-host{margin-top:8px}
+.star-prompt{font-size:14px;line-height:1.5;margin-bottom:14px}
+.star-timer{font-size:54px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:-.02em;padding:14px 0;color:var(--text)}
+.star-timer.running{color:#62e09b;text-shadow:0 0 24px rgba(98,224,155,.3)}
+.star-actions{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.star-rate{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:12px 0;border-top:1px solid var(--bord);transition:opacity .2s}
+
+/* ===== Mastery dashboard ===== */
+.mastery{display:flex;flex-direction:column;gap:8px}
+.mastery-row{display:grid;grid-template-columns:120px 1fr 90px;gap:10px;align-items:center;font-size:13px}
+.mc-name{font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-bar{height:8px;background:var(--bg-3);border-radius:99px;overflow:hidden}
+.mc-fill{height:100%;transition:width .3s}
+.mc-pct{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:540px){
+  .mastery-row{grid-template-columns:90px 1fr 80px;gap:8px;font-size:12px}
+  .star-timer{font-size:44px}
+  .sub-tab{padding:8px 10px;font-size:12px}
+}
+
 @media (max-width:640px){
   .shell{padding-left:calc(env(safe-area-inset-left,0px) + 14px);padding-right:calc(env(safe-area-inset-right,0px) + 14px);padding-top:calc(env(safe-area-inset-top,0px) + 14px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 48px)}
   .topbar{gap:8px;margin-bottom:14px;align-items:center}
@@ -485,15 +531,134 @@ const VOCAB = [
 {i:180,en:"Worthwhile",fr:"Qui en vaut la peine",type:"adjective",cat:"Expressions",tags:["formal-business","executive","strategy"],exp:"Worth the time, effort or cost invested.",ex:"The integration project is heavy but absolutely worthwhile for retention.",ex2:"Is a 30-minute discovery call worthwhile if the budget isn't confirmed?",ipa:"/ˌwɜːrθˈwaɪl/",tip:"« weurth-WAYL ». Stress sur WAYL.",syn:["valuable","rewarding","worth it"],err:"« Worthwhile » en un seul mot, pas « worth while ».",mem:"Worth + while → ça vaut le temps passé.",alts:["qui en vaut la peine","interessant","intéressant","payant","ca vaut le coup","ça vaut le coup"]}
 ];
 
-const CATEGORIES = ["All","Sales","Customer Success","Cloud","AI","Metrics","Legal","Negotiation","Meetings","Expressions"];
+const CATEGORIES = ["All","Sales","Customer Success","Cloud","AI","Metrics","Legal","Negotiation","Meetings","Expressions","Formal","🚩 Flagged"];
 const ACCENTS = [
   {id:"en-US",short:"US",label:"American",names:[/Google US English/i,/Microsoft (Aria|Jenny|Guy|Ana).*English/i,/Samantha/i,/Alex/i,/Natural.*English.*US/i]},
   {id:"en-GB",short:"UK",label:"British",names:[/Google UK English/i,/Microsoft (Sonia|Ryan|Libby|George).*English/i,/Daniel/i,/Serena/i,/Oliver/i,/Natural.*English.*UK/i]}
 ];
 const MODES = [
   {id:"flash",label:"Flashcards",icon:"🎴"},
-  {id:"listen",label:"Listening",icon:"🎧"}
+  {id:"listen",label:"Listening",icon:"🎧"},
+  {id:"interview",label:"Interview",icon:"🎯"},
+  {id:"star",label:"STAR 90s",icon:"⭐"}
 ];
+
+/* ============================================================
+   INTERVIEW DATA (sourced from Entretien/*.md)
+   ============================================================ */
+const INTERVIEW_DATA = {
+  elevatorEN: `Hi, I'm Pierre Logre, an Account Executive with 3+ years of B2B IT sales experience across Cloud, SaaS and Infrastructure, built at Sopra Steria and TGS France. What sets me apart is my hybrid DNA: I'm a deeply tech-oriented sales professional. I don't just sell a solution — I understand it. I've earned certifications on OVHcloud, Dynatrace and Anthropic Claude, and I build my own tools on PowerApps and ServiceNow. On the numbers side, I've generated 650K€+ in revenue, won a major public tender — the CAIH — partnering with OVHcloud and Numspot against established players, and qualified 80+ leads end-to-end. Today, I want to bring this Sales + Tech combination to a company like yours, because I believe the future of Cloud & AI sales belongs to people who can be true Trusted Advisors — not just license sellers.`,
+  star: [
+    {
+      id:"star_caih",
+      title:"CAIH Public RFP win (OVHcloud × Numspot)",
+      principles:["Deliver Results","Earn Trust"],
+      situation:"At Sopra Steria, CAIH (French hospital purchasing central) issued a strategic RFP for sovereign cloud serving 1000+ hospitals, against hyperscaler incumbents.",
+      task:"As lead AE, I owned the full bid response — orchestrating two strategic partners: OVHcloud (IaaS) and Numspot (SecNumCloud PaaS).",
+      action:"I mapped every scoring criterion line-by-line, ran 7 cross-company technical workshops to align target architecture, personally drafted the commercial offer and exec tech summary, negotiated the pricing grid while preserving margin, and defended the bid in live oral panel.",
+      result:"Won the RFP against 4 competitors. Opened a multi-year revenue channel in public healthcare. Became internal go-to expert on Sovereign Cloud / Public Sector."
+    },
+    {
+      id:"star_tgs",
+      title:"80+ qualified leads from cold territory (TGS France)",
+      principles:["Bias for Action","Ownership"],
+      situation:"At TGS France, I joined a saturated Cloud/SaaS market with near-zero inbound on my territory and no structured outbound playbook.",
+      task:"Build my own pipeline end-to-end — sourcing to qualified meeting — without relying on marketing.",
+      action:"I defined a sharp ICP (size, sector, stack, buying signals), built a multichannel cadence (LinkedIn + sequenced emails + cold calls + events), A/B tested 3 sequence versions, industrialised CRM tracking with custom scoring views, and held 30+ touches per day.",
+      result:"80+ qualified leads generated full-cycle, >18% conversion rate on booked meetings, methodology adopted as a template by 2 teammates."
+    },
+    {
+      id:"star_metsys",
+      title:"PowerApps tool built from scratch (Metsys)",
+      principles:["Invent and Simplify","Customer Obsession"],
+      situation:"At Metsys, business teams were losing hours on a manual Excel process — errors, duplicates, delays — with no IT project planned.",
+      task:"Nobody was formally assigned. I took the initiative to propose a low-code solution instead of waiting for a heavy IT project.",
+      action:"I ran 5 user interviews to map the real pain, designed UX wireframes (paper → Figma), built the PowerApps app end-to-end (forms, business logic, Dataverse/SharePoint connectors), added a Power Automate workflow for stakeholder notifications, and trained users via doc + live session.",
+      result:"App shipped to production. Processing time significantly reduced. Zero duplicates since go-live. Earned internal reputation as a Sales-Tech hybrid who ships."
+    }
+  ],
+  behavioural: [
+    {id:"b1", q:"Tell me about a time you delivered results against the odds.", lp:["Deliver Results"], hint:"Use STAR #1 (CAIH). Anchor on the 4-competitor context and the oral panel as climax."},
+    {id:"b2", q:"Tell me about a time you took ownership of something nobody asked you to do.", lp:["Ownership","Bias for Action"], hint:"Use STAR #3 (Metsys PowerApps) or STAR #2 (TGS pipeline)."},
+    {id:"b3", q:"Tell me about a time you earned a customer's trust.", lp:["Earn Trust","Customer Obsession"], hint:"STAR #1 — focus on the technical workshops, transparent pricing, and refusing a shortcut."},
+    {id:"b4", q:"Tell me about a failure and what you learned.", lp:["Learn and Be Curious"], hint:"Pick a real one. Describe the behaviour you changed afterwards, not just the lesson."},
+    {id:"b5", q:"Tell me about a time you disagreed with your manager.", lp:["Have Backbone; Disagree and Commit"], hint:"Show you fought for it with data, then committed fully once decided."},
+    {id:"b6", q:"Tell me about a time you simplified a complex process.", lp:["Invent and Simplify"], hint:"STAR #3 — Excel chaos → PowerApps. Quantify the time saved."},
+    {id:"b7", q:"Tell me about a time you moved fast on a small signal.", lp:["Bias for Action"], hint:"STAR #2 — first 30 days of outbound, fast iteration on sequences."},
+    {id:"b8", q:"Tell me about a time you went deep on a technical topic to win a deal.", lp:["Dive Deep"], hint:"Mention certifications (OVHcloud, Dynatrace, Anthropic) earned to challenge the customer."}
+  ],
+  technical: [
+    {id:"t1", q:"How would you qualify a complex enterprise opportunity?", model:"Walk through MEDDPICC: Metrics (quantified value), Economic Buyer (sponsor with budget authority), Decision Criteria (technical + business), Decision Process (steps, gates, dates), Paper Process (legal/procurement timeline), Identified Pain (cost of inaction), Champion (internal advocate sold on you), Competition (incumbent + alternatives). Anchor each letter to one tangible data point from the deal."},
+    {id:"t2", q:"What's the difference between IaaS, PaaS, SaaS — and why does it matter to sellers?", model:"IaaS = raw compute/storage/network (AWS EC2, Azure VMs). PaaS = managed runtime (App Engine, App Service). SaaS = ready-made app (Salesforce, M365). It matters because procurement, deployment speed, and shared-responsibility split shift drastically — and so does the AE's stakeholder map: CIO/Infra for IaaS, app owners for PaaS, line of business for SaaS."},
+    {id:"t3", q:"How do you explain RAG to a non-technical buyer?", model:"RAG = Retrieval-Augmented Generation. Instead of asking an LLM to invent an answer, we first retrieve the relevant company documents from a vector database, then feed them to the model as context. Result: answers grounded in your data, with citations, and far less hallucination. It's the difference between asking a brilliant intern to guess vs. handing them the file first."},
+    {id:"t4", q:"What's the cost of inaction framing on a Cloud migration deal?", model:"Three angles: (1) compounding tech debt — every month on legacy adds integration drag; (2) opportunity cost — the GenAI features your competitors ship require modern infra; (3) FinOps drag — unoptimised workloads waste ~30-40% of cloud spend. Translate each into euros over 12-24 months."},
+    {id:"t5", q:"How do you handle a 'send me the pricing' email on day one?", model:"Acknowledge, reframe, redirect. 'Happy to — and so you don't end up comparing apples to oranges, can we spend 20 minutes on three things: how you'd measure success, who else will weigh in, and the timeline you're working against? That way the pricing I send is actually tailored, not a list price you have to defend internally.'"},
+    {id:"t6", q:"What KPIs do you track weekly?", model:"As AE: pipeline coverage (target 3-4×), stage-to-stage conversion, average deal size, win rate, time-to-close, and forecast accuracy (±5%). As CSM motion: NRR/GRR, time-to-value, product adoption depth, health score trend. Always one leading + one lagging metric per goal."},
+    {id:"t7", q:"How would you displace an incumbent?", model:"Three-step pattern: (1) build the case for change — surface dissatisfaction with the status quo via discovery; (2) anchor on a single sharp wedge (security gap, FinOps waste, missing AI capability) the incumbent can't close; (3) de-risk the switch with a phased migration plan, a co-funded POC, and named references from peer accounts."}
+  ],
+  companies: {
+    AWS: {
+      lp: "16 Leadership Principles. Focus on: Customer Obsession · Ownership · Invent and Simplify · Bias for Action · Deliver Results · Earn Trust · Dive Deep · Have Backbone, Disagree and Commit · Are Right, A Lot · Think Big · Frugality · Hire and Develop the Best · Insist on the Highest Standards · Learn and Be Curious.",
+      vocab: "Working backwards · PR/FAQ · Two-pizza team · Day 1 mentality · Mechanism over good intentions · Single-threaded leader.",
+      products: "Bedrock (GenAI), Q (assistant), SageMaker, Trainium2/Inferentia, Outposts (hybrid), Marketplace.",
+      format: "Bar Raiser interview. 100% behavioural on LPs. STAR strict — 'Tell me about a time…'. Specific examples, no hypotheticals.",
+      killerQ: "How does this team operationalize 'Customer Obsession' when it conflicts with short-term revenue?"
+    },
+    Microsoft: {
+      lp: "Growth mindset (Satya Nadella). Values: Customer Obsession · One Microsoft · Diversity & Inclusion · Make a Difference.",
+      vocab: "Co-sell · MACC (Microsoft Azure Consumption Commitment) · Solution Area · ACR (Azure Consumed Revenue) · FY26 H2.",
+      products: "Azure OpenAI, Copilot (M365, Studio, Security), Fabric (data), Dynamics 365, Entra, Defender.",
+      format: "Mix behavioural + case ('How would you grow this account?'). Strong expectation on partner ecosystem fluency.",
+      killerQ: "How is the Copilot attach rate evolving on the Azure base, and where does an AE add the most leverage?"
+    },
+    Google: {
+      lp: "Googleyness · GCA (General Cognitive Ability) · Leadership · Role-related Knowledge — the four evaluation pillars.",
+      vocab: "10x thinking · OKRs · Smart creatives · Launch and iterate.",
+      products: "Vertex AI, Gemini (2.0), BigQuery, Anthos, Apigee, Google Distributed Cloud (sovereign).",
+      format: "Analytical case studies. Strong expectation on data fluency. Structure answers in frameworks.",
+      killerQ: "How do you see Gemini's enterprise traction vs. Azure OpenAI in regulated EU industries?"
+    },
+    Salesforce: {
+      lp: "Ohana values: Trust · Customer Success · Innovation · Equality · Sustainability.",
+      vocab: "Trailblazer · V2MOM (Vision, Values, Methods, Obstacles, Measures) · Customer 360 · Dreamforce.",
+      products: "Agentforce (AI agents), Data Cloud, Sales Cloud, Service Cloud, Slack, Tableau, MuleSoft.",
+      format: "Strong customer storytelling. Demonstrate values alignment. Land-and-expand examples expected.",
+      killerQ: "How is Agentforce changing the conversation with CIOs vs. traditional Sales Cloud renewals?"
+    }
+  },
+  frameworks: [
+    {name:"MEDDPICC", acronym:"Metrics · Economic Buyer · Decision Criteria · Decision Process · Paper Process · Identified Pain · Champion · Competition", when:"Qualification of complex enterprise deals."},
+    {name:"Challenger Sale", acronym:"Teach · Tailor · Take Control", when:"Modern seller profile — challenge the customer's status quo."},
+    {name:"SPIN Selling", acronym:"Situation · Problem · Implication · Need-payoff", when:"Discovery questioning framework."},
+    {name:"GAP Selling", acronym:"Current State → Future State → Cost of Inaction", when:"Modern discovery anchored on cost of doing nothing."},
+    {name:"Value Selling (Force Mgmt)", acronym:"Command of the Message", when:"Pitch and value articulation."},
+    {name:"Working Backwards (Amazon)", acronym:"Press Release first → product", when:"Vision and innovation questions."}
+  ],
+  market: [
+    "GenAI → Agentic AI: copilots are giving way to autonomous agents (Salesforce Agentforce, Microsoft Copilot Studio, AWS Bedrock Agents, Google Agentspace).",
+    "Sovereign Cloud explosion in EU (RGPD, DORA, NIS2) — OVHcloud, Numspot, S3NS (Thales × Google), Bleu (Capgemini × Orange × Microsoft).",
+    "FinOps mandatory: ~40% average cloud waste. Strong CSM lever for renewal conversations.",
+    "Partial repatriation: some workloads moving back on-prem or hybrid — hybrid cloud is back.",
+    "AI infrastructure crunch: GPU shortage, capacity queues. The AE who secures reserved instances becomes the hero.",
+    "Verticalisation: AWS for Healthcare, Azure for Industry, Google Cloud Public Sector.",
+    "Co-sell & Marketplaces: 80% of enterprise deals transit AWS / Azure / Google Marketplace. Master Private Offers.",
+    "Outcome-based selling: no longer selling compute, selling measurable business outcome (churn reduction, time-to-market, cost-per-transaction)."
+  ],
+  clevel: [
+    "Let me play this back to make sure I understood…",
+    "What does success look like 12 months from now?",
+    "Help me understand the cost of inaction here.",
+    "Who else needs to be in the room to make this decision?",
+    "If budget weren't a constraint, what would you change first?",
+    "I want to be the easiest vendor you've ever worked with.",
+    "Let's pressure-test this assumption together.",
+    "I'd rather lose the deal than misrepresent the fit.",
+    "How are you measured on this initiative?",
+    "What's the ripple effect across your org if we get this right?",
+    "Where are you on the maturity curve vs. your peers?",
+    "I see three paths forward — let me walk you through the trade-offs."
+  ]
+};
 
 /* ============================================================
    STATE + PERSISTENCE
@@ -502,10 +667,13 @@ const LS_KEY = "bep_state_v1";
 const defaultState = () => ({
   xp:0, level:1, streak:0, lastDay:null,
   totals:{correct:0,wrong:0,sessions:0},
-  // spaced repetition: per term { box:1..5, due:timestamp, wrong:0, right:0 }
+  // SRS — Leitner + SM-2 hybrid: per term {box:1..5, due, wrong, right, ease:2.5, interval:0, reps:0, lapses:0}
   srs:{},
   weak:{},
-  prefs:{mode:"flash",cat:"All",rate:0.95,accent:"en-US",voiceURI:""}
+  flagged:{},          // {id: timestamp} — manually flagged for review
+  history:[],          // last ~2000 answers: {t, id, ok, cat}
+  starLog:[],          // STAR Practice sessions: {t, id, rating:"confident"|"needs-work"|"to-review", seconds}
+  prefs:{mode:"flash",cat:"All",rate:0.95,accent:"en-US",voiceURI:"",interviewCo:"AWS",interviewSub:"behavioural"}
 });
 let S = loadState();
 function loadState(){
@@ -516,7 +684,10 @@ function loadState(){
     const base = defaultState();
     return Object.assign(base, parsed, {
       totals:Object.assign(base.totals, parsed.totals || {}),
-      prefs:Object.assign(base.prefs, parsed.prefs || {})
+      prefs:Object.assign(base.prefs, parsed.prefs || {}),
+      flagged: parsed.flagged || {},
+      history: Array.isArray(parsed.history) ? parsed.history : [],
+      starLog: Array.isArray(parsed.starLog) ? parsed.starLog : []
     });
   }catch(e){ return defaultState(); }
 }
@@ -716,15 +887,48 @@ function refreshHud(){
   $("#hud-streak").textContent = S.streak;
 }
 
-/* ===== SRS (Leitner 5 boxes) ===== */
-const BOX_INTERVALS_H = [0, 4, 24, 72, 168, 336]; // 1->4h, 2->1d, 3->3d, 4->7d, 5->14d
-function srsRecord(id, ok){
+/* ===== SRS — Leitner box + SM-2 (hybrid) ===== */
+const BOX_INTERVALS_H = [0, 4, 24, 72, 168, 336]; // legacy fallback (1->4h, 2->1d, 3->3d, 4->7d, 5->14d)
+function srsRecord(id, ok, quality){
+  // quality 0..5 — defaults: ok=true -> 4, ok=false -> 2
+  if(quality === undefined) quality = ok ? 4 : 2;
   const now = Date.now();
-  const r = S.srs[id] || {box:1,due:now,wrong:0,right:0};
-  if(ok){ r.right++; r.box = Math.min(5, r.box+1); }
-  else { r.wrong++; r.box = 1; S.weak[id] = (S.weak[id]||0)+1; }
-  r.due = now + BOX_INTERVALS_H[r.box]*3600*1000;
+  const r = S.srs[id] || {box:1, due:now, wrong:0, right:0, ease:2.5, interval:0, reps:0, lapses:0};
+  if(r.ease === undefined) r.ease = 2.5;
+  if(r.interval === undefined) r.interval = 0;
+  if(r.reps === undefined) r.reps = 0;
+  if(r.lapses === undefined) r.lapses = 0;
+
+  if(ok){
+    r.right++;
+    r.reps++;
+    if(r.reps === 1) r.interval = 1;
+    else if(r.reps === 2) r.interval = 4;
+    else r.interval = Math.round(r.interval * r.ease);
+    r.ease = Math.max(1.3, r.ease + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)));
+    r.box = Math.min(5, r.box + 1);
+  } else {
+    r.wrong++;
+    r.lapses++;
+    r.reps = 0;
+    r.interval = 1; // 1 day cooldown after lapse
+    r.ease = Math.max(1.3, r.ease - 0.2);
+    r.box = 1;
+    S.weak[id] = (S.weak[id]||0) + 1;
+  }
+  r.due = now + r.interval * 24 * 3600 * 1000;
+  // safety net: if interval is 0 (legacy or first miss), fall back to legacy hours
+  if(r.interval === 0) r.due = now + BOX_INTERVALS_H[r.box] * 3600 * 1000;
   S.srs[id] = r;
+
+  const card = VOCAB.find(v => v.i == id);
+  S.history.push({t: now, id: Number(id), ok: !!ok, cat: card ? card.cat : ""});
+  if(S.history.length > 2000) S.history = S.history.slice(-2000);
+  saveState();
+}
+function toggleFlag(id){
+  if(S.flagged[id]) delete S.flagged[id];
+  else S.flagged[id] = Date.now();
   saveState();
 }
 
@@ -738,8 +942,16 @@ const G = {
 };
 
 function buildDeck(){
+  // Interview & STAR modes don't use the vocab deck — short-circuit.
+  if(G.mode === "interview" || G.mode === "star"){
+    G.deck = []; G.i = 0; G.status = "idle"; G.session = {correct:0,wrong:0}; G.flipped = false;
+    S.prefs.mode = G.mode; S.prefs.cat = G.cat; saveState();
+    render(); return;
+  }
   let d = VOCAB.slice();
-  if(G.cat !== "All") d = d.filter(v=>v.cat === G.cat);
+  if(G.cat === "Formal") d = d.filter(v => (v.tags||[]).includes("formal-business"));
+  else if(G.cat === "🚩 Flagged") d = d.filter(v => S.flagged[v.i]);
+  else if(G.cat !== "All") d = d.filter(v=>v.cat === G.cat);
   // SRS priority: items due first, then newest
   d.sort((a,b)=>{
     const ra = S.srs[a.i]?.due ?? 0, rb = S.srs[b.i]?.due ?? 0;
@@ -752,13 +964,29 @@ function buildDeck(){
 }
 
 function render(){
+  if(G.mode === "interview"){
+    renderTabs();
+    hideVocabChrome();
+    renderInterview();
+    refreshHud();
+    return;
+  }
+  if(G.mode === "star"){
+    renderTabs();
+    hideVocabChrome();
+    renderSTAR();
+    refreshHud();
+    return;
+  }
   if(!G.deck.length){
     $("#main").innerHTML = `
       <div class="welcome">
         <h1>Master <span>Business English</span> for SaaS, Cloud & AI.</h1>
-        <p>125 termes natifs, audio, 5 modes de jeu, répétition espacée, et export Anki. Conçu pour les francophones visant un poste CSM, AE ou Sales en SaaS/AI/Cloud.</p>
+        <p>180 termes natifs, audio, flashcards SRS (SM-2), Interview Trainer et STAR Practice. Conçu pour les francophones visant un poste CSM, AE ou Sales en SaaS / AI / Cloud.</p>
         <div class="actions">
           <button class="btn primary" onclick="startSession()">Commencer · 20 cartes</button>
+          <button class="btn" onclick="G.mode='interview'; buildDeck();">🎯 Interview Trainer</button>
+          <button class="btn" onclick="G.mode='star'; buildDeck();">⭐ STAR 90s</button>
           <button class="btn" onclick="openExport()">Exporter Anki / CSV / JSON</button>
         </div>
       </div>`;
@@ -769,6 +997,16 @@ function render(){
   renderProgress();
   renderStage();
   refreshHud();
+  // cleanup other-mode hosts
+  ["interview-host","star-host"].forEach(id=>{ const el=$("#"+id); if(el) el.remove(); });
+}
+
+function hideVocabChrome(){
+  // Remove vocab-only chrome when switching to interview/star modes.
+  ["filters-row","progress","stage"].forEach(id=>{ const el = $("#"+id); if(el) el.remove(); });
+  // Also clear sibling mode hosts so views don't stack.
+  if(G.mode !== "interview"){ const el = $("#interview-host"); if(el) el.remove(); }
+  if(G.mode !== "star"){ const el = $("#star-host"); if(el) el.remove(); }
 }
 
 function renderTabs(){
@@ -904,6 +1142,7 @@ function renderFlash(stage, card){
       <div class="flash-actions">
         <button class="btn" onclick="answerFlash(false)">À revoir</button>
         <button class="btn ghost" onclick="flipCard(event)">Revoir le recto</button>
+        <button class="btn ghost" onclick="toggleFlag(${card.i}); render();" title="Flag for review">${S.flagged[card.i] ? '🚩 Flagged' : '⚐ Flag'}</button>
         <button class="btn primary" onclick="answerFlash(true)">Je savais · +10 XP</button>
       </div>
       <p class="hint desktop-only"><span class="kbd">←</span>/<span class="kbd">→</span> navigation · <span class="kbd">P</span> audio</p>
@@ -983,6 +1222,192 @@ function checkListen(){
 }
 function revealListen(){ G.status = "rev"; G.session.wrong++; srsRecord(G.deck[G.i].i, false); render(); }
 
+/* ============================================================
+   INTERVIEW TRAINER
+   ============================================================ */
+function renderInterview(){
+  const co = S.prefs.interviewCo || "AWS";
+  const sub = S.prefs.interviewSub || "behavioural";
+  let main = $("#main");
+  let host = $("#interview-host");
+  if(!host){
+    host = document.createElement("div"); host.id = "interview-host"; host.className = "interview";
+    main.appendChild(host);
+  }
+  const tabsHTML = `
+    <div class="sub-tabs">
+      <button class="sub-tab ${sub==='behavioural'?'active':''}" data-sub="behavioural">💬 Behavioural</button>
+      <button class="sub-tab ${sub==='technical'?'active':''}" data-sub="technical">🧠 Technical / Business</button>
+      <button class="sub-tab ${sub==='company'?'active':''}" data-sub="company">🏢 Company Cheat Sheet</button>
+      <button class="sub-tab ${sub==='market'?'active':''}" data-sub="market">📊 Market & Frameworks</button>
+    </div>`;
+  let body = "";
+  if(sub === "behavioural"){
+    body = `
+      <div class="iv-block">
+        <h3>🎯 Elevator pitch (EN)</h3>
+        <p class="iv-pitch">${INTERVIEW_DATA.elevatorEN}</p>
+        <button class="btn ghost" onclick="speak(${JSON.stringify(INTERVIEW_DATA.elevatorEN)},0.95,this)">🔊 Read aloud</button>
+      </div>
+      <div class="iv-block">
+        <h3>⭐ STAR stories — memorize the bullets</h3>
+        ${INTERVIEW_DATA.star.map(s=>`
+          <details class="iv-card">
+            <summary><b>${s.title}</b><span class="iv-lp">${s.principles.join(' · ')}</span></summary>
+            <p><b>Situation.</b> ${s.situation}</p>
+            <p><b>Task.</b> ${s.task}</p>
+            <p><b>Action.</b> ${s.action}</p>
+            <p><b>Result.</b> ${s.result}</p>
+          </details>
+        `).join("")}
+      </div>
+      <div class="iv-block">
+        <h3>💬 Behavioural questions — practice</h3>
+        ${INTERVIEW_DATA.behavioural.map(b=>`
+          <details class="iv-card">
+            <summary><b>${b.q}</b><span class="iv-lp">${b.lp.join(' · ')}</span></summary>
+            <p class="iv-hint"><b>Coach hint:</b> ${b.hint}</p>
+          </details>
+        `).join("")}
+      </div>`;
+  }
+  else if(sub === "technical"){
+    body = `
+      <div class="iv-block">
+        <h3>🧠 Technical & business questions</h3>
+        ${INTERVIEW_DATA.technical.map(t=>`
+          <details class="iv-card">
+            <summary><b>${t.q}</b></summary>
+            <p>${t.model}</p>
+          </details>
+        `).join("")}
+      </div>`;
+  }
+  else if(sub === "company"){
+    const companies = Object.keys(INTERVIEW_DATA.companies);
+    const c = INTERVIEW_DATA.companies[co] || INTERVIEW_DATA.companies.AWS;
+    body = `
+      <div class="iv-block">
+        <div class="iv-co-picker">${companies.map(name=>`<button class="f-btn ${name===co?'active':''}" data-co="${name}">${name}</button>`).join("")}</div>
+        <div class="iv-card open">
+          <h4>🎖️ Leadership / Culture</h4><p>${c.lp}</p>
+          <h4>🗣️ Internal vocab</h4><p>${c.vocab}</p>
+          <h4>🚀 Star products</h4><p>${c.products}</p>
+          <h4>🎤 Interview format</h4><p>${c.format}</p>
+          <h4>❓ Killer question to ask back</h4><p class="iv-killer">${c.killerQ}</p>
+        </div>
+      </div>`;
+  }
+  else if(sub === "market"){
+    body = `
+      <div class="iv-block">
+        <h3>📊 2026 Market trends</h3>
+        <ul class="iv-list">${INTERVIEW_DATA.market.map(m=>`<li>${m}</li>`).join("")}</ul>
+      </div>
+      <div class="iv-block">
+        <h3>📐 Frameworks to namedrop</h3>
+        ${INTERVIEW_DATA.frameworks.map(f=>`<div class="iv-card open"><b>${f.name}</b> — <i>${f.acronym}</i><br><span class="iv-hint">${f.when}</span></div>`).join("")}
+      </div>
+      <div class="iv-block">
+        <h3>💎 C-level phrasing</h3>
+        <ul class="iv-list">${INTERVIEW_DATA.clevel.map(c=>`<li>${c}</li>`).join("")}</ul>
+      </div>`;
+  }
+  host.innerHTML = tabsHTML + body;
+  host.onclick = (e)=>{
+    const t = e.target.closest("[data-sub]");
+    const c = e.target.closest("[data-co]");
+    if(t){ S.prefs.interviewSub = t.dataset.sub; saveState(); render(); }
+    if(c){ S.prefs.interviewCo = c.dataset.co; saveState(); render(); }
+  };
+}
+
+/* ============================================================
+   STAR PRACTICE — 90s countdown
+   ============================================================ */
+const STAR_STATE = { storyId:null, running:false, startedAt:0, timerId:null, remaining:90 };
+function renderSTAR(){
+  let host = $("#star-host");
+  if(!host){
+    host = document.createElement("div"); host.id = "star-host"; host.className = "star-host";
+    $("#main").appendChild(host);
+  }
+  const stories = INTERVIEW_DATA.star;
+  const cur = stories.find(s => s.id === STAR_STATE.storyId) || stories[0];
+  STAR_STATE.storyId = cur.id;
+  const recent = (S.starLog||[]).slice(-5).reverse();
+  host.innerHTML = `
+    <div class="iv-block">
+      <h3>⭐ STAR Practice — 90 second drill</h3>
+      <p class="iv-hint">Pick a story · hit Start · tell it out loud in under 90 seconds · self-rate at the end.</p>
+      <div class="iv-co-picker">
+        ${stories.map(s=>`<button class="f-btn ${s.id===cur.id?'active':''}" data-story="${s.id}">${s.title.split('(')[0].trim()}</button>`).join("")}
+      </div>
+      <div class="iv-card open">
+        <div class="star-prompt"><b>${cur.title}</b><br><span class="iv-lp">${cur.principles.join(' · ')}</span></div>
+        <div class="star-timer ${STAR_STATE.running?'running':''}" id="star-timer">${formatStarTime(STAR_STATE.remaining)}</div>
+        <div class="star-actions">
+          <button class="btn primary" id="star-start">${STAR_STATE.running ? '⏸ Stop' : '▶ Start 90s'}</button>
+          <button class="btn ghost" id="star-reset">Reset</button>
+        </div>
+        <div class="star-rate" style="${STAR_STATE.running?'opacity:.4;pointer-events:none':''}">
+          <span class="filter-label">Self-rate</span>
+          <button class="btn" data-rate="confident">✅ Confident</button>
+          <button class="btn" data-rate="needs-work">⚠️ Needs work</button>
+          <button class="btn" data-rate="to-review">🔁 To review</button>
+        </div>
+        <details class="iv-card" style="margin-top:14px">
+          <summary>📝 Show STAR bullets (peek only)</summary>
+          <p><b>S.</b> ${cur.situation}</p>
+          <p><b>T.</b> ${cur.task}</p>
+          <p><b>A.</b> ${cur.action}</p>
+          <p><b>R.</b> ${cur.result}</p>
+        </details>
+      </div>
+      <div class="iv-block">
+        <h3>📅 Recent drills</h3>
+        ${recent.length ? recent.map(l=>{
+          const s = stories.find(x=>x.id===l.id);
+          return `<div class="witem"><div><span class="b">${s?s.title.split('(')[0].trim():l.id}</span> · <span style="color:var(--muted)">${new Date(l.t).toLocaleString()}</span></div><span class="s">${l.rating} · ${l.seconds}s</span></div>`;
+        }).join("") : '<p class="iv-hint">No drills yet — do your first one.</p>'}
+      </div>
+    </div>`;
+  host.onclick = (e)=>{
+    const s = e.target.closest("[data-story]"); if(s){ if(STAR_STATE.running) starStop(false); STAR_STATE.storyId = s.dataset.story; STAR_STATE.remaining = 90; render(); return; }
+    if(e.target.id === "star-start"){ STAR_STATE.running ? starStop(false) : starStart(); return; }
+    if(e.target.id === "star-reset"){ starStop(false); STAR_STATE.remaining = 90; render(); return; }
+    const r = e.target.closest("[data-rate]");
+    if(r){
+      const used = 90 - STAR_STATE.remaining;
+      S.starLog.push({t: Date.now(), id: STAR_STATE.storyId, rating: r.dataset.rate, seconds: used > 0 ? used : 90});
+      if(S.starLog.length > 200) S.starLog = S.starLog.slice(-200);
+      saveState();
+      starStop(false); STAR_STATE.remaining = 90; render();
+      toast("Saved · " + r.dataset.rate, r.dataset.rate==='confident'?'ok':'');
+    }
+  };
+}
+function formatStarTime(s){ s = Math.max(0, s|0); const m = Math.floor(s/60); const r = s%60; return `${m}:${String(r).padStart(2,"0")}`; }
+function starStart(){
+  if(STAR_STATE.running) return;
+  STAR_STATE.running = true;
+  STAR_STATE.startedAt = Date.now();
+  const start = STAR_STATE.remaining;
+  STAR_STATE.timerId = setInterval(()=>{
+    const elapsed = Math.floor((Date.now() - STAR_STATE.startedAt)/1000);
+    STAR_STATE.remaining = Math.max(0, start - elapsed);
+    const el = $("#star-timer"); if(el) el.textContent = formatStarTime(STAR_STATE.remaining);
+    if(STAR_STATE.remaining <= 0){ starStop(true); }
+  }, 250);
+  render();
+}
+function starStop(timeUp){
+  if(STAR_STATE.timerId){ clearInterval(STAR_STATE.timerId); STAR_STATE.timerId = null; }
+  STAR_STATE.running = false;
+  if(timeUp){ toast("⏰ Time's up — self-rate your story.", ""); }
+  render();
+}
+
 /* ----- COMPLETE ----- */
 function renderComplete(stage){
   const total = G.session.correct + G.session.wrong;
@@ -1047,6 +1472,35 @@ function openStats(){
   const total = S.totals.correct + S.totals.wrong;
   const acc = total ? Math.round(S.totals.correct/total*100) : 0;
   const known = Object.values(S.srs).filter(r=>r.box>=4).length;
+
+  // 7-day rolling per category
+  const sevenAgo = Date.now() - 7*24*3600*1000;
+  const recent = (S.history||[]).filter(h=>h.t >= sevenAgo);
+  const byCat = {};
+  recent.forEach(h=>{
+    if(!byCat[h.cat]) byCat[h.cat] = {ok:0,total:0};
+    byCat[h.cat].total++; if(h.ok) byCat[h.cat].ok++;
+  });
+  const cats = Object.keys(byCat).sort();
+  const masteryHTML = cats.length ? cats.map(c=>{
+    const r = byCat[c]; const pct = r.total ? Math.round(r.ok/r.total*100) : 0;
+    const tone = pct>=80?'#62e09b':pct>=60?'#ffcf4a':'#ff6f6f';
+    return `<div class="mastery-row"><span class="mc-name">${c||'—'}</span>
+      <div class="mc-bar"><div class="mc-fill" style="width:${pct}%;background:${tone}"></div></div>
+      <span class="mc-pct">${r.ok}/${r.total} · ${pct}%</span></div>`;
+  }).join("") : `<div style="color:var(--muted);font-size:13px">Pas encore d'historique sur 7 jours.</div>`;
+
+  // Flagged list
+  const flagIds = Object.keys(S.flagged||{});
+  const flaggedHTML = flagIds.length ? flagIds.map(id=>{
+    const v = VOCAB.find(x=>x.i==id); if(!v) return "";
+    return `<div class="witem"><div><span class="b">${v.en}</span> · <span style="color:var(--muted)">${v.fr}</span></div>
+      <button class="btn ghost" onclick="toggleFlag(${v.i}); openStats();" title="Unflag">✕</button></div>`;
+  }).join("") : `<div style="color:var(--muted);font-size:13px">Aucune carte flaggée. Utilise 🚩 Flag sur le verso d'une flashcard.</div>`;
+
+  const dueNow = Object.entries(S.srs).filter(([id,r])=>r.due && r.due <= Date.now()).length;
+  const flaggedCount = flagIds.length;
+
   openModal(`
     <button class="close" onclick="closeModal()" aria-label="Fermer">×</button>
     <h3>📊 Your stats</h3>
@@ -1056,8 +1510,14 @@ function openStats(){
       <div class="kpi"><div class="v">${S.streak}🔥</div><div class="l">Streak (days)</div></div>
       <div class="kpi"><div class="v">${acc}%</div><div class="l">Accuracy</div></div>
       <div class="kpi"><div class="v">${known}/${VOCAB.length}</div><div class="l">Mastered (box ≥4)</div></div>
+      <div class="kpi"><div class="v">${dueNow}</div><div class="l">Due now</div></div>
+      <div class="kpi"><div class="v">${flaggedCount}</div><div class="l">🚩 Flagged</div></div>
       <div class="kpi"><div class="v">${S.totals.sessions}</div><div class="l">Sessions</div></div>
     </div>
+    <h3 style="margin-top:18px">📈 Mastery dashboard · last 7 days</h3>
+    <div class="mastery">${masteryHTML}</div>
+    <h3 style="margin-top:18px">🚩 Flagged for review</h3>
+    <div class="wlist">${flaggedHTML}</div>
     <h3 style="margin-top:18px">🎯 Weak words</h3>
     <div class="wlist">${items}</div>
     <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end">

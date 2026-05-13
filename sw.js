@@ -1,4 +1,4 @@
-const CACHE_NAME = "business-english-pro-v5";
+const CACHE_NAME = "business-english-pro-v6";
 const ASSETS = [
   "./",
   "./index.html",
